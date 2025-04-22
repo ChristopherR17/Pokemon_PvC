@@ -1,9 +1,7 @@
 package com.pokemon;
 
-/**
- * Hello world!
- *
- */
+// ./run.sh com.pokemon.App
+
 public class App 
 {
     public static void main( String[] args )
