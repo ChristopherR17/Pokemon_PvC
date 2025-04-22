@@ -9,9 +9,8 @@
 
 **Alumne 2:** Sabrina
 
-**Alumne 3:** Samantha
-
 ## Equips
 
 Javi, Sabrina i Christopher 
+
 Victors Hector i Samantha
