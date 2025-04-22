@@ -1,0 +1,90 @@
+[
+  {
+    "id": 0,
+    "name": "Beetle",
+    "manufacturer": "Volkswagen",
+    "year": 1938,
+    "cylinder": "1.1 L",
+    "image": "beetle.png"
+  },
+  {
+    "id": 2,
+    "name": "2CV",
+    "manufacturer": "Citroën",
+    "year": 1948,
+    "cylinder": "375 cc",
+    "image": "citroen2cv.png"
+  },
+  {
+    "id": 3,
+    "name": "DS",
+    "manufacturer": "Citroën",
+    "year": 1955,
+    "cylinder": "2.3 L",
+    "image": "citroends.png"
+  },
+  {
+    "id": 5,
+    "name": "250 GTO",
+    "manufacturer": "Ferrari",
+    "year": 1962,
+    "cylinder": "3.0 L",
+    "image": "ferrari250gto.png"
+  },
+  {
+    "id": 6,
+    "name": "500",
+    "manufacturer": "Fiat",
+    "year": 1957,
+    "cylinder": "499 cc",
+    "image": "fiat500.png"
+  },
+  {
+    "id": 8,
+    "name": "EV1",
+    "manufacturer": "General Motors",
+    "year": 1996,
+    "cylinder": "Electric",
+    "image": "gmev1.png"
+  },
+  {
+    "id": 9,
+    "name": "E-Type",
+    "manufacturer": "Jaguar",
+    "year": 1961,
+    "cylinder": "3.8 L",
+    "image": "jaguaretype.png"
+  },
+  {
+    "id": 11,
+    "name": "944",
+    "manufacturer": "Porsche",
+    "year": 1982,
+    "cylinder": "2.5 L",
+    "image": "porsche944.png"
+  },
+  {
+    "id": 12,
+    "name": "5",
+    "manufacturer": "Renault",
+    "year": 1972,
+    "cylinder": "1.1 L",
+    "image": "renault5.png"
+  },
+  {
+    "id": 14,
+    "name": "Ibiza",
+    "manufacturer": "SEAT",
+    "year": 1984,
+    "cylinder": "1.2 L",
+    "image": "seatibiza.png"
+  },
+  {
+    "id": 20,
+    "name": "P1800",
+    "manufacturer": "Volvo",
+    "year": 1961,
+    "cylinder": "2.0 L",
+    "image": "volvop1800.png"
+  }
+]

@@ -7,7 +7,7 @@ Cal seguir la descripció d'aquestes vistes, però la organització dels element
 La vista inicial **"ViewStart"** de l'aplicació inclourà algun grafisme de benvinguda i un botó per escollir l'arxiu *".sqlite"*
 
 <center>
-<img src="./assets/viewStart.png" height="128" style="max-height: 128px;"/>
+<img src="../assets/viewStart.png" height="128" style="max-height: 128px;"/>
 </center>
 
 Un cop escollit l'arxiu amb la base de dades, s'ha de fer-hi la connexió a través del *Singleton AppData*. I canviar a la vista menú **"ViewMenu"**.
@@ -29,7 +29,7 @@ A més aquesta vista mostra les estadístiques de la partida:
 - Número de Pokémons disponibles
 
 <center>
-<img src="./assets/viewMenu.png" height="128" style="max-height: 128px;"/>
+<img src="../assets/viewMenu.png" height="128" style="max-height: 128px;"/>
 </center>
 
 ## Gestió d'equips
