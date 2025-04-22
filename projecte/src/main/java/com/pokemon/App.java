@@ -1,4 +1,4 @@
-package com.pokemon_main;
+package com.pokemon;
 
 /**
  * Hello world!

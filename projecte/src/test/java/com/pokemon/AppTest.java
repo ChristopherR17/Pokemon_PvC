@@ -1,7 +1,6 @@
-package com.pokemon_main;
+package com.pokemon;
 
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 /**
