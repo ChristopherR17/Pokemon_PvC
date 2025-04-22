@@ -3,14 +3,13 @@
 
 **Nom del grup:** ????
 
-**Alumne 0:** ????
+**Alumne 0:** Christopher
 
-**Alumne 1:** ????
+**Alumne 1:** Javier
 
-**Alumne 2:** ????
+**Alumne 2:** Sabrina
 
 ## Equips
 
-Javi i Sabrina
-Victors i Hector
-Christopher i Samantha
+Javi, Sabrina i Christopher 
+Victors Hector i Samantha
