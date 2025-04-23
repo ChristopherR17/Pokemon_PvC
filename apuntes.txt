@@ -1,4 +1,5 @@
-Vistas: 
+--VISTAS--
+===================================================================================================================================
 - ViewStart: Podras escoger tu partida(archivo .sqlite) y le daras a open game
     ·ViewMenu: Permite ir a las siguientes vistas
         - ViewStart
