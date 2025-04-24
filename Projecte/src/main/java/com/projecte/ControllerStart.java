@@ -43,15 +43,15 @@ public class ControllerStart implements Initializable {
 
     @FXML
     public void handleOpenGame() {
+        System.out.println("Botón 'Start Battle' presionado.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml"));
             Scene menuScene = new Scene(loader.load());
             Stage stage = (Stage) openGameButton.getScene().getWindow();
             stage.setScene(menuScene);
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error al cargar la vista ViewMenu: " + e.getMessage());
+            System.err.println("Error al cargar ViewMenu.fxml: " + e.getMessage());
         }
     }
-
 }
