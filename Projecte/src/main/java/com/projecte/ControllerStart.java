@@ -7,20 +7,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Path;
 
 public class ControllerStart implements Initializable {
 
     @FXML
-    private ImageView logoImageView; // Vinculado al ImageView en el FXML
+    private ImageView logoImageView; 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Cargar la imagen manualmente
+        Path imagePath = null;
         try {
-            Image logoImage = new Image(getClass().getResourceAsStream("/assets/imgs/pokemonLogo.png"));
-            logoImageView.setImage(logoImage);
+            URL imageURL = getClass().getResource("/assets/imgs/pokemonLogo.png");
+            Image image = new Image(imageURL.toExternalForm());
+            logoImageView.setImage(image);
         } catch (Exception e) {
-            System.err.println("Error al cargar la imagen: " + e.getMessage());
+            System.err.println("Error loading image asset: " + imagePath);
+            e.printStackTrace();
         }
     }
 }
