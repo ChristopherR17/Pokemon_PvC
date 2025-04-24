@@ -35,8 +35,8 @@ public class ControllerStart implements Initializable {
         // Configuración inicial de las imágenes de fondo y los GIFs
         fondoStart.setImage(new Image(getClass().getResource("/img/fondoStart.jpg").toExternalForm()));
         pokemon1.setImage(new Image(getClass().getResource("/gif/charmander.gif").toExternalForm()));
-        pokemon2.setImage(new Image(getClass().getResource("/gif/pikachu.gif").toExternalForm()));
-        pokemon3.setImage(new Image(getClass().getResource("/gif/squirtle.gif").toExternalForm()));
+        pokemon2.setImage(new Image(getClass().getResource("/gif/Pikachu2.gif").toExternalForm()));
+        pokemon3.setImage(new Image(getClass().getResource("/gif/Mew.gif").toExternalForm()));
 
         System.out.println("Imagenes y GIFs cargados correctamente al iniciar la vista.");
     }
@@ -44,7 +44,7 @@ public class ControllerStart implements Initializable {
     @FXML
     public void handleOpenGame() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/viewMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewMenu.fxml"));
             Scene menuScene = new Scene(loader.load());
             Stage stage = (Stage) openGameButton.getScene().getWindow();
             stage.setScene(menuScene);
