@@ -19,7 +19,7 @@
       </ImageView>
       
       <!-- Título estilo videojuego -->
-      <Label alignment="CENTER" layoutX="200.0" layoutY="14.0" prefHeight="120.0" prefWidth="450.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Pokémon PvP" />
+      <Label alignment="CENTER" layoutX="125.0" prefHeight="139.0" prefWidth="550.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Pokémon PvP" />
       
       <!-- Contenedor de Pokémon con animaciones -->
       <HBox layoutX="150.0" layoutY="150.0" spacing="20" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
@@ -41,12 +41,7 @@
             <Image url="@../gif/charmander.gif" />
          </image>
       </ImageView>
-      <Button fx:id="openGameButton" layoutX="300.0" layoutY="449.0" onAction="#handleOpenGame" 
-        style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: yellow; 
-               -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); 
-               -fx-border-color: black; -fx-border-width: 3; -fx-border-radius: 10; 
-               -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 3);" 
-        text="Open Game">
+      <Button fx:id="openGameButton" layoutX="300.0" layoutY="449.0" onAction="#handleOpenGame" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: yellow;                 -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000);                 -fx-border-color: black; -fx-border-width: 3; -fx-border-radius: 10;                 -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 3);" text="Open Game">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>

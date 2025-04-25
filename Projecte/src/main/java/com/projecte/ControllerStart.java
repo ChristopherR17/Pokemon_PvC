@@ -32,7 +32,6 @@ public class ControllerStart implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configuración inicial de las imágenes de fondo y los GIFs
         fondoStart.setImage(new Image(getClass().getResource("/img/fondoStart.jpg").toExternalForm()));
         pokemon1.setImage(new Image(getClass().getResource("/gif/charmander.gif").toExternalForm()));
         pokemon2.setImage(new Image(getClass().getResource("/gif/Pikachu2.gif").toExternalForm()));
@@ -43,7 +42,7 @@ public class ControllerStart implements Initializable {
 
     @FXML
     public void handleOpenGame() {
-        System.out.println("Botón 'Start Battle' presionado.");
+        System.out.println("Boton 'Open Game' presionado.");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml"));
             Scene menuScene = new Scene(loader.load());
@@ -51,7 +50,7 @@ public class ControllerStart implements Initializable {
             stage.setScene(menuScene);
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error al cargar ViewMenu.fxml: " + e.getMessage());
+            System.err.println("Error al cargar viewMenu.fxml: " + e.getMessage());
         }
     }
 }
