@@ -11,20 +11,16 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerStart">
    <children>
-      <!-- Fondo dinámico -->
       <ImageView fx:id="fondoStart" fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../img/fondoStart.jpg" />
          </image>
       </ImageView>
       
-      <!-- Título estilo videojuego -->
       <Label alignment="CENTER" layoutX="125.0" prefHeight="139.0" prefWidth="550.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Pokémon PvP" />
       
-      <!-- Contenedor de Pokémon con animaciones -->
       <HBox layoutX="150.0" layoutY="150.0" spacing="20" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
       
-      <!-- Botón interactivo -->
       <StackPane layoutX="300.0" layoutY="450.0" />
       <ImageView fx:id="pokemon2" fitHeight="145.0" fitWidth="209.0" layoutX="295.0" layoutY="280.0" preserveRatio="true">
          <image>

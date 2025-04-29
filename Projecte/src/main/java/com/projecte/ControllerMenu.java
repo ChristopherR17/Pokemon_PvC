@@ -44,19 +44,31 @@ public class ControllerMenu implements Initializable {
     @FXML
     private Label pokemonCaught;
 
+    private Player currentPlayer; // Maneja al jugador actual
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializa los datos del jugador actual (valores simulados)
+        currentPlayer = new Player("2", 2345, 15, 3, 5);
+
         // Configurar el fondo del menú
-        fondoMenu.setImage(new javafx.scene.image.Image("/img/fondoMenu.png"));
+        if (fondoMenu != null) {
+            fondoMenu.setImage(new javafx.scene.image.Image(getClass().getResource("/img/fondoMenu.png").toExternalForm()));
+        } else {
+            System.err.println("fondoMenu no está inicializado correctamente.");
+        }
 
-        // Inicializar estadísticas de jugador
-        playerLevel.setText("Level: 2");
-        playerPoints.setText("Points: 2345");
-        battlesWon.setText("Battles Won: 15");
-        consecutiveWins.setText("Max Consecutive Wins: 3");
-        pokemonCaught.setText("Pokémon Caught: 5");
+        // Actualizar estadísticas dinámicas
+        updatePlayerStats();
+    }
 
-        System.out.println("Vista del menú inicializada correctamente.");
+    private void updatePlayerStats() {
+        // Actualiza las estadísticas del jugador en la vista
+        playerLevel.setText("Level: " + currentPlayer.getLevel());
+        playerPoints.setText("Points: " + currentPlayer.getPoints());
+        battlesWon.setText("Battles Won: " + currentPlayer.getBattlesWon());
+        consecutiveWins.setText("Max Wins: " + currentPlayer.getConsecutiveWins());
+        pokemonCaught.setText("Pokémon: " + currentPlayer.getPokemonCaught());
     }
 
     @FXML
