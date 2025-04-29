@@ -32,26 +32,30 @@ public class ControllerStart implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configuración inicial de las imágenes de fondo y los GIFs
         fondoStart.setImage(new Image(getClass().getResource("/img/fondoStart.jpg").toExternalForm()));
         pokemon1.setImage(new Image(getClass().getResource("/gif/charmander.gif").toExternalForm()));
-        pokemon2.setImage(new Image(getClass().getResource("/gif/pikachu.gif").toExternalForm()));
-        pokemon3.setImage(new Image(getClass().getResource("/gif/squirtle.gif").toExternalForm()));
+        pokemon2.setImage(new Image(getClass().getResource("/gif/Pikachu2.gif").toExternalForm()));
+        pokemon3.setImage(new Image(getClass().getResource("/gif/Mew.gif").toExternalForm()));
 
         System.out.println("Imagenes y GIFs cargados correctamente al iniciar la vista.");
     }
 
     @FXML
     public void handleOpenGame() {
+        System.out.println("Botón 'Open Game' presionado.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/viewMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml"));
             Scene menuScene = new Scene(loader.load());
+            
             Stage stage = (Stage) openGameButton.getScene().getWindow();
             stage.setScene(menuScene);
             stage.show();
+    
+            System.out.println("Vista del menú cargada con éxito.");
         } catch (IOException e) {
-            System.err.println("Error al cargar la vista ViewMenu: " + e.getMessage());
+            e.printStackTrace();
+            System.err.println("Error al cargar viewMenu.fxml: " + e.getMessage());
         }
     }
-
+    
 }
