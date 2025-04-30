@@ -70,7 +70,7 @@ public class ControllerMenu implements Initializable {
     @FXML
     private void handleTeamManagement() {
         System.out.println("Boton 'Team Management' presionado. Navegando...");
-        navigateTo("TeamManagement.fxml");
+        navigateTo("viewManagement.fxml");
     }
 
     @FXML
