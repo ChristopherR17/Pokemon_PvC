@@ -69,25 +69,25 @@ public class ControllerMenu implements Initializable {
 
     @FXML
     private void handleTeamManagement() {
-        System.out.println("Botón 'Team Management' presionado. Navegando...");
+        System.out.println("Boton 'Team Management' presionado. Navegando...");
         navigateTo("TeamManagement.fxml");
     }
 
     @FXML
     private void handleBattleHistory() {
-        System.out.println("Botón 'Battle History' presionado. Navegando...");
+        System.out.println("Boton 'Battle History' presionado. Navegando...");
         navigateTo("BattleHistory.fxml");
     }
 
     @FXML
     private void handleStartBattle() {
-        System.out.println("Botón 'Start New Battle' presionado. Navegando...");
+        System.out.println("Boton 'Start New Battle' presionado. Navegando...");
         navigateTo("StartBattle.fxml");
     }
 
     @FXML
     private void handleExitGame() {
-        System.out.println("Botón 'Exit Game' presionado. Cerrando aplicación...");
+        System.out.println("Boton 'Exit Game' presionado. Cerrando aplicación...");
         Stage stage = (Stage) exitGameButton.getScene().getWindow();
         stage.close();
     }
