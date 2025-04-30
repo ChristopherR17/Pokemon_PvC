@@ -3,7 +3,7 @@
 - ViewStart: Podras escoger tu partida(archivo .sqlite) y le daras a open game
     ·ViewMenu: Permite ir a las siguientes vistas
         - ViewStart
-        - ViewManagement: gestionar los pokemon(Se hara como una miniView para hacer una lista de los pokemon)
+        - ViewManagement: gestionar los pokemon(Se hara como una subView para hacer una lista de los pokemon)
             ·ViewPokemonSettings: permite modificar el nombre y las estadisticas del pokemon seleccionado
         - ViewBattle0: empezar una nueva pelea
             ·ViewBattleOptions: Permite escojer mapa, equipo y pokemon activo
@@ -13,4 +13,4 @@
                 - ViewBattleResult (+info en el enunciado)
         - ViewStats: Ver las estadisticas del jugador y de la partida(+info en el enunciado 2)
         (!No pone como se accede a ViewHistory, asi que lo añadimos al ViewMenu)
-        - ViewHistory: muestra la lista con el historial de cada partida (Se hara como una miniView para hacer la lista)
+        - ViewHistory: muestra la lista con el historial de cada partida (Se hara como una subView para hacer la lista)
