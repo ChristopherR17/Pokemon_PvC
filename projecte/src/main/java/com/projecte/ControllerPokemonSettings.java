@@ -49,7 +49,7 @@ public class ControllerPokemonSettings implements Initializable {
     private int bottleCapCount = 0;
 
     // Nombre y sobrenombre del Pokémon
-    private String pokemonName = "Pikachu";
+    private String pokemonName = "Name";
     private String nickname = "";
 
     @Override
