@@ -7,8 +7,7 @@ import java.nio.file.Paths;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-//ESTO HAY QUE MODIFICARLO. ESTE ARCHIVO HA SIDO COPIADO DE OTRO EJERCICIO
-
+//ESTO HAY QUE MODIFICARLO. ESTE ARCHIVO HA SIDO COPIADO DE OTRO EJERCICIO.
 
 // Construeix la base de dades amb
 // ./run.sh com.projecte.BuildDatabase
