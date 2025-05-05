@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Bulbasaur",
+    "type": "Grass",
+    "image_path": "images/bulbasaur.png"
+  },
+  {
+    "name": "Charmander",
+    "type": "Fire",
+    "image_path": "images/charmander.png"
+  }
+]
