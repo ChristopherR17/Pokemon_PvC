@@ -2,44 +2,70 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerManagement">
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+    xmlns="http://javafx.com/javafx/23.0.1"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.projecte.ControllerManagement">
     <children>
-        <!-- Fondo -->
-        <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <!-- Fondo: Se declara primero para que aparezca en el fondo -->
+        <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false"
+            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <image>
-                <Image url="@/assets/img/fondoSettings.png" />
+                <Image url="@../img/fondoManagement.jpg" />
             </image>
         </ImageView>
-
+        
         <!-- Título -->
-        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="Pokémon Management" />
-
-        <!-- Contenedor para mostrar el Pokémon -->
-        <VBox layoutX="200.0" layoutY="120.0" spacing="20" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;">
+        <Label layoutX="153.0" layoutY="23.0"
+               style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: #FFCC00; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);"
+               text="Pokémon Management" />
+        
+        <!-- Contenedor para mostrar la información del Pokémon -->
+        <VBox layoutX="245.0" layoutY="126.0" spacing="20"
+              style="-fx-background-color: rgba(0, 0, 0, 0.8); -fx-padding: 20; -fx-border-color: #FFCC00; -fx-border-width: 3; -fx-border-radius: 15; -fx-background-radius: 15;">
             <children>
-                <!-- Imagen del Pokémon -->
-                <ImageView fx:id="pokemonImageView" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" />
-
-                <!-- Nombre, sobrenombre y estadísticas -->
+                <!-- Imagen del Pokémon con efecto de sombra -->
+                <ImageView fx:id="pokemonImageView" fitHeight="200.0" fitWidth="200.0" preserveRatio="true">
+                    <effect>
+                        <DropShadow radius="10.0" offsetX="4.0" offsetY="4.0" color="black"/>
+                    </effect>
+                </ImageView>
+                
+                <!-- Información: Nombre, Sobrenombre y Estadísticas -->
                 <VBox spacing="10">
                     <children>
-                        <Label fx:id="pokemonNameLabel" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Name: Pikachu" textFill="WHITE" />
-                        <Label fx:id="pokemonNicknameLabel" style="-fx-font-size: 18;" text="Nickname: Sparky" textFill="WHITE" />
-                        <Label fx:id="pokemonStatsLabel" style="-fx-font-size: 16;" text="Stats: HP: 100, Attack: 50, Stamina: 75" textFill="RED" />
+                        <Label fx:id="pokemonNameLabel"
+                               style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #FFCC00;"
+                               text="Name: Pikachu" />
+                        <Label fx:id="pokemonNicknameLabel"
+                               style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 18; -fx-text-fill: #FFCC00;"
+                               text="Nickname: Sparky" />
+                        <Label fx:id="pokemonStatsLabel"
+                               style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 16; -fx-text-fill: #FF0000;"
+                               text="Stats: HP: 100, Attack: 50, Stamina: 75" />
                     </children>
                 </VBox>
-
-                <!-- Botones de navegación -->
+                
+                <!-- Botones de navegación: Prev, Edit Pokémon y Next -->
                 <HBox alignment="CENTER" spacing="20">
                     <children>
-                        <Button fx:id="prevButton" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" text="← Prev" />
-                        <Button fx:id="nextButton" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" text="Next →" />
+                        <Button fx:id="prevButton"
+                                style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #FFCC00; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;"
+                                text="← Prev" />
+                        <Button fx:id="editPokemonButton" onAction="#handleEditPokemon"
+                                style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #FFCC00; -fx-background-color: linear-gradient(to bottom, #3c9a0c, #2e8207); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;"
+                                text="Edit Pokémon" />
+                        <Button fx:id="nextButton"
+                                style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #FFCC00; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;"
+                                text="Next →" />
                     </children>
                 </HBox>
             </children>
