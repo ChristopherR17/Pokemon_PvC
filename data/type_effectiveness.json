@@ -1,12 +1,206 @@
 [
   {
-    "attack_type": "Fire",
-    "target_type": "Grass",
+    "attack_type": "Foc",
+    "target_type": "Plantes",
     "multiplier": 2.0
   },
   {
-    "attack_type": "Grass",
-    "target_type": "Fire",
+    "attack_type": "Foc",
+    "target_type": "Gel",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Foc",
+    "target_type": "Insectes",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Foc",
+    "target_type": "Acer",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Foc",
+    "target_type": "Aigua",
     "multiplier": 0.5
+  },
+  {
+    "attack_type": "Foc",
+    "target_type": "Roca",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Foc",
+    "target_type": "Foc",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Foc",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Roca",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Terra",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Aigua",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Plantes",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Dracs",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Aigua",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Volador",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Terra",
+    "multiplier": 0.0
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Plantes",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Dracs",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Plantes",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Terra",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Volador",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Dracs",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Foc",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Aigua",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Acer",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Plantes",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Fades",
+    "multiplier": 2.0
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Terra",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Fantasmes",
+    "multiplier": 0.5
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Acer",
+    "multiplier": 0.0
+  },
+
+  
+  {
+    "attack_type": "Foc",
+    "target_type": "Terra",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Gel",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Foc",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Insectes",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Gel",
+    "multiplier": 1.0
+  },
+
+
+  {
+    "attack_type": "Foc",
+    "target_type": "Fades",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Aigua",
+    "target_type": "Volador",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Elèctric",
+    "target_type": "Insectes",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Gel",
+    "target_type": "Fades",
+    "multiplier": 1.0
+  },
+  {
+    "attack_type": "Verí",
+    "target_type": "Dracs",
+    "multiplier": 1.0
   }
 ]
