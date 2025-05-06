@@ -1,12 +1,16 @@
 package com.projecte;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,11 +34,17 @@ public class ControllerManagement implements Initializable {
     @FXML
     private Button nextButton;
 
+    @FXML
+    private Button editPokemonButton;
+
+    @FXML
+    private Button backButton;
+
     // Índice del Pokémon actual
     private int currentIndex = 0;
 
     // Datos estáticos de ejemplo
-    private final String[] pokemonNames = {"Pikachu", "Charizard", "Bulbasaur"};
+    private final String[] pokemonNames = {"Pikachu", "Charizard", "Squirtle"};
     private final String[] pokemonNicknames = {"Sparky", "Flame", "Leafy"};
     private final String[] pokemonStats = {
         "HP: 100, Attack: 50, Stamina: 75",
@@ -42,9 +52,9 @@ public class ControllerManagement implements Initializable {
         "HP: 80, Attack: 40, Stamina: 60"
     };
     private final String[] pokemonImages = {
-        "/img/pikachu.png",
-        "/img/charizard.png",
-        "/img/bulbasaur.png"
+        "/gif/pikachu.gif",
+        "/gif/Charizard.gif",
+        "/gif/squirtle.gif"
     };
 
     @Override
@@ -78,4 +88,37 @@ public class ControllerManagement implements Initializable {
             showPokemon(currentIndex);
         }
     }
+    
+    @FXML
+    private void handleEditPokemon() {
+    System.out.println("Botón 'Edit Pokémon' presionado. Navegando a ViewPokemonSettings...");
+    // Aquí se puede implementar la navegación. Por ejemplo:
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml"));
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) editPokemonButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar viewPokemonSettings.fxml: " + e.getMessage());
+    }
+    }
+
+    @FXML
+    private void handleBackButton() {
+    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+    // Aquí implementa la navegación a la vista anterior
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml")); 
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+    }
+}
+
 }
