@@ -3,6 +3,7 @@ package com.projecte;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,7 +31,7 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS Item");
         db.update("DROP TABLE IF EXISTS TypeEffectiveness");
         db.update("DROP TABLE IF EXISTS PokemonAttack");
-        db.update("DROP TABLE IF EXISTS Attack");
+        db.update("DROP TABLE IF EXISTS Attack");   
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
         db.update("DROP TABLE IF EXISTS Pokemon");
 
@@ -40,6 +41,13 @@ public class BuildDatabase {
                 name TEXT NOT NULL,
                 type TEXT NOT NULL,
                 image_path TEXT
+            )
+        """);
+
+        db.update("""
+            CREATE TABLE Player (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL
             )
         """);
 

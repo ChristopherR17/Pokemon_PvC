@@ -1,19 +1,19 @@
 package com.projecte;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ControllerTrainerSelection implements Initializable {
 
@@ -93,6 +93,11 @@ public class ControllerTrainerSelection implements Initializable {
     private void handleConfirmTrainer() {
     // Si el usuario ha ingresado un nombre, lo usa; de lo contrario, toma el predefinido
     String chosenName = customTrainerName.getText().isEmpty() ? trainerName.getText() : customTrainerName.getText();
+    AppData db = AppData.getInstance();
+    String sql = String.format(
+        "UPDATE Player SET name = '%s';", chosenName
+    );
+    db.update(sql);
     System.out.println("Trainer selected: " + chosenName);
 
     try {
