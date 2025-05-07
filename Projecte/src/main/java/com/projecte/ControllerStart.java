@@ -44,7 +44,7 @@ public class ControllerStart implements Initializable {
     public void handleOpenGame() {
         System.out.println("Botón 'Open Game' presionado.");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/trainerSelection.fxml"));
             Scene menuScene = new Scene(loader.load());
             
             Stage stage = (Stage) openGameButton.getScene().getWindow();
@@ -54,7 +54,7 @@ public class ControllerStart implements Initializable {
             System.out.println("Vista del menú cargada con éxito.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error al cargar viewMenu.fxml: " + e.getMessage());
+            System.err.println("Error al cargar trainerSelection.fxml: " + e.getMessage());
         }
     }
     

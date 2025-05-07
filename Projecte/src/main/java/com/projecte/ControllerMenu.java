@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -16,6 +17,9 @@ public class ControllerMenu implements Initializable {
 
     @FXML
     private ImageView fondoMenu;
+
+    @FXML 
+    private Button backButton;
 
     @FXML
     private Button teamManagementButton;
@@ -30,10 +34,19 @@ public class ControllerMenu implements Initializable {
     private Button exitGameButton;
 
     @FXML
+    private ImageView playerImage;
+
+    @FXML
     private Label playerLevel;
 
     @FXML
     private Label playerPoints;
+
+    @FXML
+    private Label playerName;
+
+    @FXML
+    private ImageView trainerImage;
 
     @FXML
     private Label battlesWon;
@@ -46,6 +59,11 @@ public class ControllerMenu implements Initializable {
 
     private Player currentPlayer;
 
+    private static String selectedTrainerName = "";
+    private static String selectedTrainerImage = "";
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentPlayer = new Player("2", 2345, 15, 3, 5);
@@ -57,6 +75,7 @@ public class ControllerMenu implements Initializable {
         }
 
         updatePlayerStats();
+        updateTrainerInfo();
     }
 
     private void updatePlayerStats() {
@@ -103,5 +122,36 @@ public class ControllerMenu implements Initializable {
             System.err.println("Error al cargar " + fxmlFile + ": " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void updateTrainerInfo() {
+        if (!selectedTrainerName.isEmpty()) {
+            playerName.setText("Trainer: " + selectedTrainerName);
+        }
+        if (!selectedTrainerImage.isEmpty()) {
+            trainerImage.setImage(new Image(getClass().getResource(selectedTrainerImage).toExternalForm()));
+        }
+    }
+
+    // Método para recibir la información del entrenador desde otra vista
+    public static void setTrainerInfo(String name, String imagePath) {
+        selectedTrainerName = name;
+        selectedTrainerImage = imagePath;
+    }
+
+    @FXML
+    private void handleBackButton() {
+    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+    // Aquí implementa la navegación a la vista anterior
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/trainerSelection.fxml")); 
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+    }
     }
 }

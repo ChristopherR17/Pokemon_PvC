@@ -119,6 +119,6 @@ public class ControllerManagement implements Initializable {
         e.printStackTrace();
         System.err.println("Error al cargar la vista anterior: " + e.getMessage());
     }
-}
+    }
 
 }
