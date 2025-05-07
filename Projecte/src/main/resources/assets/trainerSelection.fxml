@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" 
+    xmlns="http://javafx.com/javafx/23.0.1" 
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.projecte.ControllerTrainerSelection">
+    <children>
+        <!-- Fondo -->
+        <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false"
+            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <image>
+                <Image url="@../img/fondoTrainerSelection.png" />
+            </image>
+        </ImageView>
+
+        <!-- Título -->
+        <Label layoutX="200.0" layoutY="30.0"
+            style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);"
+            text="Select Your Trainer" />
+
+        <!-- Contenedor principal de selección de entrenador -->
+        <VBox layoutX="200.0" layoutY="120.0" prefWidth="400.0" prefHeight="350.0" spacing="25" alignment="CENTER"
+              style="-fx-background-color: rgba(0, 0, 0, 0.8); -fx-padding: 20; -fx-border-radius: 15; -fx-border-color: yellow; -fx-border-width: 3;">
+            <children>
+
+                <!-- Imagen del entrenador con tamaño fijo -->
+                <ImageView fx:id="trainerImage" fitHeight="150.0" fitWidth="150.0" preserveRatio="false"
+                    style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 10;">
+                    <effect>
+                        <DropShadow radius="10.0" offsetX="4.0" offsetY="4.0" color="black"/>
+                    </effect>
+                </ImageView>
+
+                <!-- Selección de entrenadores predefinidos -->
+                <HBox spacing="20" alignment="CENTER">
+                    <children>
+                        <Button fx:id="prevTrainerButton"
+                            style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 15;"
+                            text="← Prev" />
+                        <Label fx:id="trainerName"
+                            style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white;"
+                            text="Trainer 1" />
+                        <Button fx:id="nextTrainerButton"
+                            style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 15;"
+                            text="Next →" />
+                    </children>
+                </HBox>
+
+                <!-- Campo para escribir el nombre personalizado -->
+                <TextField fx:id="customTrainerName" prefWidth="300.0" promptText="Enter your name..."
+                    style="-fx-font-size: 18; -fx-border-radius: 10;"/>
+
+                <!-- Botón de confirmación -->
+                <Button fx:id="confirmTrainerButton" onAction="#handleConfirmTrainer"
+                    style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 15;"
+                    text="Confirm Trainer" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
