@@ -1,6 +1,14 @@
 package com.projecte;
 // ./run.sh com.projecte.BuildDatabase
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 public class BuildDatabase {
 
     public static void main(String[] args) {
@@ -28,13 +36,21 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS Attack");   
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
         db.update("DROP TABLE IF EXISTS Player");
-        db.update("DROP TABLE IF EXISTS Pokemon");
+        db.update("DROP TABLE IF EXISTS PokemonBack");
+        db.update("DROP TABLE IF EXISTS PokemonFront");
 
         db.update("""
-            CREATE TABLE Pokemon (
+            CREATE TABLE PokemonFront (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 type TEXT NOT NULL,
+                image_path TEXT
+            )
+        """);
+
+        db.update("""
+            CREATE TABLE PokemonBack (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 image_path TEXT
             )
         """);
@@ -158,93 +174,129 @@ public class BuildDatabase {
 
         System.out.println("Base de datos creada correctamente.");
 
-        // try {
-        //     // Insertar Pokémon
-        //     String content = Files.readString(Paths.get("../data/pokemons.json"));
-        //     JSONArray pokemons = new JSONArray(content);
-        //     for (Object o : pokemons) {
-        //         JSONObject p = (JSONObject) o;
-        //         db.update(String.format(
-        //             "INSERT INTO Pokemon (name, type, image_path) VALUES ('%s', '%s', '%s')",
-        //             p.getString("name").replace("'", "''"),
-        //             p.getString("type").replace("'", "''"),
-        //             p.optString("image_path", "").replace("'", "''")
-        //         ));
-        //     }
-        //     System.out.println("Pokémon insertados correctamente.");
-        //     // Insertar Ataques
-        //     content = Files.readString(Paths.get("../data/attacks.json"));
-        //     JSONArray attacks = new JSONArray(content);
-        //     for (Object o : attacks) {
-        //         JSONObject a = (JSONObject) o;
-        //         db.update(String.format(
-        //             "INSERT INTO Attack (name, type, damage, stamina_cost) VALUES ('%s', '%s', %d, %d)",
-        //             a.getString("name").replace("'", "''"),
-        //             a.getString("type"),
-        //             a.getInt("damage"),
-        //             a.getInt("stamina_cost")
-        //         ));
-        //     }
-        //     System.out.println("Ataques insertados correctamente.");
+        try {
+            // // Insertar Pokémon
+            // String content = Files.readString(Paths.get("../data/pokemons.json"));
+            // JSONArray pokemons = new JSONArray(content);
+            // for (Object o : pokemons) {
+            //     JSONObject p = (JSONObject) o;
+            //     db.update(String.format(
+            //         "INSERT INTO Pokemon (name, type, image_path) VALUES ('%s', '%s', '%s')",
+            //         p.getString("name").replace("'", "''"),
+            //         p.getString("type").replace("'", "''"),
+            //         p.optString("image_path", "").replace("'", "''")
+            //     ));
+            // }
+            // System.out.println("Pokémon insertados correctamente.");
 
-        //     // Vincular Pokémon con ataques
-        //     content = Files.readString(Paths.get("../data/pokemon_attacks.json"));
-        //     JSONArray pokAtts = new JSONArray(content);
-        //     for (Object o : pokAtts) {
-        //         JSONObject pa = (JSONObject) o;
-        //         db.update(String.format(
-        //             "INSERT INTO PokemonAttack (pokemon_id, attack_id) VALUES (%d, %d)",
-        //             pa.getInt("pokemon_id"), 
-        //              pa.getInt("attack_id")
-        //         ));
-        //     }
-        //     System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
+            // Insertar Pokémon Front
+            String content = Files.readString(Paths.get("../data/pokemons_front.json"));
+            JSONArray pokemonsFront = new JSONArray(content);
+            for (Object o : pokemonsFront) {
+                JSONObject p = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO PokemonFront (name, type, image_path) VALUES ('%s', '%s', '%s')",
+                    p.getString("name").replace("'", "''"),
+                    p.getString("type").replace("'", "''"),
+                    p.optString("image_path", "").replace("'", "''")
+                ));
+            }
+            System.out.println("Pokémon Front insertados correctamente.");
+
+            // Insertar Pokémon Back
+            content = Files.readString(Paths.get("../data/pokemons_back.json"));
+            JSONArray pokemonsBack = new JSONArray(content);
+            for (Object o : pokemonsBack) {
+                JSONObject p = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO PokemonBack (image_path) VALUES ('%s')",
+                    p.optString("image_path", "").replace("'", "''")
+                ));
+            }
+            System.out.println("Pokémon Back insertados correctamente.");
+
+
+            // Insertar Ataques
+            content = Files.readString(Paths.get("../data/attacks.json"));
+            JSONArray attacks = new JSONArray(content);
+            for (Object o : attacks) {
+                JSONObject a = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO Attack (name, type, damage, stamina_cost) VALUES ('%s', '%s', %d, %d)",
+                    a.getString("name").replace("'", "''"),
+                    a.getString("type"),
+                    a.getInt("damage"),
+                    a.getInt("stamina_cost")
+                ));
+            }
+            System.out.println("Ataques insertados correctamente.");
+
+            // Vincular Pokémon con ataques
+            content = Files.readString(Paths.get("../data/pokemon_attacks.json"));
+            JSONArray pokAtts = new JSONArray(content);
+            for (Object o : pokAtts) {
+                JSONObject pa = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO PokemonAttack (pokemon_id, attack_id) VALUES (%d, %d)",
+                    pa.getInt("pokemon_id"), 
+                     pa.getInt("attack_id")
+                ));
+            }
+            System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
         
-        //     // Efectividad de tipos
-        //     // content = Files.readString(Paths.get("../data/type_effectiveness.json"));
-        //     // JSONArray typeEff = new JSONArray(content);
-        //     // for (Object o : typeEff) {
-        //     //     JSONObject te = (JSONObject) o;
-        //     //     db.update(String.format(
-        //     //         "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %.1f)",
-        //     //         te.getString("attack_type"),
-        //     //         te.getString("target_type"),
-        //     //         te.getDouble("multiplier")
-        //     //     ));
-        //     // }
-        //     // System.out.println("Efectividad de tipos insertada correctamente.");
+            // Efectividad de tipos
+            // content = Files.readString(Paths.get("../data/type_effectiveness.json"));
+            // JSONArray typeEff = new JSONArray(content);
+            // for (Object o : typeEff) {
+            //     JSONObject te = (JSONObject) o;
+
+            //     // Validar que los datos sean correctos
+            //     if (!te.has("attack_type") || !te.has("target_type") || !te.has("multiplier")) {
+            //         System.err.println("Datos incompletos en type_effectiveness.json: " + te);
+            //         continue; // Salta este objeto y sigue con el siguiente
+            //     }
+
+            //     // Insertar en la base de datos
+            //     db.update(String.format(
+            //         "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %.1f)",
+            //         te.getString("attack_type").replace("'", "''"),
+            //         te.getString("target_type").replace("'", "''"),
+            //         te.getDouble("multiplier")
+            //     ));
+            // }
+            // System.out.println("Efectividad de tipos insertada correctamente.");
         
-        //     // Items
-        //     content = Files.readString(Paths.get("../data/items.json"));
-        //     JSONArray items = new JSONArray(content);
-        //     for (Object o : items) {
-        //         JSONObject it = (JSONObject) o;
-        //         db.update(String.format(
-        //             "INSERT INTO Item (name, effect_type, effect_value) VALUES ('%s', '%s', %d)",
-        //             it.getString("name").replace("'", "''"),
-        //             it.getString("effect_type"),
-        //             it.getInt("effect_value")
-        //         ));
-        //     }
-        //     System.out.println("Items insertados correctamente.");
+            // Items
+            content = Files.readString(Paths.get("../data/items.json"));
+            JSONArray items = new JSONArray(content);
+            for (Object o : items) {
+                JSONObject it = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO Item (name, effect_type, effect_value) VALUES ('%s', '%s', %d)",
+                    it.getString("name").replace("'", "''"),
+                    it.getString("effect_type"),
+                    it.getInt("effect_value")
+                ));
+            }
+            System.out.println("Items insertados correctamente.");
         
-        //     // Inventario de Items
-        //     content = Files.readString(Paths.get("../data/item_inventory.json"));
-        //     JSONArray inv = new JSONArray(content);
-        //     for (Object o : inv) {
-        //         JSONObject i = (JSONObject) o;
-        //         db.update(String.format(
-        //             "INSERT INTO ItemInventory (item_id, quantity) VALUES (%d, %d)",
-        //             i.getInt("item_id"),
-        //             i.getInt("quantity")
-        //         ));
-        //     }
-        //     System.out.println("Inventario de items insertado correctamente.");
+            // Inventario de Items
+            content = Files.readString(Paths.get("../data/item_inventory.json"));
+            JSONArray inv = new JSONArray(content);
+            for (Object o : inv) {
+                JSONObject i = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO ItemInventory (item_id, quantity) VALUES (%d, %d)",
+                    i.getInt("item_id"),
+                    i.getInt("quantity")
+                ));
+            }
+            System.out.println("Inventario de items insertado correctamente.");
         
-        //     System.out.println("Datos cargados correctamente desde JSON.");
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+            System.out.println("Datos cargados correctamente desde JSON.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
 }
