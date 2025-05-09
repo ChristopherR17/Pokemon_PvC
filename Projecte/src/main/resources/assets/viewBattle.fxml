@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefWidth="810.0" prefHeight="610.0"
+    xmlns="http://javafx.com/javafx/23.0.1"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.projecte.ControllerBattle">
+    <children>
+        <!-- Fondo dinámico según mapa seleccionado -->
+        <ImageView fx:id="battleBackground" fitWidth="810.0" fitHeight="610.0" preserveRatio="false"
+            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <image>
+                <Image url="@../img/defaultBattleMap.png" />
+            </image>
+        </ImageView>
+
+        <!-- Título de la batalla -->
+        <Label layoutX="250.0" layoutY="30.0"
+            style="-fx-font-family: 'Arial Black'; -fx-font-size: 40; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 10, 0.8, 0, 0);"
+            text="⚔ Pokémon Battle ⚔" />
+
+        <!-- Área de combate -->
+        <HBox layoutX="50.0" layoutY="120.0" prefWidth="700.0" prefHeight="350.0" spacing="30" alignment="CENTER">
+            <children>
+                <!-- Pokémon Jugador -->
+                <VBox alignment="CENTER" spacing="15.0"
+                    style="-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                    <children>
+                        <Label fx:id="playerPokemonName"
+                            style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"
+                            text="Charizard" />
+                        <ImageView fx:id="playerPokemonImage" fitWidth="180.0" fitHeight="180.0" preserveRatio="true"
+                            style="-fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" />
+                        <Label fx:id="playerHealth"
+                            style="-fx-font-size: 20; -fx-text-fill: white;"
+                            text="HP: 100" />
+                        <Label fx:id="playerStamina"
+                            style="-fx-font-size: 20; -fx-text-fill: white;"
+                            text="Stamina: 50" />
+                    </children>
+                </VBox>
+
+                <!-- Pokémon Rival -->
+                <VBox alignment="CENTER" spacing="15.0"
+                    style="-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 15; -fx-border-color: red; -fx-border-width: 3; -fx-border-radius: 15;">
+                    <children>
+                        <Label fx:id="enemyPokemonName"
+                            style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"
+                            text="Blastoise" />
+                        <ImageView fx:id="enemyPokemonImage" fitWidth="180.0" fitHeight="180.0" preserveRatio="true"
+                            style="-fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" />
+                        <Label fx:id="enemyHealth"
+                            style="-fx-font-size: 20; -fx-text-fill: white;"
+                            text="HP: 100" />
+                        <Label fx:id="enemyStamina"
+                            style="-fx-font-size: 20; -fx-text-fill: white;"
+                            text="Stamina: 50" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <!-- Controles de combate -->
+        <VBox layoutX="50.0" layoutY="500.0" prefWidth="700.0" prefHeight="80.0" spacing="10.0" alignment="CENTER"
+            style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+            <children>
+                <Label fx:id="battleStatus"
+                    style="-fx-font-size: 18; -fx-text-fill: white;"
+                    text="Turno 1: Selecciona un ataque" />
+                <HBox spacing="20" alignment="CENTER">
+                    <children>
+                        <Button fx:id="attackButton" onAction="#handleAttack"
+                            style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; 
+                            -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 10;"
+                            text="🔥 Atacar 🔥" />
+                        <Button fx:id="switchPokemonButton" onAction="#handleSwitchPokemon"
+                            style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; 
+                            -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;"
+                            text="🔄 Cambiar Pokémon" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
