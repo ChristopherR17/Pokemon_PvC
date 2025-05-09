@@ -37,7 +37,7 @@ public class ControllerTrainerSelection implements Initializable {
 
     private int currentTrainerIndex = 0;
     private final String[] trainerNames = {"Ash Ketchum", "Misty", "Brock", "Serena", "Red"};
-    private final String[] trainerImages = {"/img/ash.png", "/img/misty.png", "/img/brock.png", "/img/serena.png", "/img/red.png"};
+    private final String[] trainerImages = {"/img/trainers/ash.png", "/img/trainers/misty.png", "/img/trainers/brock.png", "/img/trainers/serena.png", "/img/trainers/red.png"};
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

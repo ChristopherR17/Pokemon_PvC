@@ -1,17 +1,18 @@
 package com.projecte;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ControllerMenu implements Initializable {
 
@@ -69,7 +70,7 @@ public class ControllerMenu implements Initializable {
         currentPlayer = new Player("2", 2345, 15, 3, 5);
 
         if (fondoMenu != null) {
-            fondoMenu.setImage(new javafx.scene.image.Image(getClass().getResource("/img/fondoMenu.png").toExternalForm()));
+            fondoMenu.setImage(new javafx.scene.image.Image(getClass().getResource("/img/bg/fondoMenu.png").toExternalForm()));
         } else {
             System.err.println("fondoMenu no está inicializado correctamente.");
         }
