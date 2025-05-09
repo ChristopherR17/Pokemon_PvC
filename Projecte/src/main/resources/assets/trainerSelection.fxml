@@ -17,7 +17,7 @@
     fx:controller="com.projecte.ControllerTrainerSelection">
     <children>
         <!-- Fondo -->
-        <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false"
+        <ImageView fitHeight="610.0" fitWidth="810.0" preserveRatio="false"
             AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <image>
