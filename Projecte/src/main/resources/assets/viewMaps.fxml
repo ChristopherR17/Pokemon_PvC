@@ -2,91 +2,97 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefWidth="810.0" prefHeight="610.0"
-    xmlns="http://javafx.com/javafx/23.0.1"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.projecte.ControllerMaps">
+<AnchorPane prefHeight="610.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerMaps">
     <children>
         <!-- Fondo de la selección de mapas -->
-        <ImageView fx:id="mapsBackground" fitWidth="810.0" fitHeight="610.0" preserveRatio="false"
-            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <ImageView fx:id="mapsBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
                 <Image url="@../img/mapsBackground.png" />
             </image>
         </ImageView>
 
         <!-- Título de la selección de mapas -->
-        <Label layoutX="180.0" layoutY="30.0"
-            style="-fx-font-family: 'Arial Black'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);"
-            text="🌍 Select Battle Map 🌍" />
+        <Label layoutX="125.0" layoutY="30.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="🌍 Select Battle Map 🌍" />
 
-        <!-- Contenedor de opciones de mapas -->
-        <HBox layoutX="50.0" layoutY="120.0" prefWidth="700.0" prefHeight="350.0" spacing="20" alignment="CENTER">
-            <children>
-                <!-- Mapa 1 -->
-                <VBox spacing="10" alignment="CENTER"
-                    style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+        <!-- ScrollPane con los mapas -->
+        <ScrollPane layoutX="50.0" layoutY="118.0" prefHeight="350.0" prefWidth="710.0" style="-fx-background-color: transparent; -fx-border-color: yellow; -fx-border-width: 3;">
+            <content>
+                <HBox alignment="CENTER" spacing="20">
                     <children>
-                        <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"
-                            text="🔥 Volcano Arena 🔥" />
-                        <ImageView fx:id="map1Preview" fitWidth="200.0" fitHeight="120.0" preserveRatio="true">
-                            <image>
-                                <Image url="@../img/mapVolcano.png" />
-                            </image>
-                        </ImageView>
-                        <Button fx:id="selectMap1Button" onAction="#handleSelectMap1"
-                            style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 10;"
-                            text="Select" />
-                    </children>
-                </VBox>
+                        <!-- Mapa 1 -->
+                        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                            <children>
+                                <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Forest" />
+                                <ImageView fx:id="map1Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/maps/choiceMaps/choice1.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="selectMap1Button" onAction="#handleSelectMap1" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 10;" text="Select" />
+                            </children>
+                        </VBox>
 
-                <!-- Mapa 2 -->
-                <VBox spacing="10" alignment="CENTER"
-                    style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
-                    <children>
-                        <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"
-                            text="🌲 Mystic Forest 🌲" />
-                        <ImageView fx:id="map2Preview" fitWidth="200.0" fitHeight="120.0" preserveRatio="true">
-                            <image>
-                                <Image url="@../img/mapForest.png" />
-                            </image>
-                        </ImageView>
-                        <Button fx:id="selectMap2Button" onAction="#handleSelectMap2"
-                            style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;"
-                            text="Select" />
-                    </children>
-                </VBox>
+                        <!-- Mapa 2 -->
+                        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                            <children>
+                                <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Cave" />
+                                <ImageView fx:id="map2Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/maps/choiceMaps/choice2.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="selectMap2Button" onAction="#handleSelectMap2" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="Select" />
+                            </children>
+                        </VBox>
 
-                <!-- Mapa 3 -->
-                <VBox spacing="10" alignment="CENTER"
-                    style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
-                    <children>
-                        <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"
-                            text="❄ Glacier Peak ❄" />
-                        <ImageView fx:id="map3Preview" fitWidth="200.0" fitHeight="120.0" preserveRatio="true">
-                            <image>
-                                <Image url="@../img/mapGlacier.png" />
-                            </image>
-                        </ImageView>
-                        <Button fx:id="selectMap3Button" onAction="#handleSelectMap3"
-                            style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3ccf4e, #ffcc00); -fx-border-radius: 10;"
-                            text="Select" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+                        <!-- Mapa 3 -->
+                        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                            <children>
+                                <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Rock" />
+                                <ImageView fx:id="map3Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/maps/choiceMaps/choice3.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="selectMap3Button" onAction="#handleSelectMap3" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3ccf4e, #ffcc00); -fx-border-radius: 10;" text="Select" />
+                            </children>
+                        </VBox>
 
-        <!-- Botón para continuar -->
-        <Button fx:id="confirmMapButton" layoutX="300.0" layoutY="500.0" onAction="#handleConfirmMap"
-            style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: yellow; 
-            -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 10;"
-            text="Confirm Map Selection" />
+                        <!-- Mapa 4 -->
+                        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                            <children>
+                                <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Snow" />
+                                <ImageView fx:id="map4Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/maps/choiceMaps/choice4.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="selectMap4Button" onAction="#handleSelectMap4" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #ff8800, #cc6600); -fx-border-radius: 10;" text="Select" />
+                            </children>
+                        </VBox>
+
+                        <!-- Mapa 5 -->
+                        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
+                            <children>
+                                <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Gym" />
+                                <ImageView fx:id="map5Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/maps/choiceMaps/choice5.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="selectMap5Button" onAction="#handleSelectMap5" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #1e90ff, #0044cc); -fx-border-radius: 10;" text="Select" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </content>
+        </ScrollPane>
     </children>
 </AnchorPane>
