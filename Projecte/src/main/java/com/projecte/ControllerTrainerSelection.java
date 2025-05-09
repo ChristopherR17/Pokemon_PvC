@@ -115,8 +115,7 @@ public class ControllerTrainerSelection implements Initializable {
 
         try {
 
-            // Carga la siguiente escena (ajusta la ruta si es diferente en tu proyecto)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/gameLobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewStart.fxml"));
             Scene newScene = new Scene(loader.load());
             Stage stage = (Stage) confirmTrainerButton.getScene().getWindow();
             stage.setScene(newScene);
