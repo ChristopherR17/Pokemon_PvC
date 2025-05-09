@@ -1,18 +1,21 @@
 package com.projecte;
+// ./run.sh com.projecte.BuildDatabase
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 public class BuildDatabase {
 
     public static void main(String[] args) {
         AppData db = AppData.getInstance();
-        db.connect("../data\\pokemons.sqlite");
+        db.connect("../data/pokemons.sqlite");
 
-        System.out.println("\nIniciando la base de datos:");
+        System.out.println("\nIniciar les dades de la base de dades:");
         initData();
 
         db.close();
@@ -30,16 +33,32 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS Item");
         db.update("DROP TABLE IF EXISTS TypeEffectiveness");
         db.update("DROP TABLE IF EXISTS PokemonAttack");
-        db.update("DROP TABLE IF EXISTS Attack");
+        db.update("DROP TABLE IF EXISTS Attack");   
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
-        db.update("DROP TABLE IF EXISTS Pokemon");
+        db.update("DROP TABLE IF EXISTS Player");
+        db.update("DROP TABLE IF EXISTS PokemonBack");
+        db.update("DROP TABLE IF EXISTS PokemonFront");
 
         db.update("""
-            CREATE TABLE Pokemon (
+            CREATE TABLE PokemonFront (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 type TEXT NOT NULL,
                 image_path TEXT
+            )
+        """);
+
+        db.update("""
+            CREATE TABLE PokemonBack (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                image_path TEXT
+            )
+        """);
+
+        db.update("""
+            CREATE TABLE Player (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT
             )
         """);
 
@@ -78,10 +97,9 @@ public class BuildDatabase {
 
         db.update("""
             CREATE TABLE TypeEffectiveness (
-                attack_type TEXT NOT NULL,
+                attack_type TEXT PRIMARY KEY NOT NULL,
                 target_type TEXT NOT NULL,
-                multiplier REAL NOT NULL,
-                PRIMARY KEY (attack_type, target_type)
+                multiplier REAL NOT NULL
             )
         """);
 
@@ -157,19 +175,47 @@ public class BuildDatabase {
         System.out.println("Base de datos creada correctamente.");
 
         try {
-            // Insertar Pokémon
-            String content = Files.readString(Paths.get("../data/pokemons.json"));
-            JSONArray pokemons = new JSONArray(content);
-            for (Object o : pokemons) {
+            // // Insertar Pokémon
+            // String content = Files.readString(Paths.get("../data/pokemons.json"));
+            // JSONArray pokemons = new JSONArray(content);
+            // for (Object o : pokemons) {
+            //     JSONObject p = (JSONObject) o;
+            //     db.update(String.format(
+            //         "INSERT INTO Pokemon (name, type, image_path) VALUES ('%s', '%s', '%s')",
+            //         p.getString("name").replace("'", "''"),
+            //         p.getString("type").replace("'", "''"),
+            //         p.optString("image_path", "").replace("'", "''")
+            //     ));
+            // }
+            // System.out.println("Pokémon insertados correctamente.");
+
+            // Insertar Pokémon Front
+            String content = Files.readString(Paths.get("../data/pokemons_front.json"));
+            JSONArray pokemonsFront = new JSONArray(content);
+            for (Object o : pokemonsFront) {
                 JSONObject p = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO Pokemon (name, type, image_path) VALUES ('%s', '%s', '%s')",
+                    "INSERT INTO PokemonFront (name, type, image_path) VALUES ('%s', '%s', '%s')",
                     p.getString("name").replace("'", "''"),
                     p.getString("type").replace("'", "''"),
                     p.optString("image_path", "").replace("'", "''")
                 ));
             }
-            System.out.println("Pokémon insertados correctamente.");
+            System.out.println("Pokémon Front insertados correctamente.");
+
+            // Insertar Pokémon Back
+            content = Files.readString(Paths.get("../data/pokemons_back.json"));
+            JSONArray pokemonsBack = new JSONArray(content);
+            for (Object o : pokemonsBack) {
+                JSONObject p = (JSONObject) o;
+                db.update(String.format(
+                    "INSERT INTO PokemonBack (image_path) VALUES ('%s')",
+                    p.optString("image_path", "").replace("'", "''")
+                ));
+            }
+            System.out.println("Pokémon Back insertados correctamente.");
+
+
             // Insertar Ataques
             content = Files.readString(Paths.get("../data/attacks.json"));
             JSONArray attacks = new JSONArray(content);
@@ -199,18 +245,26 @@ public class BuildDatabase {
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
         
             // Efectividad de tipos
-            content = Files.readString(Paths.get("../data/type_effectiveness.json"));
-            JSONArray typeEff = new JSONArray(content);
-            for (Object o : typeEff) {
-                JSONObject te = (JSONObject) o;
-                db.update(String.format(
-                    "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %.1f)",
-                    te.getString("attack_type"),
-                    te.getString("target_type"),
-                    te.getDouble("multiplier")
-                ));
-            }
-            System.out.println("Efectividad de tipos insertada correctamente.");
+            // content = Files.readString(Paths.get("../data/type_effectiveness.json"));
+            // JSONArray typeEff = new JSONArray(content);
+            // for (Object o : typeEff) {
+            //     JSONObject te = (JSONObject) o;
+
+            //     // Validar que los datos sean correctos
+            //     if (!te.has("attack_type") || !te.has("target_type") || !te.has("multiplier")) {
+            //         System.err.println("Datos incompletos en type_effectiveness.json: " + te);
+            //         continue; // Salta este objeto y sigue con el siguiente
+            //     }
+
+            //     // Insertar en la base de datos
+            //     db.update(String.format(
+            //         "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %.1f)",
+            //         te.getString("attack_type").replace("'", "''"),
+            //         te.getString("target_type").replace("'", "''"),
+            //         te.getDouble("multiplier")
+            //     ));
+            // }
+            // System.out.println("Efectividad de tipos insertada correctamente.");
         
             // Items
             content = Files.readString(Paths.get("../data/items.json"));
