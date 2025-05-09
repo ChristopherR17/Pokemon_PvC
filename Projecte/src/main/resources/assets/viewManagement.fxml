@@ -14,7 +14,7 @@
         <!-- Fondo -->
         <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../img/fondoManagement.jpg" />
+                <Image url="@../img/bg/fondoManagement.jpg" />
             </image>
         </ImageView>
         

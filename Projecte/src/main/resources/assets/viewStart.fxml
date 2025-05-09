@@ -13,12 +13,12 @@
    <children>
       <ImageView fx:id="fondoStart" fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../img/fondoStart.jpg" />
+            <Image url="@../img/bg/fondoStart.jpg" />
          </image>
       </ImageView>
       
-      <Label alignment="CENTER" layoutX="125.0" prefHeight="139.0" prefWidth="550.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Pokémon PvP" />
-      
+      <Label layoutX="125.0" layoutY="50.0" prefHeight="139.0" prefWidth="600.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 55; -fx-font-weight: bold;           -fx-text-fill: linear-gradient(to bottom,rgb(240, 255, 28),#cc0000);           -fx-effect: dropshadow(gaussian,rgb(6, 49, 24), 20, 0.8, 0, 5);" text="ARCANE MASTERS" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="167.0" prefWidth="400.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 30; -fx-font-weight: bold;           -fx-text-fill: linear-gradient(to bottom,rgb(240, 255, 28),#cc0000);           -fx-background-color: transparent;           -fx-effect: dropshadow(gaussian,rgb(0, 42, 17), 20, 0.8, 0, 5);" text="Pokémon PVC" />  
       <HBox layoutX="150.0" layoutY="150.0" spacing="20" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
       
       <StackPane layoutX="300.0" layoutY="450.0" />
