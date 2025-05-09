@@ -14,7 +14,7 @@
         <!-- Fondo -->
         <ImageView fx:id="fondoMenu" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../img/fondoMenuNuevo.png" />
+                <Image url="@../img/bg/fondoMenu.png" />
             </image>
         </ImageView>
 

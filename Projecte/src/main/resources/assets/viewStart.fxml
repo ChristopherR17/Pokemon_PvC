@@ -13,7 +13,7 @@
    <children>
       <ImageView fx:id="fondoStart" fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../img/fondoStart.jpg" />
+            <Image url="@../img/bg/fondoStart.jpg" />
          </image>
       </ImageView>
       
