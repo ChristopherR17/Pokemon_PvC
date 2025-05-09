@@ -19,7 +19,6 @@ public class Player {
     public String getLevel() {
         return level;
     }
-
     public void setLevel(String level) {
         this.level = level;
     }
@@ -27,7 +26,6 @@ public class Player {
     public int getPoints() {
         return points;
     }
-
     public void setPoints(int points) {
         this.points = points;
     }
@@ -35,7 +33,6 @@ public class Player {
     public int getBattlesWon() {
         return battlesWon;
     }
-
     public void setBattlesWon(int battlesWon) {
         this.battlesWon = battlesWon;
     }
@@ -43,7 +40,6 @@ public class Player {
     public int getConsecutiveWins() {
         return consecutiveWins;
     }
-
     public void setConsecutiveWins(int consecutiveWins) {
         this.consecutiveWins = consecutiveWins;
     }
@@ -51,7 +47,6 @@ public class Player {
     public int getPokemonCaught() {
         return pokemonCaught;
     }
-
     public void setPokemonCaught(int pokemonCaught) {
         this.pokemonCaught = pokemonCaught;
     }

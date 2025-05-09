@@ -1,0 +1,12 @@
+[
+    { "name": "Vine Whip", 
+      "type": "Grass", 
+      "damage": 45, 
+      "stamina_cost": 5 
+    },
+    { "name": "Flamethrower", 
+      "type": "Fire", 
+      "damage": 90, 
+      "stamina_cost": 10 }
+  ]
+  

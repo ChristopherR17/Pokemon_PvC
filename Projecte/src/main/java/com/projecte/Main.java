@@ -1,6 +1,6 @@
 package com.projecte;
 
-import com.utils.*;
+import com.utils.UtilsViews;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 // Fes anar l'exercici amb:
 // ./run.sh com.projecte.Main
+// ./run.ps1 com.projecte.Main
 
 public class Main extends Application {
 

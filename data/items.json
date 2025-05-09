@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Potion",
+    "effect_type": "heal",
+    "effect_value": 20
+  },
+  {
+    "name": "X Attack",
+    "effect_type": "attack boost",
+    "effect_value": 10
+  }
+]
