@@ -1,12 +1,104 @@
 [
-    { "name": "Vine Whip", 
-      "type": "Grass", 
-      "damage": 45, 
-      "stamina_cost": 5 
-    },
-    { "name": "Flamethrower", 
-      "type": "Fire", 
-      "damage": 90, 
-      "stamina_cost": 10 }
-  ]
-  
+  {
+    "name": "Vine Whip",
+    "type": "Grass",
+    "damage": 45,
+    "stamina_cost": 5
+  },
+  {
+    "name": "Flamethrower",
+    "type": "Fire",
+    "damage": 90,
+    "stamina_cost": 10
+  },
+  {
+    "name": "Flame Burst",
+    "type": "Foc",
+    "damage": 70,
+    "stamina_cost": 8
+  },
+  {
+    "name": "Hydro Pump",
+    "type": "Aigua",
+    "damage": 110,
+    "stamina_cost": 12
+  },
+  {
+    "name": "Thunderbolt",
+    "type": "Elèctric",
+    "damage": 90,
+    "stamina_cost": 10
+  },
+  {
+    "name": "Ice Beam",
+    "type": "Gel",
+    "damage": 90,
+    "stamina_cost": 10
+  },
+  {
+    "name": "Sludge Bomb",
+    "type": "Verí",
+    "damage": 80,
+    "stamina_cost": 9
+  },
+  {
+    "name": "Leaf Blade",
+    "type": "Plantes",
+    "damage": 70,
+    "stamina_cost": 8
+  },
+  {
+    "name": "Shadow Ball",
+    "type": "Fantasma",
+    "damage": 80,
+    "stamina_cost": 9
+  },
+  {
+    "name": "X-Scissor",
+    "type": "Insectes",
+    "damage": 60,
+    "stamina_cost": 6
+  },
+  {
+    "name": "Stone Edge",
+    "type": "Roca",
+    "damage": 100,
+    "stamina_cost": 12
+  },
+  {
+    "name": "Earthquake",
+    "type": "Terra",
+    "damage": 100,
+    "stamina_cost": 12
+  },
+  {
+    "name": "Dragon Claw",
+    "type": "Drac",
+    "damage": 80,
+    "stamina_cost": 9
+  },
+  {
+    "name": "Air Slash",
+    "type": "Volador",
+    "damage": 75,
+    "stamina_cost": 8
+  },
+  {
+    "name": "Aura Sphere",
+    "type": "Lluita",
+    "damage": 90,
+    "stamina_cost": 10
+  },
+  {
+    "name": "Psychic",
+    "type": "Psíquic",
+    "damage": 90,
+    "stamina_cost": 10
+  },
+  {
+    "name": "Moonblast",
+    "type": "Fada",
+    "damage": 95,
+    "stamina_cost": 11
+  }
+]

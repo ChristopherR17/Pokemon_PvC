@@ -44,17 +44,17 @@ public class ControllerManagement implements Initializable {
     private int currentIndex = 0;
 
     // Datos estáticos de ejemplo
-    private final String[] pokemonNames = {"Pikachu", "Charizard", "Squirtle"};
-    private final String[] pokemonNicknames = {"Sparky", "Flame", "Leafy"};
+    private final String[] pokemonNames = {"Venusaur", "Charizard", "Squirtle"};
+    private final String[] pokemonNicknames = {"Leafy", "Flame", "Droplet"};
     private final String[] pokemonStats = {
         "HP: 100, Attack: 50, Stamina: 75",
         "HP: 150, Attack: 70, Stamina: 85",
         "HP: 80, Attack: 40, Stamina: 60"
     };
     private final String[] pokemonImages = {
-        "/gif/pikachu.gif",
-        "/gif/Charizard.gif",
-        "/gif/squirtle.gif"
+        "/gif/sprites/front/venusaurFront.gif",
+        "/gif/sprites/front/Charizard.gif",
+        "/gif/sprites/front/blastoiseFront.gif"
     };
 
     @Override

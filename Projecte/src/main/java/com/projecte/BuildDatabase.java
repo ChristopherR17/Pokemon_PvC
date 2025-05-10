@@ -58,7 +58,8 @@ public class BuildDatabase {
         db.update("""
             CREATE TABLE Player (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT
+                name TEXT,
+                image_path TEXT
             )
         """);
 
@@ -122,13 +123,18 @@ public class BuildDatabase {
 
         db.update("""
             CREATE TABLE GameStats (
-                id INTEGER PRIMARY KEY CHECK (id = 1),
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 total_experience INTEGER DEFAULT 0,
                 battles_played INTEGER DEFAULT 0,
                 max_win_streak INTEGER DEFAULT 0,
                 current_win_streak INTEGER DEFAULT 0
             )
         """);
+
+        // Insertar datos iniciales en GameStats
+        // db.update(String.format(
+        //     "INSERT INTO GameStats (total_experience, battles_played, max_win_streak, current_win_streak) VALUES ('%d', '%d', '%d', '%d');", 0, 0, 0, 0
+        // ));
 
         db.update("""
             CREATE TABLE Battle (
