@@ -214,7 +214,7 @@ public class BuildDatabase {
                 db.update(String.format(
                     "INSERT INTO PokemonAttack (pokemon_id, attack_id) VALUES (%d, %d)",
                     pa.getInt("pokemon_id"), 
-                     pa.getInt("attack_id")
+                    pa.getInt("attack_id")
                 ));
             }
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");

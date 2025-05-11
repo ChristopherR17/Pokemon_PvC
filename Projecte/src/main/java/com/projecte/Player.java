@@ -72,4 +72,9 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
+    //Un metodo para calcular el nivel, teniendo en cuenta que cada nivel son 1000 puntos
+    private void calculateLevel() {
+        this.level = this.points / 1000;
+    }
 }
