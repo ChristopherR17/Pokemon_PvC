@@ -36,22 +36,16 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS Attack");   
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
         db.update("DROP TABLE IF EXISTS Player");
-        db.update("DROP TABLE IF EXISTS PokemonBack");
-        db.update("DROP TABLE IF EXISTS PokemonFront");
+        db.update("DROP TABLE IF EXISTS Pokemon");
 
         db.update("""
-            CREATE TABLE PokemonFront (
+            CREATE TABLE Pokemon (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 type TEXT NOT NULL,
-                image_path TEXT
-            )
-        """);
-
-        db.update("""
-            CREATE TABLE PokemonBack (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                image_path TEXT
+                image_front TEXT,
+                image_back TEXT, 
+                vida INTEGER NOT NULL
             )
         """);
 
@@ -181,46 +175,21 @@ public class BuildDatabase {
         System.out.println("Base de datos creada correctamente.");
 
         try {
-            // // Insertar Pokémon
-            // String content = Files.readString(Paths.get("../data/pokemons.json"));
-            // JSONArray pokemons = new JSONArray(content);
-            // for (Object o : pokemons) {
-            //     JSONObject p = (JSONObject) o;
-            //     db.update(String.format(
-            //         "INSERT INTO Pokemon (name, type, image_path) VALUES ('%s', '%s', '%s')",
-            //         p.getString("name").replace("'", "''"),
-            //         p.getString("type").replace("'", "''"),
-            //         p.optString("image_path", "").replace("'", "''")
-            //     ));
-            // }
-            // System.out.println("Pokémon insertados correctamente.");
-
-            // Insertar Pokémon Front
-            String content = Files.readString(Paths.get("../data/pokemons_front.json"));
+            // Insertar Pokémons
+            String content = Files.readString(Paths.get("../data/pokemons.json"));
             JSONArray pokemonsFront = new JSONArray(content);
             for (Object o : pokemonsFront) {
                 JSONObject p = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO PokemonFront (name, type, image_path) VALUES ('%s', '%s', '%s')",
+                    "INSERT INTO Pokemon (name, type, image_front, image_back, vida) VALUES ('%s', '%s', '%s', '%s', %d)",
                     p.getString("name").replace("'", "''"),
                     p.getString("type").replace("'", "''"),
-                    p.optString("image_path", "").replace("'", "''")
+                    p.optString("image_front", "").replace("'", "''"),
+                    p.optString("image_back", "").replace("'", "''"),
+                    p.getInt("vida")
                 ));
             }
-            System.out.println("Pokémon Front insertados correctamente.");
-
-            // Insertar Pokémon Back
-            content = Files.readString(Paths.get("../data/pokemons_back.json"));
-            JSONArray pokemonsBack = new JSONArray(content);
-            for (Object o : pokemonsBack) {
-                JSONObject p = (JSONObject) o;
-                db.update(String.format(
-                    "INSERT INTO PokemonBack (image_path) VALUES ('%s')",
-                    p.optString("image_path", "").replace("'", "''")
-                ));
-            }
-            System.out.println("Pokémon Back insertados correctamente.");
-
+            System.out.println("Pokémons insertados correctamente.");
 
             // Insertar Ataques
             content = Files.readString(Paths.get("../data/attacks.json"));
@@ -230,7 +199,7 @@ public class BuildDatabase {
                 db.update(String.format(
                     "INSERT INTO Attack (name, type, damage, stamina_cost) VALUES ('%s', '%s', %d, %d)",
                     a.getString("name").replace("'", "''"),
-                    a.getString("type"),
+                    a.getString("type").replace("'", "''"),
                     a.getInt("damage"),
                     a.getInt("stamina_cost")
                 ));
