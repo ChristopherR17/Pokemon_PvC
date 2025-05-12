@@ -2,6 +2,10 @@ package com.projecte;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -43,29 +47,67 @@ public class ControllerManagement implements Initializable {
     // Índice del Pokémon actual
     private int currentIndex = 0;
 
+    // Listas dinámicas para almacenar los datos de la base de datos
+    /*
+    private final List<String> pokemonNames = new ArrayList<>();
+    private final List<String> pokemonNicknames = new ArrayList<>();
+    private final List<String> pokemonStats = new ArrayList<>();
+    private final List<String> pokemonImages = new ArrayList<>();
+    */
+
     // Datos estáticos de ejemplo
-    private final String[] pokemonNames = {"Pikachu", "Charizard", "Squirtle"};
-    private final String[] pokemonNicknames = {"Sparky", "Flame", "Leafy"};
+    
+    private final String[] pokemonNames = {"Venusaur", "Charizard", "Squirtle"};
+    private final String[] pokemonNicknames = {"Leafy", "Flame", "Droplet"};
     private final String[] pokemonStats = {
         "HP: 100, Attack: 50, Stamina: 75",
         "HP: 150, Attack: 70, Stamina: 85",
         "HP: 80, Attack: 40, Stamina: 60"
     };
+    
     private final String[] pokemonImages = {
-        "/gif/pikachu.gif",
+        "/gif/sprites/front/venusaurFront.gif",
         "/gif/Charizard.gif",
-        "/gif/squirtle.gif"
+        "/gif/sprites/front/blastoiseFront.gif"
     };
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Cargar datos desde la base de datos
+        //loadPokemonData();
+
         // Mostrar el primer Pokémon al inicializar
+        //if (!pokemonNames.isEmpty()) {
+        //    showPokemon(currentIndex);
+        //}
         showPokemon(currentIndex);
 
         // Configurar eventos de los botones
         prevButton.setOnAction(_ -> showPreviousPokemon());
         nextButton.setOnAction(_ -> showNextPokemon());
     }
+
+    /*
+    private void loadPokemonData() {
+        try {
+            AppData db = AppData.getInstance();
+            ArrayList<HashMap<String, Object>> llista = db.query("SELECT name, nickname, max_hp, attack, stamina, image_front FROM PlayerPokemon JOIN Pokemon ON PlayerPokemon.pokemon_id = Pokemon.id");
+
+            for (HashMap<String, Object> row : llista) {
+                pokemonNames.add((String) row.get("name"));
+                pokemonNicknames.add((String) row.get("nickname"));
+                pokemonStats.add(String.format("HP: %d, Attack: %d, Stamina: %d",
+                        (int) row.get("max_hp"), (int) row.get("attack"), (int) row.get("stamina")));
+                        
+                pokemonImages.add((String) row.get("image_front"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar datos de la base de datos: " + e.getMessage());
+        }
+    }
+    */
 
     private void showPokemon(int index) {
         // Actualizar los datos del Pokémon actual
@@ -74,6 +116,15 @@ public class ControllerManagement implements Initializable {
         pokemonStatsLabel.setText("Stats: " + pokemonStats[index]);
         pokemonImageView.setImage(new Image(getClass().getResource(pokemonImages[index]).toExternalForm()));
     }
+    /*
+    private void showPokemon(int index) {
+        // Actualizar los datos del Pokémon actual
+        pokemonNameLabel.setText("Name: " + pokemonNames.get(index));
+        pokemonNicknameLabel.setText("Nickname: " + pokemonNicknames.get(index));
+        pokemonStatsLabel.setText("Stats: " + pokemonStats.get(index));
+        pokemonImageView.setImage(new Image(getClass().getResource(pokemonImages.get(index)).toExternalForm()));
+    }
+    */
 
     private void showPreviousPokemon() {
         if (currentIndex > 0) {

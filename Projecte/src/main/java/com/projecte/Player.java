@@ -1,25 +1,33 @@
 package com.projecte;
 
 public class Player {
-    private String level;
+    private static Player instance;
+
+    private int level;
     private int points;
     private int battlesWon;
     private int consecutiveWins;
     private int pokemonCaught;
+    private int id;
+    private String name;
 
-    public Player(String level, int points, int battlesWon, int consecutiveWins, int pokemonCaught) {
-        this.level = level;
-        this.points = points;
-        this.battlesWon = battlesWon;
-        this.consecutiveWins = consecutiveWins;
-        this.pokemonCaught = pokemonCaught;
+    private Player(){
+        // Constructor vacío
+    }
+
+    // Método estático para obtener la única instancia
+    public static Player getInstance() {
+        if (instance == null) {
+            instance = new Player();
+        }
+        return instance;
     }
 
     // Getters y Setters
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -49,5 +57,24 @@ public class Player {
     }
     public void setPokemonCaught(int pokemonCaught) {
         this.pokemonCaught = pokemonCaught;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //Un metodo para calcular el nivel, teniendo en cuenta que cada nivel son 1000 puntos
+    private void calculateLevel() {
+        this.level = this.points / 1000;
     }
 }

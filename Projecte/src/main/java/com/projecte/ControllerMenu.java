@@ -1,17 +1,20 @@
 package com.projecte;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ControllerMenu implements Initializable {
 
@@ -66,7 +69,20 @@ public class ControllerMenu implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentPlayer = new Player("2", 2345, 15, 3, 5);
+        AppData db = AppData.getInstance();
+        currentPlayer = Player.getInstance();
+
+        String sql = String.format("SELECT * FROM GameStats WHERE id = '%d';", currentPlayer.getId());
+        ArrayList<HashMap<String, Object>> llista = db.query(String.format(sql));
+        if (!llista.isEmpty()) {
+            HashMap<String, Object> playerData = llista.get(0);
+            currentPlayer.setLevel((int) playerData.get("level"));
+            currentPlayer.setPoints((int) playerData.get("total_experience"));
+            currentPlayer.setBattlesWon((int) playerData.get("battles_played"));
+            currentPlayer.setConsecutiveWins((int) playerData.get("max_wins_streak"));
+        } else {
+            System.err.println("No se encontraron datos para el jugador con ID: " + currentPlayer.getId());
+        }
 
         if (fondoMenu != null) {
             fondoMenu.setImage(new javafx.scene.image.Image(getClass().getResource("/img/bg/fondoMenu.png").toExternalForm()));
