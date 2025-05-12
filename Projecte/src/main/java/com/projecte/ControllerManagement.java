@@ -102,9 +102,9 @@ public class ControllerManagement implements Initializable {
             editPokemonButton.setDisable(true); // Desactivar botón si está bloqueado
         }
         // Deshabilitar botones si estamos en el primer o último Pokémon
-    prevButton.setDisable(index == 0); // Si es el primer Pokémon, deshabilitar Prev
-    nextButton.setDisable(index == pokemonNames.size() - 1); // Si es el último Pokémon, deshabilitar Next
-    }
+        prevButton.setDisable(index == 0); // Si es el primer Pokémon, deshabilitar Prev
+        nextButton.setDisable(index == pokemonNames.size() - 1); // Si es el último Pokémon, deshabilitar Next
+        }
 
     
 

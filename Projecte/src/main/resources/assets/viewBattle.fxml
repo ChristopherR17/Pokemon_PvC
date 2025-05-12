@@ -12,7 +12,7 @@
         <!-- Fondo dinámico según mapa elegido -->
         <ImageView fx:id="battleBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="..\img\maps\battleMaps\mapa1.png" />
+                <Image url="@/assets/img/maps/battleMaps/mapa1.png" />
             </image>
          </ImageView>
 
@@ -31,7 +31,7 @@
         </VBox>
 
         <!-- Pokémon del jugador (abajo) -->
-        <VBox layoutX="120.0" layoutY="320.0" spacing="5">
+        <VBox layoutX="51.0" layoutY="229.0" spacing="5">
             <children>
                 <Label fx:id="playerPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Gyarados (Lv. 20)" />
                 <HBox spacing="10">
@@ -41,6 +41,7 @@
                     </children>
                 </HBox>
                 <ImageView fx:id="playerPokemonImage" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" />
+
             </children>
         </VBox>
 
@@ -52,14 +53,41 @@
             </children>
         </HBox>
 
-        <!-- Cuadro de ataques (4 movimientos del Pokémon activo) -->
-        <HBox alignment="CENTER" layoutX="51.0" layoutY="495.0" prefHeight="50.0" prefWidth="438.0" spacing="20">
-            <children>
-                <Label fx:id="attack1" style="-fx-font-size: 18; -fx-text-fill: white;" text="Ataque 1" />
-                <Label fx:id="attack2" style="-fx-font-size: 18; -fx-text-fill: white;" text="Ataque 2" />
-                <Label fx:id="attack3" style="-fx-font-size: 18; -fx-text-fill: white;" text="Ataque 3" />
-                <Label fx:id="attack4" style="-fx-font-size: 18; -fx-text-fill: white;" text="Ataque 4" />
-            </children>
-        </HBox>
+                          <!-- Cuadro de ataques (4 movimientos del Pokémon activo) -->
+        <HBox alignment="CENTER" layoutX="51.0" layoutY="506.0" prefHeight="80.0" prefWidth="500.0" spacing="20">
+          <children>
+              <VBox fx:id="attack1Container" style="-fx-background-color: linear-gradient(to bottom, #ffcc00, #eeaa00); -fx-border-color: #d68c00; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                  <children>
+                      <Label fx:id="attack1Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" />
+                      <Label fx:id="attack1Damage" style="-fx-font-size: 14; -fx-text-fill: black;" />
+                      <Label fx:id="attack1Type" style="-fx-font-size: 14; -fx-text-fill: black;" />
+                  </children>
+              </VBox>
+
+                    <VBox fx:id="attack2Container" style="-fx-background-color: linear-gradient(to bottom, #ff4444, #dd2222); -fx-border-color: #b20000; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                  <children>
+                      <Label fx:id="attack2Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" />
+                      <Label fx:id="attack2Damage" style="-fx-font-size: 14; -fx-text-fill: white;" />
+                      <Label fx:id="attack2Type" style="-fx-font-size: 14; -fx-text-fill: white;" />
+                  </children>
+              </VBox>
+
+                    <VBox fx:id="attack3Container" style="-fx-background-color: linear-gradient(to bottom, #44ccff, #22aadd); -fx-border-color: #0077b3; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                  <children>
+                      <Label fx:id="attack3Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" />
+                      <Label fx:id="attack3Damage" style="-fx-font-size: 14; -fx-text-fill: white;" />
+                      <Label fx:id="attack3Type" style="-fx-font-size: 14; -fx-text-fill: white;" />
+                  </children>
+              </VBox>
+
+                    <VBox fx:id="attack4Container" style="-fx-background-color: linear-gradient(to bottom, #66ff66, #44dd44); -fx-border-color: #229922; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                  <children>
+                      <Label fx:id="attack4Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" />
+                      <Label fx:id="attack4Damage" style="-fx-font-size: 14; -fx-text-fill: black;" />
+                      <Label fx:id="attack4Type" style="-fx-font-size: 14; -fx-text-fill: black;" />
+                  </children>
+              </VBox>
+          </children>
+      </HBox>
     </children>
 </AnchorPane>
