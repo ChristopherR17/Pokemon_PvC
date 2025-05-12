@@ -11,9 +11,10 @@
     <children>
         <!-- Fondo dinámico según mapa elegido -->
         <ImageView fx:id="battleBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="..\img\maps\battleMaps\mapa1.png" />
-         </image></ImageView>
+            <image>
+                <Image url="..\img\maps\battleMaps\mapa1.png" />
+            </image>
+         </ImageView>
 
         <!-- Pokémon enemigo (arriba) -->
         <VBox layoutX="490.0" layoutY="80.0" spacing="5">
