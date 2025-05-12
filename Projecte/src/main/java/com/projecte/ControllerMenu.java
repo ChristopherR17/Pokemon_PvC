@@ -117,7 +117,7 @@ public class ControllerMenu implements Initializable {
     @FXML
     private void handleStartBattle() {
         System.out.println("Boton 'Start New Battle' presionado. Navegando...");
-        navigateTo("viewMaps.fxml");
+        navigateTo("pokemonSelection.fxml");
     }
 
     @FXML
