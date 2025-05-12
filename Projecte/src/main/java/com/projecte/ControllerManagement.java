@@ -50,34 +50,13 @@ public class ControllerManagement implements Initializable {
     private final List<String> pokemonNames = new ArrayList<>();
     private final List<String> pokemonNicknames = new ArrayList<>();
     private final List<String> pokemonStats = new ArrayList<>();
-    private final List<String> pokemonImages = new ArrayList<>();
-
-    // Datos estáticos de ejemplo
-    
-    // private final String[] pokemonNames = {"Venusaur", "Charizard", "Squirtle"};
-    // private final String[] pokemonNicknames = {"Leafy", "Flame", "Droplet"};
-    // private final String[] pokemonStats = {
-    //     "HP: 100, Attack: 50, Stamina: 75",
-    //     "HP: 150, Attack: 70, Stamina: 85",
-    //     "HP: 80, Attack: 40, Stamina: 60"
-    // };
-    
-    // private final String[] pokemonImages = {
-    //     "/gif/sprites/front/venusaurFront.gif",
-    //     "/gif/Charizard.gif",
-    //     "/gif/sprites/front/blastoiseFront.gif"
-    // };
-    
+    private final List<String> pokemonImages = new ArrayList<>();    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Cargar datos desde la base de datos
         loadPokemonData();
 
-        // Mostrar el primer Pokémon al inicializar
-        //if (!pokemonNames.isEmpty()) {
-        //    showPokemon(currentIndex);
-        //}
         showPokemon(currentIndex);
 
         // Configurar eventos de los botones
