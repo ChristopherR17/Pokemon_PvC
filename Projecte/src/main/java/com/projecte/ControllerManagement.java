@@ -132,26 +132,6 @@ public class ControllerManagement implements Initializable {
         }
     }
 
-    // @FXML
-    // private void handleEditPokemon() {
-    //     try {
-    //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml")); // Ajusta la ruta según tu proyecto
-    //         Scene scene = new Scene(loader.load());
-    //         ControllerPokemonSettings controller = loader.getController();
-
-    //         // Pasar el nombre del Pokémon seleccionado al controlador
-    //         String selectedPokemon = pokemonNames.get(currentIndex); // Obtén el nombre del Pokémon actual
-    //         controller.setSelectedPokemon(selectedPokemon);
-
-    //         // Cambiar a la vista de configuración del Pokémon
-    //         Stage stage = (Stage) editPokemonButton.getScene().getWindow();
-    //         stage.setScene(scene);
-    //         stage.show();
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
     @FXML
     private void handleBackButton() {
     System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
