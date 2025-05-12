@@ -1,17 +1,19 @@
 package com.projecte;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Controlador para la selección de Pokémon en la interfaz gráfica.
+ * Permite al jugador seleccionar 3 Pokémon de una lista disponible.
+ */
 public class ControllerPokemonSelection {
 
     @FXML
@@ -28,6 +30,10 @@ public class ControllerPokemonSelection {
     private int currentPokemonIndex = 0;
     private int selectedCount = 0;
 
+    /**
+     * Método de inicialización que se ejecuta al cargar la vista.
+     * Carga la lista de Pokémon disponibles desde la base de datos y actualiza la interfaz.
+     */
     @FXML
     public void initialize() {
         // Lista estática de Pokémon disponibles
@@ -38,17 +44,30 @@ public class ControllerPokemonSelection {
         // availablePokemon.add(new Pokemon("Pikachu", "/img/pikachu.png"));
         // availablePokemon.add(new Pokemon("Dragonite", "/img/dragonite.png"));
 
-        AppData db = new AppData();
-        availablePokemon.addAll(db.getPokemonList());
-        // Inicializar la selección de Pokémon
-        if (!availablePokemon.isEmpty()) {
-            selectedPokemonImage.setImage(new Image(getClass().getResource(availablePokemon.get(currentPokemonIndex).getImagePath()).toExternalForm()));
-            selectedPokemonName.setText(availablePokemon.get(currentPokemonIndex).getName());
-        }
+        // Cargar Pokémon desde la base de datos
+        getPokemonList();
 
         updatePokemonSelection();
     }
 
+    /**
+     * Obtiene la lista de Pokémon disponibles desde la base de datos.
+     * Los datos incluyen el nombre y la ruta de la imagen frontal.
+     */
+    private void getPokemonList() {
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> llista = db.query("SELECT name, image_front FROM Pokemon");
+        for (HashMap<String, Object> row : llista) {
+            String name = (String) row.get("name");
+            String imagePath = (String) row.get("image_front");
+            this.availablePokemon.add(new Pokemon(name, imagePath));
+        }
+        
+    }
+
+    /**
+     * Actualiza la interfaz gráfica para mostrar el Pokémon actualmente seleccionado.
+     */
     private void updatePokemonSelection() {
         Pokemon currentPokemon = availablePokemon.get(currentPokemonIndex);
         selectedPokemonImage.setImage(new Image(getClass().getResource(currentPokemon.getImagePath()).toExternalForm()));
@@ -92,26 +111,26 @@ public class ControllerPokemonSelection {
         }
     }
 
-    @FXML
-    private void handleConfirmSelection() {
-        if (selectedCount == 3) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
-                Scene battleScene = new Scene(loader.load());
-                ControllerBattle controllerBattle = loader.getController();
+    // @FXML
+    // private void handleConfirmSelection() {
+    //     if (selectedCount == 3) {
+    //         try {
+    //             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
+    //             Scene battleScene = new Scene(loader.load());
+    //             ControllerBattle controllerBattle = loader.getController();
 
-                // Pasar los Pokémon seleccionados a la batalla
-                controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
+    //             // Pasar los Pokémon seleccionados a la batalla
+    //             controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
 
-                Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
-                stage.setScene(battleScene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Error al cargar battleView.fxml");
-            }
-        } else {
-            System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
-        }
-    }
+    //             Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
+    //             stage.setScene(battleScene);
+    //             stage.show();
+    //         } catch (IOException e) {
+    //             e.printStackTrace();
+    //             System.err.println("Error al cargar battleView.fxml");
+    //         }
+    //     } else {
+    //         System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
+    //     }
+    // }
 }
