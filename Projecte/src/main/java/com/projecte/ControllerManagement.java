@@ -96,7 +96,6 @@ public class ControllerManagement implements Initializable {
             pokemonNameLabel.setStyle("-fx-text-fill: #cc0000; -fx-font-weight: bold;"); // Rojo si bloqueado
         }
     }
-    
 
     private void showPreviousPokemon() {
         if (currentIndex > 0) {
@@ -114,19 +113,44 @@ public class ControllerManagement implements Initializable {
     
     @FXML
     private void handleEditPokemon() {
-    System.out.println("Botón 'Edit Pokémon' presionado. Navegando a ViewPokemonSettings...");
-    // Aquí se puede implementar la navegación. Por ejemplo:
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml"));
-        Scene newScene = new Scene(loader.load());
-        Stage stage = (Stage) editPokemonButton.getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.err.println("Error al cargar viewPokemonSettings.fxml: " + e.getMessage());
+        System.out.println("Botón 'Edit Pokémon' presionado. Navegando a ViewPokemonSettings...");
+        // Aquí se puede implementar la navegación. Por ejemplo:
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml"));
+            Scene newScene = new Scene(loader.load());
+// Pasar el Pokémon seleccionado al controlador
+            ControllerPokemonSettings controller = loader.getController();
+            controller.setSelectedPokemon(pokemonNames.get(currentIndex));
+            controller.setPokemonImage(pokemonImages.get(currentIndex));
+
+            Stage stage = (Stage) editPokemonButton.getScene().getWindow();
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar viewPokemonSettings.fxml: " + e.getMessage());
+        }
     }
-    }
+
+    // @FXML
+    // private void handleEditPokemon() {
+    //     try {
+    //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml")); // Ajusta la ruta según tu proyecto
+    //         Scene scene = new Scene(loader.load());
+    //         ControllerPokemonSettings controller = loader.getController();
+
+    //         // Pasar el nombre del Pokémon seleccionado al controlador
+    //         String selectedPokemon = pokemonNames.get(currentIndex); // Obtén el nombre del Pokémon actual
+    //         controller.setSelectedPokemon(selectedPokemon);
+
+    //         // Cambiar a la vista de configuración del Pokémon
+    //         Stage stage = (Stage) editPokemonButton.getScene().getWindow();
+    //         stage.setScene(scene);
+    //         stage.show();
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     @FXML
     private void handleBackButton() {

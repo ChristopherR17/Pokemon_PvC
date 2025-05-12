@@ -1,19 +1,18 @@
 package com.projecte;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ControllerPokemonSettings implements Initializable {
 
@@ -37,6 +36,8 @@ public class ControllerPokemonSettings implements Initializable {
     private Label bottleCapAvailable; // Define the bottleCapAvailable label
     private int bottleCapCount = 0; // Initialize bottleCapCount
 
+    private String selectedPokemonName; // Almacena el nombre del Pokémon seleccionado
+
     public void initialize(URL location, ResourceBundle resources) {
         // Configurar el nombre y la imagen del Pokémon
         labelPokemonName.setText(pokemonName);
@@ -49,6 +50,17 @@ public class ControllerPokemonSettings implements Initializable {
     private void updateItemAvailability() {
         xDefenseAvailable.setText("Available: " + xDefenseCount);
         bottleCapAvailable.setText("Available: " + bottleCapCount);
+    }
+
+    public void setSelectedPokemon(String pokemonName) {
+        this.selectedPokemonName = pokemonName;
+        this.pokemonName = pokemonName; // Actualiza el nombre del Pokémon
+        labelPokemonName.setText(pokemonName); // Actualiza la etiqueta con el nombre
+        pokemonImageView.setImage(new Image(getClass().getResource("/gif/" + pokemonName.toLowerCase() + ".gif").toExternalForm())); // Actualiza la imagen
+    }
+
+    public void setPokemonImage(String imagePath) {
+        pokemonImageView.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
     }
 
     @FXML
