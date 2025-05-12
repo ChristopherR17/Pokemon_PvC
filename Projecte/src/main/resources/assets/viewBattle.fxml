@@ -11,12 +11,13 @@
     <children>
         <!-- Fondo dinámico según mapa elegido -->
         <ImageView fx:id="battleBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../img/maps/battleMaps/mapa1.png" />
-         </image></ImageView>
+            <image>
+                <Image url="..\img\maps\battleMaps\mapa1.png" />
+            </image>
+         </ImageView>
 
         <!-- Pokémon enemigo (arriba) -->
-        <VBox layoutX="498.0" layoutY="59.0" spacing="5">
+        <VBox layoutX="490.0" layoutY="80.0" spacing="5">
             <children>
                 <Label fx:id="enemyPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Tangela (Lv. 14)" />
                 <HBox spacing="10">
@@ -30,7 +31,7 @@
         </VBox>
 
         <!-- Pokémon del jugador (abajo) -->
-        <VBox layoutX="95.0" layoutY="238.0" spacing="5">
+        <VBox layoutX="120.0" layoutY="320.0" spacing="5">
             <children>
                 <Label fx:id="playerPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Gyarados (Lv. 20)" />
                 <HBox spacing="10">

@@ -45,7 +45,12 @@ public class BuildDatabase {
                 type TEXT NOT NULL,
                 image_front TEXT,
                 image_back TEXT, 
-                vida INTEGER NOT NULL
+                vida INTEGER NOT NULL,
+                nickname TEXT,
+                max_hp INTEGER NOT NULL,
+                attack INTEGER NOT NULL,
+                stamina INTEGER NOT NULL,
+                unlocked BOOLEAN DEFAULT 0
             )
         """);
 
@@ -177,16 +182,22 @@ public class BuildDatabase {
         try {
             // Insertar Pokémons
             String content = Files.readString(Paths.get("../data/pokemons.json"));
-            JSONArray pokemonsFront = new JSONArray(content);
-            for (Object o : pokemonsFront) {
+            JSONArray pokemons = new JSONArray(content);
+            for (Object o : pokemons) {
                 JSONObject p = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO Pokemon (name, type, image_front, image_back, vida) VALUES ('%s', '%s', '%s', '%s', %d)",
+                    "INSERT INTO Pokemon (id, name, type, image_front, image_back, vida, nickname, max_hp, attack, stamina, unlocked) VALUES (%d, '%s', '%s', '%s', '%s', %d, '%s', %d, %d, %d, %b)",
+                    p.getInt("id"),
                     p.getString("name").replace("'", "''"),
                     p.getString("type").replace("'", "''"),
                     p.optString("image_front", "").replace("'", "''"),
                     p.optString("image_back", "").replace("'", "''"),
-                    p.getInt("vida")
+                    p.getInt("vida"),
+                    p.optString("nickname", "").replace("'", "''"), // Escapar comillas simples
+                    p.getInt("max_hp"),
+                    p.getInt("attack"),
+                    p.getInt("stamina"),
+                    p.getBoolean("unlocked")
                 ));
             }
             System.out.println("Pokémons insertados correctamente.");
