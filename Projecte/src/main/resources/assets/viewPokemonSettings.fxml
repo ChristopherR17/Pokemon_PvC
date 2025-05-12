@@ -16,7 +16,7 @@
                 <Image url="@../img/bg/fondoSettings.png" />
             </image>
         </ImageView>
-        <Label layoutX="72.0" layoutY="14.0" style="-fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="Pokémon Settings" />
+        <Label layoutX="130.0" layoutY="15.0" style="-fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="Pokémon Settings" />
         <VBox layoutX="72.0" layoutY="90.0" prefHeight="188.0" prefWidth="466.0" spacing="15" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;">
             <children>
                 <HBox>
@@ -78,6 +78,7 @@
                 </HBox>
             </children>
         </VBox>
+        <Button fx:id="backButton" layoutX="30.0" layoutY="29.0" onAction="#handleBackButton" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill:rgb(0, 0, 0); -fx-background-color: linear-gradient(to bottom, #FFD700, #F2A900); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;" text="← Back" />
         <ImageView fx:id="pokemonImageView" fitHeight="188.0" fitWidth="218.0" layoutX="544.0" layoutY="93.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" />
         <Label fx:id="labelPokemonName" layoutX="592.0" layoutY="25.0" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: #FFCC00; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="Name" />
     </children>
