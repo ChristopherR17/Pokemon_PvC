@@ -90,10 +90,10 @@ public class ControllerPokemonSelection {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
                 Scene battleScene = new Scene(loader.load());
-                ControllerBattle controllerBattle = loader.getController();
+                //ControllerBattle controllerBattle = loader.getController();
 
                 // Pasar los Pokémon seleccionados a la batalla
-                controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
+                //controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
 
                 Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
                 stage.setScene(battleScene);

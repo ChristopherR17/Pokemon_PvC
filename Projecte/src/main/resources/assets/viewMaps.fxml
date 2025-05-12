@@ -14,15 +14,15 @@
         <!-- Fondo de la selección de mapas -->
         <ImageView fx:id="mapsBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../img/mapsBackground.png" />
+                <Image url="@../img/bg/fondoMaps.png" />
             </image>
         </ImageView>
 
         <!-- Título de la selección de mapas -->
-        <Label layoutX="125.0" layoutY="30.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="🌍 Select Battle Map 🌍" />
+        <Label layoutX="125.0" layoutY="34.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 45; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="🌍 Select Battle Map 🌍" />
 
         <!-- ScrollPane con los mapas -->
-        <ScrollPane layoutX="50.0" layoutY="118.0" prefHeight="350.0" prefWidth="710.0" style="-fx-background-color: transparent; -fx-border-color: yellow; -fx-border-width: 3;">
+        <ScrollPane layoutX="50.0" layoutY="130.0" prefHeight="350.0" prefWidth="710.0" style="-fx-background-color: transparent; -fx-border-color: yellow; -fx-border-width: 3;">
             <content>
                 <HBox alignment="CENTER" spacing="20">
                     <children>
@@ -43,11 +43,11 @@
                         <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 15; -fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 15;">
                             <children>
                                 <Label style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;" text="Cave" />
-                                <ImageView fx:id="map2Preview" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../img/maps/choiceMaps/choice2.jpg" />
-                                    </image>
-                                </ImageView>
+                        <ImageView fx:id="map1Preview1" fitHeight="120.0" fitWidth="200.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/maps/choiceMaps/choice2.jpg" />
+                           </image>
+                        </ImageView>
                                 <Button fx:id="selectMap2Button" onAction="#handleSelectMap2" style="-fx-font-size: 18; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="Select" />
                             </children>
                         </VBox>
