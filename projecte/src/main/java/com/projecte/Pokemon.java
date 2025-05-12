@@ -16,4 +16,6 @@ public class Pokemon {
     public String getImagePath() {
         return imagePath;
     }
+
+    
 }
