@@ -64,10 +64,10 @@ public class ControllerMaps {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
             Scene battleScene = new Scene(loader.load());
-            ControllerBattle controllerBattle = loader.getController();
+            //ControllerBattle controllerBattle = loader.getController();
 
             // Enviar el mapa seleccionado a la vista de batalla
-            controllerBattle.setBattleBackground(selectedMapImage);
+            //controllerBattle.setBattleBackground(selectedMapImage);
 
             Stage stage = (Stage) selectMap1Button.getScene().getWindow();
             stage.setScene(battleScene);

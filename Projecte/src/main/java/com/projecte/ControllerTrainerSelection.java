@@ -2,6 +2,8 @@ package com.projecte;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -37,7 +39,7 @@ public class ControllerTrainerSelection implements Initializable {
 
     private int currentTrainerIndex = 0;
     private final String[] trainerNames = {"Ash Ketchum", "Misty", "Brock", "Serena", "Red"};
-    private final String[] trainerImages = {"/img/ash.png", "/img/misty.png", "/img/brock.png", "/img/serena.png", "/img/red.png"};
+    private final String[] trainerImages = {"/img/trainers/ash.png", "/img/trainers/misty.png", "/img/trainers/brock.png", "/img/trainers/serena.png", "/img/trainers/red.png"};
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,12 +80,43 @@ public class ControllerTrainerSelection implements Initializable {
             return;
         }
 
-        //Guardamos el nombre en la base de datos
+
         AppData db = AppData.getInstance();
         db.connect("../data/pokemons.sqlite");   
-        String sql = String.format(
-            "INSERT INTO Player (name) VALUES ('%s');",chosenName
-        );
+
+        Player currentPlayer = Player.getInstance();
+
+        /*
+        Quiero comprovar si el nombre ya existe en la base de datos. 
+        Si existe, recuperamos el nombre y los datos de la imagen, sino lo creamos 
+        */
+        String sql = String.format("SELECT * FROM Player WHERE name = '%s';", chosenName);
+        ArrayList<HashMap<String, Object>> llista = db.query(String.format(sql));
+        if (!llista.isEmpty()) {
+            // El nombre ya existe, así que lo recuperamos
+            HashMap<String, Object> trainerData = llista.get(0);
+            int id = (int) trainerData.get("id");
+            currentPlayer.setId(id);
+            chosenName = (String) trainerData.get("name");
+            currentPlayer.setName(chosenName);
+            chosenImage = (String) trainerData.get("image_path");
+        } else {
+            // El nombre no existe, así que lo creamos
+            sql = String.format(
+                "INSERT INTO Player (name, image_path) VALUES ('%s', '%s');", chosenName, chosenImage
+            );
+            
+            db.update(sql);
+
+            // Después de la inserción, recupera el id generado automáticamente
+            sql = "SELECT last_insert_rowid();";  // Devuelve el id generado automáticamente
+            ArrayList<HashMap<String, Object>> result = db.query(sql);
+            if (!result.isEmpty()) {
+                int newId = (int) result.get(0).get("last_insert_rowid()");
+                currentPlayer.setId(newId); // Establecer el id generado automáticamente
+            }
+        }
+
         db.update(sql);
 
         System.out.println("Trainer selected: " + chosenName);
@@ -115,8 +148,7 @@ public class ControllerTrainerSelection implements Initializable {
 
         try {
 
-            // Carga la siguiente escena (ajusta la ruta si es diferente en tu proyecto)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/gameLobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewStart.fxml"));
             Scene newScene = new Scene(loader.load());
             Stage stage = (Stage) confirmTrainerButton.getScene().getWindow();
             stage.setScene(newScene);
