@@ -31,12 +31,20 @@ public class ControllerPokemonSelection {
     @FXML
     public void initialize() {
         // Lista estática de Pokémon disponibles
-        availablePokemon.add(new Pokemon("Charizard", "/img/charizard.png"));
-        availablePokemon.add(new Pokemon("Blastoise", "/img/blastoise.png"));
-        availablePokemon.add(new Pokemon("Venusaur", "/img/venusaur.png"));
-        availablePokemon.add(new Pokemon("Gengar", "/img/gengar.png"));
-        availablePokemon.add(new Pokemon("Pikachu", "/img/pikachu.png"));
-        availablePokemon.add(new Pokemon("Dragonite", "/img/dragonite.png"));
+        // availablePokemon.add(new Pokemon("Charizard", "/img/charizard.png"));
+        // availablePokemon.add(new Pokemon("Blastoise", "/img/blastoise.png"));
+        // availablePokemon.add(new Pokemon("Venusaur", "/img/venusaur.png"));
+        // availablePokemon.add(new Pokemon("Gengar", "/img/gengar.png"));
+        // availablePokemon.add(new Pokemon("Pikachu", "/img/pikachu.png"));
+        // availablePokemon.add(new Pokemon("Dragonite", "/img/dragonite.png"));
+
+        AppData db = new AppData();
+        availablePokemon.addAll(db.getPokemonList());
+        // Inicializar la selección de Pokémon
+        if (!availablePokemon.isEmpty()) {
+            selectedPokemonImage.setImage(new Image(getClass().getResource(availablePokemon.get(currentPokemonIndex).getImagePath()).toExternalForm()));
+            selectedPokemonName.setText(availablePokemon.get(currentPokemonIndex).getName());
+        }
 
         updatePokemonSelection();
     }
