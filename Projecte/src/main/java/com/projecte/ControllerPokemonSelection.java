@@ -149,19 +149,28 @@ public class ControllerPokemonSelection {
     private void handleConfirmSelection() {
         if (selectedCount == 3) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projecte/assets/viewMaps.fxml"));
+                System.out.println("Intentando cargar la vista de mapas...");
+
+                // Cargar el archivo FXML
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMaps.fxml"));
+                System.out.println("Cargando archivo FXML desde: " + getClass().getResource("/com/projecte/assets/viewMaps.fxml"));
                 Scene battleScene = new Scene(loader.load());
-                ControllerBattle controllerBattle = loader.getController();
 
-                // Pasar los Pokémon seleccionados a la batalla
-                controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
-
+                // Guardar los Pokémon seleccionados en el Stage
                 Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
+                if (stage == null) {
+                    System.err.println("No se pudo obtener el Stage.");
+                    return;
+                }
+                stage.setUserData(selectedPokemon);
+
+                // Cambiar a la nueva escena
                 stage.setScene(battleScene);
                 stage.show();
+                System.out.println("Vista de mapas cargada correctamente.");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println("Error al cargar battleView.fxml");
+                System.err.println("Error al cargar viewMaps.fxml: " + e.getMessage());
             }
         } else {
             System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
