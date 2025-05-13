@@ -149,7 +149,7 @@ public class ControllerPokemonSelection {
     private void handleConfirmSelection() {
         if (selectedCount == 3) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projecte/assets/viewMaps.fxml"));
                 Scene battleScene = new Scene(loader.load());
                 ControllerBattle controllerBattle = loader.getController();
 
