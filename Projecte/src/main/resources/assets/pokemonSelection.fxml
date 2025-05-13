@@ -27,9 +27,9 @@
                     <children>
                         <Button fx:id="prevPokemonButton" onAction="#handlePrevPokemon" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white;                              -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="⬅ Anterior" />
       
-                                    <ImageView fx:id="selectedPokemonImage" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" />
+                        <ImageView fx:id="selectedPokemonImage" fitHeight="200.0" fitWidth="200.0" preserveRatio="false" style="-fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" />
       
-                                    <Button fx:id="nextPokemonButton" onAction="#handleNextPokemon" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white;                              -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="Siguiente ➡" />
+                        <Button fx:id="nextPokemonButton" onAction="#handleNextPokemon" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white;                              -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="Siguiente ➡" />
                     </children>
                 </HBox>
 
