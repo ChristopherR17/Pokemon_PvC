@@ -17,7 +17,7 @@
          </ImageView>
 
         <!-- Pokémon enemigo (arriba) -->
-        <VBox layoutX="490.0" layoutY="80.0" spacing="5">
+        <VBox layoutX="516.0" layoutY="59.0" spacing="5">
             <children>
                 <Label fx:id="enemyPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Tangela (Lv. 14)" />
                 <HBox spacing="10">
