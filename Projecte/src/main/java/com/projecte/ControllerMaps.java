@@ -6,6 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +21,7 @@ public class ControllerMaps {
     @FXML private Label mapNameLabel;
     @FXML private Button prevMapButton, nextMapButton, confirmMapButton;
 
-    private ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Bosque Verde", "Cueva Oscura", "Montaña Roca", "Ciudad Azulona", "Lago Sereno"));
+    private ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Bosque Verde", "Cueva Oscura", "Montaña Roca", "Nieve Azulona", "Gimnasio Elite"));
     private ArrayList<String> mapPaths = new ArrayList<>(Arrays.asList(
         "/img/maps/choiceMaps/choice1.jpg",
         "/img/maps/choiceMaps/choice2.jpg",
@@ -61,5 +67,22 @@ public class ControllerMaps {
     private void handleConfirmMap() {
         String selectedMap = mapNames.get(currentIndex);
         System.out.println("Mapa seleccionado para la batalla: " + selectedMap);
+
+        // Abrir la vista de batalla
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewBattleAtack.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Batalla");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Cerrar la ventana actual si es necesario
+            Stage currentStage = (Stage) confirmMapButton.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
