@@ -99,9 +99,10 @@ public class BuildDatabase {
 
         db.update("""
             CREATE TABLE TypeEffectiveness (
-                attack_type TEXT PRIMARY KEY NOT NULL,
+                attack_type TEXT NOT NULL,
                 target_type TEXT NOT NULL,
-                multiplier REAL NOT NULL
+                multiplier INTEGER NOT NULL,
+                PRIMARY KEY (attack_type, target_type)
             )
         """);
 
@@ -244,26 +245,26 @@ public class BuildDatabase {
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
         
             // Efectividad de tipos
-            // content = Files.readString(Paths.get("../data/type_effectiveness.json"));
-            // JSONArray typeEff = new JSONArray(content);
-            // for (Object o : typeEff) {
-            //     JSONObject te = (JSONObject) o;
+            content = Files.readString(Paths.get("../data/type_effectiveness.json"));
+            JSONArray typeEff = new JSONArray(content);
+            for (Object o : typeEff) {
+                JSONObject te = (JSONObject) o;
 
-            //     // Validar que los datos sean correctos
-            //     if (!te.has("attack_type") || !te.has("target_type") || !te.has("multiplier")) {
-            //         System.err.println("Datos incompletos en type_effectiveness.json: " + te);
-            //         continue; // Salta este objeto y sigue con el siguiente
-            //     }
+                // Validar que los datos sean correctos
+                if (!te.has("attack_type") || !te.has("target_type") || !te.has("multiplier")) {
+                    System.err.println("Datos incompletos en type_effectiveness.json: " + te);
+                    continue; // Salta este objeto y sigue con el siguiente
+                }
 
-            //     // Insertar en la base de datos
-            //     db.update(String.format(
-            //         "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %.1f)",
-            //         te.getString("attack_type").replace("'", "''"),
-            //         te.getString("target_type").replace("'", "''"),
-            //         te.getDouble("multiplier")
-            //     ));
-            // }
-            // System.out.println("Efectividad de tipos insertada correctamente.");
+                // Insertar en la base de datos
+                db.update(String.format(
+                    "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %d)",
+                    te.getString("attack_type").replace("'", "''"),
+                    te.getString("target_type").replace("'", "''"),
+                    te.getInt("multiplier")
+                ));
+            }
+            System.out.println("Efectividad de tipos insertada correctamente.");
         
             // Items
             content = Files.readString(Paths.get("../data/items.json"));
