@@ -101,7 +101,7 @@ public class BuildDatabase {
             CREATE TABLE TypeEffectiveness (
                 attack_type TEXT NOT NULL,
                 target_type TEXT NOT NULL,
-                multiplier INTEGER NOT NULL,
+                multiplier REAL NOT NULL,
                 PRIMARY KEY (attack_type, target_type)
             )
         """);
@@ -244,25 +244,115 @@ public class BuildDatabase {
             }
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
         
-            // Efectividad de tipos
-            content = Files.readString(Paths.get("../data/type_effectiveness.json"));
-            JSONArray typeEff = new JSONArray(content);
-            for (Object o : typeEff) {
-                JSONObject te = (JSONObject) o;
+            String[][] typeEffectiveness = {
+                {"Electric", "Bug", "1.0"},
+                {"Electric", "Dragon", "0.5"},
+                {"Electric", "Fire", "1.0"},
+                {"Electric", "Flying", "2.0"},
+                {"Electric", "Grass", "0.5"},
+                {"Electric", "Ground", "0.0"},
+                {"Electric", "Water", "2.0"},
+            
+                {"Fire", "Fairy", "1.0"},
+                {"Fire", "Fire", "0.5"},
+                {"Fire", "Grass", "2.0"},
+                {"Fire", "Ice", "2.0"},
+                {"Fire", "Rock", "0.5"},
+                {"Fire", "Steel", "2.0"},
+                {"Fire", "Water", "0.5"},
+                {"Fire", "Bug", "2.0"},
+                {"Fire", "Ground", "1.0"},
+            
+                {"Ice", "Bug", "1.0"},
+                {"Ice", "Dragon", "2.0"},
+                {"Ice", "Fairy", "1.0"},
+                {"Ice", "Fire", "0.5"},
+                {"Ice", "Flying", "2.0"},
+                {"Ice", "Grass", "2.0"},
+                {"Ice", "Ground", "2.0"},
+                {"Ice", "Steel", "0.5"},
+                {"Ice", "Water", "0.5"},
+            
+                {"Poison", "Dragon", "1.0"},
+                {"Poison", "Fairy", "2.0"},
+                {"Poison", "Ghost", "0.5"},
+                {"Poison", "Grass", "2.0"},
+                {"Poison", "Ground", "0.5"},
+                {"Poison", "Ice", "1.0"},
+                {"Poison", "Steel", "0.0"},
+            
+                {"Water", "Dragon", "0.5"},
+                {"Water", "Fairy", "1.0"},
+                {"Water", "Flying", "1.0"},
+                {"Water", "Grass", "0.5"},
+                {"Water", "Ground", "2.0"},
+                {"Water", "Ice", "1.0"},
+                {"Water", "Rock", "2.0"},
+                {"Water", "Water", "0.5"},
+                {"Water", "Fire", "2.0"},
+            
+                {"Dragon", "Dragon", "2.0"},
+                {"Dragon", "Steel", "0.5"},
+                {"Dragon", "Fairy", "0.0"},
+            
+                {"Fairy", "Fighting", "2.0"},
+                {"Fairy", "Dragon", "2.0"},
+                {"Fairy", "Dark", "2.0"},
+                {"Fairy", "Fire", "0.5"},
+                {"Fairy", "Poison", "0.5"},
+                {"Fairy", "Steel", "0.5"},
+            
+                {"Flying", "Fighting", "2.0"},
+                {"Flying", "Bug", "2.0"},
+                {"Flying", "Grass", "2.0"},
+                {"Flying", "Electric", "0.5"},
+                {"Flying", "Rock", "0.5"},
+                {"Flying", "Steel", "0.5"},
+            
+                {"Grass", "Water", "2.0"},
+                {"Grass", "Ground", "2.0"},
+                {"Grass", "Rock", "2.0"},
+                {"Grass", "Fire", "0.5"},
+                {"Grass", "Grass", "0.5"},
+                {"Grass", "Poison", "0.5"},
+                {"Grass", "Flying", "0.5"},
+                {"Grass", "Bug", "0.5"},
+                {"Grass", "Dragon", "0.5"},
+                {"Grass", "Steel", "0.5"},
+            
+                {"Ground", "Fire", "2.0"},
+                {"Ground", "Electric", "2.0"},
+                {"Ground", "Poison", "2.0"},
+                {"Ground", "Rock", "2.0"},
+                {"Ground", "Steel", "2.0"},
+                {"Ground", "Grass", "0.5"},
+                {"Ground", "Bug", "0.5"},
+                {"Ground", "Flying", "0.0"},
+            
+                {"Rock", "Fire", "2.0"},
+                {"Rock", "Ice", "2.0"},
+                {"Rock", "Flying", "2.0"},
+                {"Rock", "Bug", "2.0"},
+                {"Rock", "Fighting", "0.5"},
+                {"Rock", "Ground", "0.5"},
+                {"Rock", "Steel", "0.5"},
+            
+                {"Steel", "Ice", "2.0"},
+                {"Steel", "Rock", "2.0"},
+                {"Steel", "Fairy", "2.0"},
+                {"Steel", "Fire", "0.5"},
+                {"Steel", "Water", "0.5"},
+                {"Steel", "Electric", "0.5"},
+                {"Steel", "Steel", "0.5"}
+            };            
 
-                // Validar que los datos sean correctos
-                if (!te.has("attack_type") || !te.has("target_type") || !te.has("multiplier")) {
-                    System.err.println("Datos incompletos en type_effectiveness.json: " + te);
-                    continue; // Salta este objeto y sigue con el siguiente
-                }
+            for (String[] type : typeEffectiveness) {
+                String attackType = type[0];
+                String targetType = type[1];
+                double multiplier = Double.parseDouble(type[2]);
 
-                // Insertar en la base de datos
-                db.update(String.format(
-                    "INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('%s', '%s', %d)",
-                    te.getString("attack_type").replace("'", "''"),
-                    te.getString("target_type").replace("'", "''"),
-                    te.getInt("multiplier")
-                ));
+                db.update("INSERT INTO TypeEffectiveness (attack_type, target_type, multiplier) VALUES ('" 
+                    + attackType + "', '" + targetType + "', " + multiplier + ");");
             }
             System.out.println("Efectividad de tipos insertada correctamente.");
         
