@@ -37,6 +37,8 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
         db.update("DROP TABLE IF EXISTS Player");
         db.update("DROP TABLE IF EXISTS Pokemon");
+        db.update("DROP TABLE IF EXISTS BattleHistory");
+
 
         db.update("""
             CREATE TABLE Pokemon (
@@ -176,6 +178,17 @@ public class BuildDatabase {
                 FOREIGN KEY (item_id) REFERENCES Item(id)
             )
         """);
+
+        db.update("""
+            CREATE TABLE BattleHistory (
+                battle_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                trainer TEXT NOT NULL,
+                map TEXT NOT NULL,
+                result TEXT CHECK (result IN ('Ganado', 'Perdido')) NOT NULL,
+                battle_date DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        """);
+
 
         System.out.println("Base de datos creada correctamente.");
 

@@ -25,11 +25,12 @@
         <VBox alignment="CENTER" layoutX="200.0" layoutY="120.0" spacing="20" style="-fx-background-color: rgba(0, 0, 0, 0.8); -fx-padding: 20; -fx-border-color: #FFCC00; -fx-border-width: 3; -fx-border-radius: 15; -fx-background-radius: 15;">
             <children>
                 <!-- Imagen del Pokémon -->
-                <ImageView fx:id="pokemonImageView" fitHeight="200.0" fitWidth="200.0" preserveRatio="true">
+                <ImageView fx:id="pokemonImageView" fitWidth="150.0" fitHeight="150.0" preserveRatio="false">
                     <effect>
                         <DropShadow color="black" offsetX="4.0" offsetY="4.0" radius="10.0" />
                     </effect>
                 </ImageView>
+
 
                 <!-- Nombre, sobrenombre y estadísticas -->
                 <VBox alignment="CENTER" spacing="10">

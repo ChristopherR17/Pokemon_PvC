@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerBattleHistory">
+    <children>
+        <!-- Tabla para ver historial de batallas -->
+        <TableView fx:id="battleHistoryTable" layoutX="50.0" layoutY="100.0" prefHeight="400.0" prefWidth="700.0">
+            <columns>
+                <TableColumn fx:id="trainerColumn" prefWidth="200.0" text="Entrenador" />
+                <TableColumn fx:id="mapColumn" prefWidth="200.0" text="Mapa" />
+                <TableColumn fx:id="resultColumn" prefWidth="150.0" text="Resultado" />
+            </columns>
+        </TableView>
+
+        <!-- Botón para volver al menú -->
+      <Button fx:id="backButton" layoutX="31.0" layoutY="14.0" onAction="#handleBackButton" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill:rgb(0, 0, 0); -fx-background-color: linear-gradient(to bottom, #FFD700, #F2A900); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;" text="← Back" />
+    </children>
+</AnchorPane>

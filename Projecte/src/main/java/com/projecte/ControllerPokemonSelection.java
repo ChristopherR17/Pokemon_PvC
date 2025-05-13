@@ -9,6 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 /**
  * Controlador para la selección de Pokémon en la interfaz gráfica.
@@ -111,26 +115,26 @@ public class ControllerPokemonSelection {
         }
     }
 
-    // @FXML
-    // private void handleConfirmSelection() {
-    //     if (selectedCount == 3) {
-    //         try {
-    //             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
-    //             Scene battleScene = new Scene(loader.load());
-    //             ControllerBattle controllerBattle = loader.getController();
+    @FXML
+    private void handleConfirmSelection() {
+        if (selectedCount == 3) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
+                Scene battleScene = new Scene(loader.load());
+                ControllerBattle controllerBattle = loader.getController();
 
-    //             // Pasar los Pokémon seleccionados a la batalla
-    //             controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
+                // Pasar los Pokémon seleccionados a la batalla
+                controllerBattle.setPlayerPokemon(selectedPokemon[0], selectedPokemon[1], selectedPokemon[2]);
 
-    //             Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
-    //             stage.setScene(battleScene);
-    //             stage.show();
-    //         } catch (IOException e) {
-    //             e.printStackTrace();
-    //             System.err.println("Error al cargar battleView.fxml");
-    //         }
-    //     } else {
-    //         System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
-    //     }
-    // }
+                Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
+                stage.setScene(battleScene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error al cargar battleView.fxml");
+            }
+        } else {
+            System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
+        }
+    }
 }

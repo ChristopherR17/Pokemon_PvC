@@ -89,13 +89,20 @@ public class ControllerManagement implements Initializable {
         pokemonStatsLabel.setText("Stats: " + pokemonStats.get(index));
         pokemonImageView.setImage(new Image(getClass().getResource(pokemonImages.get(index)).toExternalForm()));
 
-        // Cambia el color del texto según si el Pokémon está desbloqueado o bloqueado
+        // Cambia el color del nombre del Pokémon según si está desbloqueado o no
         if (pokemonUnlocked.get(index)) {
             pokemonNameLabel.setStyle("-fx-text-fill: #00cc44; -fx-font-weight: bold;"); // Verde si desbloqueado
+            editPokemonButton.setDisable(false); // Activar botón si está desbloqueado
         } else {
             pokemonNameLabel.setStyle("-fx-text-fill: #cc0000; -fx-font-weight: bold;"); // Rojo si bloqueado
+            editPokemonButton.setDisable(true); // Desactivar botón si está bloqueado
         }
-    }
+        // Deshabilitar botones si estamos en el primer o último Pokémon
+        prevButton.setDisable(index == 0); // Si es el primer Pokémon, deshabilitar Prev
+        nextButton.setDisable(index == pokemonNames.size() - 1); // Si es el último Pokémon, deshabilitar Next
+        }
+
+    
 
     private void showPreviousPokemon() {
         if (currentIndex > 0) {
