@@ -102,6 +102,11 @@ public class ControllerBattle {
         this.playerPokemon = new Pokemon[] { pokemon1, pokemon2, pokemon3 };
     }
 
+    public void setBattleBackground(String backgroundImagePath) {
+        // Logic to set the background image, e.g., updating an ImageView
+        System.out.println("Background set to: " + backgroundImagePath);
+    }
+
     private void updateBattleStatus() {
         playerHPLabel.setText("PS: " + playerHP + "/100");
         opponentHPLabel.setText("PS: " + opponentHP + "/100");

@@ -1,80 +1,65 @@
 package com.projecte;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ControllerMaps {
 
-    @FXML
-    private ImageView map1Preview, map2Preview, map3Preview, map4Preview, map5Preview;
+    @FXML private ImageView mapImageView;
+    @FXML private Label mapNameLabel;
+    @FXML private Button prevMapButton, nextMapButton, confirmMapButton;
 
-    @FXML
-    private Button selectMap1Button, selectMap2Button, selectMap3Button, selectMap4Button, selectMap5Button;
-
-    private static String selectedMapImage = "";
+    private ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Bosque Verde", "Cueva Oscura", "Montaña Roca", "Ciudad Azulona", "Lago Sereno"));
+    private ArrayList<String> mapPaths = new ArrayList<>(Arrays.asList(
+        "/img/maps/choiceMaps/choice1.jpg",
+        "/img/maps/choiceMaps/choice2.jpg",
+        "/img/maps/choiceMaps/choice3.jpg",
+        "/img/maps/choiceMaps/choice4.jpg",
+        "/img/maps/choiceMaps/choice5.jpg"
+    ));
+    
+    private int currentIndex = 0;
 
     @FXML
     public void initialize() {
-        // Configurar imágenes de los mapas
-        map1Preview.setImage(new Image(getClass().getResource("/img/mapVolcano.png").toExternalForm()));
-        map2Preview.setImage(new Image(getClass().getResource("/img/mapForest.png").toExternalForm()));
-        map3Preview.setImage(new Image(getClass().getResource("/img/mapGlacier.png").toExternalForm()));
-        map4Preview.setImage(new Image(getClass().getResource("/img/mapDesert.png").toExternalForm()));
-        map5Preview.setImage(new Image(getClass().getResource("/img/mapOcean.png").toExternalForm()));
+        updateMapView(currentIndex);
+    }
+
+    private void updateMapView(int index) {
+        mapNameLabel.setText(mapNames.get(index));
+
+        String imagePath = mapPaths.get(index);
+        mapImageView.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
+
+        prevMapButton.setDisable(index == 0);
+        nextMapButton.setDisable(index == mapNames.size() - 1);
     }
 
     @FXML
-    private void handleSelectMap1() {
-        selectedMapImage = "/img/maps/choiceMaps/choice1.jpg";
-        loadBattleView();
-    }
-
-    @FXML
-    private void handleSelectMap2() {
-        selectedMapImage = "/img/maps/choiceMaps/choice2.jpg";
-        loadBattleView();
-    }
-
-    @FXML
-    private void handleSelectMap3() {
-        selectedMapImage = "/img/maps/choiceMaps/choice3.jpg";
-        loadBattleView();
-    }
-
-    @FXML
-    private void handleSelectMap4() {
-        selectedMapImage = "/img/maps/choiceMaps/choice4.jpg";
-        loadBattleView();
-    }
-
-    @FXML
-    private void handleSelectMap5() {
-        selectedMapImage = "/img/maps/choiceMaps/choice5.jpg";
-        loadBattleView();
-    }
-
-    private void loadBattleView() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/battleView.fxml"));
-            Scene battleScene = new Scene(loader.load());
-            //ControllerBattle controllerBattle = loader.getController();
-
-            // Enviar el mapa seleccionado a la vista de batalla
-            //controllerBattle.setBattleBackground(selectedMapImage);
-
-            Stage stage = (Stage) selectMap1Button.getScene().getWindow();
-            stage.setScene(battleScene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al cargar battleView.fxml");
+    private void handleNextMap() {
+        if (currentIndex < mapNames.size() - 1) {
+            currentIndex++;
+            updateMapView(currentIndex);
         }
+    }
+
+    @FXML
+    private void handlePrevMap() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateMapView(currentIndex);
+        }
+    }
+
+    @FXML
+    private void handleConfirmMap() {
+        String selectedMap = mapNames.get(currentIndex);
+        System.out.println("Mapa seleccionado para la batalla: " + selectedMap);
     }
 }
