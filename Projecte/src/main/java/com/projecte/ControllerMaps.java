@@ -70,7 +70,7 @@ public class ControllerMaps {
 
         // Abrir la vista de batalla
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewBattleAtack.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewBattleAtack.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
