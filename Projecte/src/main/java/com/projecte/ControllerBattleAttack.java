@@ -1,121 +1,275 @@
 package com.projecte;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
-public class ControllerBattleAttack {
+public class ControllerBattleAttack implements Initializable {
 
-    @FXML private Label playerPokemonName, playerPokemonHealth, opponentHealth;
-    @FXML private Button attackButton1, attackButton2, attackButton3, attackButton4;
-
-    private HashMap<String, Object> playerPokemon;
-    private HashMap<String, Object> opponentPokemon;
-    private int playerHealth, opponentHealthPoints;
-    private int currentPokemonIndex = 0;
-    private ArrayList<HashMap<String, Object>> playerTeam;
-
+    // Fondo de batalla
+    @FXML private ImageView battleBackground;
+    
+    // Información del Pokémon enemigo
+    @FXML private Label enemyPokemonName;
+    @FXML private ImageView enemyHealthBar;    // Barra de vida (se actualizará dinámicamente)
+    @FXML private ImageView enemyStaminaBar;   // Barra de estamina (puedes implementar la actualización)
+    @FXML private ImageView enemyPokemonImage;
+    
+    // Información del Pokémon del jugador
+    @FXML private Label playerPokemonName;
+    @FXML private ImageView playerHealthBar;     // Barra de vida
+    @FXML private ImageView playerStaminaBar;    // Barra de estamina
+    @FXML private ImageView playerPokemonImage;
+    
+    // Pokémon de reserva
+    @FXML private ImageView backupPokemon1;
+    @FXML private ImageView backupPokemon2;
+    
+    // Detalles de los ataques (contenedores y labels)
+    @FXML private VBox attack1Container;
+    @FXML private Label attack1Name;
+    @FXML private Label attack1Damage;
+    @FXML private Label attack1Type;
+    
+    @FXML private VBox attack2Container;
+    @FXML private Label attack2Name;
+    @FXML private Label attack2Damage;
+    @FXML private Label attack2Type;
+    
+    @FXML private VBox attack3Container;
+    @FXML private Label attack3Name;
+    @FXML private Label attack3Damage;
+    @FXML private Label attack3Type;
+    
+    @FXML private VBox attack4Container;
+    @FXML private Label attack4Name;
+    @FXML private Label attack4Damage;
+    @FXML private Label attack4Type;
+    
+    // Datos de la batalla que se pasan desde la vista anterior.
     private String battleMap;
-
-    @FXML
-    public void initialize() {
-        loadBattleData();
+    private ArrayList<HashMap<String, Object>> playerTeam;
+    private HashMap<String, Object> activePokemon;
+    private HashMap<String, Object> enemyPokemon;
+    
+    // Variables para controlar la salud actual y máxima
+    private int playerCurrentHP;
+    private int enemyCurrentHP;
+    private int playerMaxHP;
+    private int enemyMaxHP;
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Inicializaciones adicionales (si fueran necesarias)
     }
-
+    
+    /**
+     * Establece el mapa de batalla y carga el fondo correspondiente.
+     * Se verifica que la imagen se encuentre en el classpath para evitar NullPointerException.
+     */
     public void setBattleMap(String map) {
         this.battleMap = map;
-    }
-
-    private void loadBattleData() {
-        try {
-            AppData db = AppData.getInstance();
-
-            // Obtener equipo del jugador
-            playerTeam = db.query("SELECT * FROM Pokemon WHERE trainer = 'Jugador'");
-            if (!playerTeam.isEmpty()) {
-                playerPokemon = playerTeam.get(currentPokemonIndex);
-                playerHealth = Integer.parseInt(playerPokemon.get("health").toString());
-            }
-
-            // Obtener oponente
-            opponentPokemon = db.query("SELECT * FROM Pokemon WHERE trainer = 'Oponente'").get(0);
-            opponentHealthPoints = Integer.parseInt(opponentPokemon.get("health").toString());
-
-            updateBattleUI();
-        } catch (Exception e) {
-            e.printStackTrace();
+        String imagePath = "";
+        if(map.equals("Bosque Verde")) {
+            imagePath = "/img/maps/battleMaps/map1.jpg";
+        } else if(map.equals("Cueva Oscura")) {
+            imagePath = "/img/maps/battleMaps/map2.jpg";
+        } else if(map.equals("Montaña Roca")) {
+            imagePath = "/img/maps/battleMaps/map3.jpg";
+        } else if(map.equals("Nieve Azulona")) {
+            imagePath = "/img/maps/battleMaps/map4.jpg";
+        } else if(map.equals("Gimnasio Elite")) {
+            imagePath = "/img/maps/battleMaps/map5.jpg";
         }
-    }
-
-    private void updateBattleUI() {
-        playerPokemonName.setText(playerPokemon.get("name").toString());
-        playerPokemonHealth.setText("PS: " + playerHealth);
-        opponentHealth.setText("PS: " + opponentHealthPoints);
-    }
-
-    @FXML
-    private void handleAttack(int attackIndex) {
-        try {
-            int attackDamage = Integer.parseInt(playerPokemon.get("attack" + attackIndex).toString());
-            int opponentSpeed = Integer.parseInt(opponentPokemon.get("speed").toString());
-            int playerSpeed = Integer.parseInt(playerPokemon.get("speed").toString());
-
-            // Determinar quién ataca primero
-            if (playerSpeed >= opponentSpeed) {
-                opponentHealthPoints -= attackDamage;
-                if (opponentHealthPoints <= 0) {
-                    handleVictory();
-                } else {
-                    opponentCounterAttack();
-                }
-            } else {
-                opponentCounterAttack();
-                if (playerHealth <= 0) {
-                    handlePokemonFaint();
-                } else {
-                    opponentHealthPoints -= attackDamage;
-                    if (opponentHealthPoints <= 0) handleVictory();
-                }
-            }
-
-            updateBattleUI();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void opponentCounterAttack() {
-        int attackDamage = Integer.parseInt(opponentPokemon.get("attack1").toString());
-        playerHealth -= attackDamage;
-        if (playerHealth <= 0) {
-            handlePokemonFaint();
-        }
-    }
-
-    private void handlePokemonFaint() {
-        System.out.println(playerPokemon.get("name") + " ha caído!");
-
-        currentPokemonIndex++;
-        if (currentPokemonIndex < playerTeam.size()) {
-            playerPokemon = playerTeam.get(currentPokemonIndex);
-            playerHealth = Integer.parseInt(playerPokemon.get("health").toString());
-            updateBattleUI();
+        // Agrega más condiciones según tus mapas disponibles
+      
+        URL bgUrl = getClass().getResource(imagePath);
+        if(bgUrl != null) {
+            battleBackground.setImage(new Image(bgUrl.toExternalForm()));
         } else {
-            handleDefeat();
+            System.err.println("No se encontró la imagen de fondo: " + imagePath);
         }
     }
-
-    private void handleVictory() {
-        System.out.println("¡Has ganado la batalla!");
-        AppData db = AppData.getInstance();
-        db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', 'Bosque Verde', 'Ganado')");
+    
+    /**
+     * Establece el equipo del jugador y carga las imágenes de los Pokémon de reserva
+     * utilizando el campo "image_back".
+     */
+    public void setPlayerTeam(ArrayList<HashMap<String, Object>> team) {
+        this.playerTeam = team;
+        // Actualiza reserva 1
+        if(team.size() > 1) {
+            HashMap<String, Object> backup1Data = team.get(1);
+            String backupPath = backup1Data.get("image_back").toString();
+            URL backupUrl = getClass().getResource(backupPath);
+            if(backupUrl != null) {
+                backupPokemon1.setImage(new Image(backupUrl.toExternalForm()));
+            } else {
+                System.err.println("No se encontró la imagen de backup: " + backupPath);
+            }
+        }
+        // Actualiza reserva 2
+        if(team.size() > 2) {
+            HashMap<String, Object> backup2Data = team.get(2);
+            String backupPath = backup2Data.get("image_back").toString();
+            URL backupUrl = getClass().getResource(backupPath);
+            if(backupUrl != null) {
+                backupPokemon2.setImage(new Image(backupUrl.toExternalForm()));
+            } else {
+                System.err.println("No se encontró la imagen de backup: " + backupPath);
+            }
+        }
     }
-
-    private void handleDefeat() {
-        System.out.println("¡Has perdido la batalla!");
-        AppData db = AppData.getInstance();
-        db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', 'Bosque Verde', 'Perdido')");
+    
+    /**
+     * Establece el Pokémon activo del jugador actualizando su información:
+     * nombre, imagen (usando "image_back"), y salud.
+     * Además, se actualizan los detalles de los ataques de ejemplo.
+     */
+    public void setActivePokemon(HashMap<String, Object> pokemon) {
+        this.activePokemon = pokemon;
+        playerPokemonName.setText(pokemon.get("name").toString());
+        String backPath = pokemon.get("image_back").toString();
+        URL backUrl = getClass().getResource(backPath);
+        if(backUrl != null) {
+            playerPokemonImage.setImage(new Image(backUrl.toExternalForm()));
+        } else {
+            System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
+        }
+        playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
+        playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
+        updatePlayerHealthBar();
+        
+        updateAttackDetails();
+    }
+    
+    /**
+     * Establece el Pokémon enemigo, actualizando su información:
+     * nombre, imagen (usando "image_front") y salud.
+     */
+    public void setEnemyPokemon(HashMap<String, Object> pokemon) {
+        this.enemyPokemon = pokemon;
+        enemyPokemonName.setText(pokemon.get("name").toString());
+        String frontPath = pokemon.get("image_front").toString();
+        URL frontUrl = getClass().getResource(frontPath);
+        if(frontUrl != null) {
+            enemyPokemonImage.setImage(new Image(frontUrl.toExternalForm()));
+        } else {
+            System.err.println("No se encontró la imagen del Pokémon enemigo (front): " + frontPath);
+        }
+        enemyCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
+        enemyMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
+        updateEnemyHealthBar();
+    }
+    
+    /**
+     * Actualiza los detalles de los ataques del Pokémon activo.
+     * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
+     */
+    public void updateAttackDetails() {
+        if(activePokemon != null) {
+            int baseAttack = Integer.parseInt(activePokemon.get("attack").toString());
+            String pokeType = activePokemon.get("type").toString();
+            
+            attack1Name.setText("Flamethrower");
+            attack1Damage.setText("Daño: " + baseAttack);
+            attack1Type.setText("Tipo: " + pokeType);
+            
+            attack2Name.setText("Fire Spin");
+            attack2Damage.setText("Daño: " + (baseAttack - 10));
+            attack2Type.setText("Tipo: " + pokeType);
+            
+            attack3Name.setText("Scratch");
+            attack3Damage.setText("Daño: 30");
+            attack3Type.setText("Tipo: Normal");
+            
+            attack4Name.setText("Fire Blast");
+            attack4Damage.setText("Daño: " + (baseAttack + 10));
+            attack4Type.setText("Tipo: " + pokeType);
+        }
+    }
+    
+    /**
+     * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño
+     * sobre el Pokémon enemigo y, si aún no ha sido derrotado, provoca un contraataque.
+     */
+    public void handleAttackSelection(int attackIndex) {
+        int damage = 0;
+        try {
+            switch (attackIndex) {
+                case 1:
+                    damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
+                    break;
+                case 2:
+                    damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
+                    break;
+                case 3:
+                    damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
+                    break;
+                case 4:
+                    damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
+                    break;
+                default:
+                    System.out.println("Ataque inválido");
+                    return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
+        enemyCurrentHP -= damage;
+        if (enemyCurrentHP < 0) enemyCurrentHP = 0;
+        updateEnemyHealthBar();
+        System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
+        
+        if (enemyCurrentHP <= 0) {
+            System.out.println("¡El enemigo ha sido derrotado!");
+            // Aquí puedes desencadenar la transición a la vista de resultados, 
+            // e insertar el resultado en la base de datos usando un valor permitido ("Ganado" o "Perdido").
+        } else {
+            enemyCounterAttack();
+        }
+    }
+    
+    /**
+     * Simula el contraataque del enemigo aplicando un daño fijo al Pokémon del jugador.
+     */
+    private void enemyCounterAttack() {
+        int enemyAtk = 30; // Danho fijo de ejemplo; puede basarse en enemyPokemon.get("attack")
+        playerCurrentHP -= enemyAtk;
+        if (playerCurrentHP < 0) playerCurrentHP = 0;
+        updatePlayerHealthBar();
+        System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
+        if (playerCurrentHP <= 0) {
+            System.out.println("¡Tu Pokémon ha sido derrotado!");
+            // Aquí se maneja el fin de la batalla o el cambio a otro Pokémon.
+        }
+    }
+    
+    /**
+     * Actualiza la visualización de la barra de vida del jugador 
+     * ajustando el ancho proporcionalmente a un ancho base de 120.
+     */
+    private void updatePlayerHealthBar() {
+        double porcentaje = (double) playerCurrentHP / playerMaxHP;
+        playerHealthBar.setFitWidth(120 * porcentaje);
+    }
+    
+    /**
+     * Actualiza la visualización de la barra de vida del enemigo de forma similar.
+     */
+    private void updateEnemyHealthBar() {
+        double porcentaje = (double) enemyCurrentHP / enemyMaxHP;
+        enemyHealthBar.setFitWidth(120 * porcentaje);
     }
 }
