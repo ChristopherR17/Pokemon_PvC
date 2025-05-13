@@ -10,8 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControllerPokemonSettings implements Initializable {
@@ -21,6 +23,9 @@ public class ControllerPokemonSettings implements Initializable {
 
     @FXML
     private Label labelPokemonName;
+
+    @FXML
+    private TextField nicknameField;
 
     @FXML
     private Button backButton;
@@ -63,9 +68,17 @@ public class ControllerPokemonSettings implements Initializable {
         bottleCapAvailable.setText("Available: " + bottleCapCount);
     }
 
-    public void setSelectedPokemon(String pokemonName, String pokemonImage) {
-        this.selectedPokemonName = pokemonName;
-        this.selectedPokemonImage = pokemonImage;
+    @FXML
+    private void handleNicknameChange() {
+        String newNickname = nicknameField.getText();
+        if (!newNickname.isEmpty()) {
+            // Aquí puedes agregar la lógica para guardar el nuevo apodo en la base de datos
+            System.out.println("Nuevo apodo guardado: " + newNickname);
+            AppData db = AppData.getInstance();
+            db.update(String.format("UPDATE Pokemon SET nickname = '%s' WHERE name = '%s'", newNickname, selectedPokemonName));
+        } else {
+            System.out.println("El campo de apodo está vacío.");
+        }
     }
 
     @FXML
