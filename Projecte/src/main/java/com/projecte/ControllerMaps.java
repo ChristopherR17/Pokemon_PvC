@@ -65,24 +65,31 @@ public class ControllerMaps {
 
     @FXML
     private void handleConfirmMap() {
-        String selectedMap = mapNames.get(currentIndex);
-        System.out.println("Mapa seleccionado para la batalla: " + selectedMap);
-
-        // Abrir la vista de batalla
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewBattleAtack.fxml"));
-            Parent root = loader.load();
+            String selectedMap = mapNames.get(currentIndex);
+            System.out.println("Mapa seleccionado para la batalla: " + selectedMap);
 
-            Stage stage = new Stage();
-            stage.setTitle("Batalla");
-            stage.setScene(new Scene(root));
+            // Guardar el mapa en la base de datos (opcional)
+            AppData db = AppData.getInstance();
+            db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', '" + selectedMap + "', 'En progreso')");
+
+            // Cargar la vista de batalla
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewBattleAttack.fxml"));
+            Parent battleView = loader.load();
+
+            // Pasar datos al controlador de batalla
+            ControllerBattleAttack battleController = loader.getController();
+            battleController.setBattleMap(selectedMap);
+
+
+            Stage stage = (Stage) confirmMapButton.getScene().getWindow();
+            stage.setScene(new Scene(battleView));
             stage.show();
 
-            // Cerrar la ventana actual si es necesario
-            Stage currentStage = (Stage) confirmMapButton.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Error al cargar la batalla: " + e.getMessage());
         }
     }
+
 }

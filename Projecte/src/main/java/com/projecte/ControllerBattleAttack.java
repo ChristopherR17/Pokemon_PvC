@@ -1,167 +1,121 @@
 package com.projecte;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class ControllerBattleAttack {
 
-    private Pokemon[] playerPokemon;
+    @FXML private Label playerPokemonName, playerPokemonHealth, opponentHealth;
+    @FXML private Button attackButton1, attackButton2, attackButton3, attackButton4;
 
-    @FXML
-    private Label trainerLabel;
-    @FXML
-    private Label mapLabel;
-    @FXML
-    private Label pokemonNameLabel;
-    @FXML
-    private Label pokemonLevelLabel;
-    @FXML
-    private Label playerHPLabel;
-    @FXML
-    private Label opponentHPLabel;
-    @FXML
-    private ImageView playerPokemonImageView;
-    @FXML
-    private ImageView opponentPokemonImageView;
-    @FXML private Label attack1Name, attack1Damage, attack1Type;
-    @FXML private Button attack1Button, attack2Button, attack3Button, attack4Button;
-    @FXML private Label attack2Name, attack2Damage, attack2Type;
-    @FXML private Label attack3Name, attack3Damage, attack3Type;
-    @FXML private Label attack4Name, attack4Damage, attack4Type;
+    private HashMap<String, Object> playerPokemon;
+    private HashMap<String, Object> opponentPokemon;
+    private int playerHealth, opponentHealthPoints;
+    private int currentPokemonIndex = 0;
+    private ArrayList<HashMap<String, Object>> playerTeam;
 
-
-
-    private String trainer = "Ash";
-    private String map = "Bosque Verde";
-    private int playerHP = 100;
-    private int opponentHP = 100;
-    private Random random = new Random();
+    private String battleMap;
 
     @FXML
     public void initialize() {
-        attack1Button.setText("Ataque 1");
-        attack2Button.setText("Ataque 2");
-        attack3Button.setText("Ataque 3");
-        attack4Button.setText("Ataque 4");
         loadBattleData();
-        updateBattleStatus();
+    }
+
+    public void setBattleMap(String map) {
+        this.battleMap = map;
     }
 
     private void loadBattleData() {
-        trainerLabel.setText("Entrenador: " + trainer);
-        mapLabel.setText("Mapa: " + map);
-        
-        pokemonNameLabel.setText("Tangela");
-        pokemonLevelLabel.setText("Lv. 14");
-
-        playerHPLabel.setText("PS: " + playerHP + "/100");
-        opponentHPLabel.setText("PS: " + opponentHP + "/100");
-
-        playerPokemonImageView.setImage(new Image(getClass().getResource("/img/pokemon/Tangela.png").toExternalForm()));
-        opponentPokemonImageView.setImage(new Image(getClass().getResource("/img/pokemon/Vulpix.png").toExternalForm()));
-    }
-
-    private void loadAttacksFromDatabase(String pokemonName) {
-            try {
-                AppData db = AppData.getInstance();
-                ArrayList<HashMap<String, Object>> attackData = db.query("SELECT name, damage, type FROM Attacks WHERE pokemon = '" + pokemonName + "'");
-
-                // Cargar datos dinámicamente en los Labels
-                attack1Name.setText(attackData.get(0).get("name").toString());
-                attack1Damage.setText("Daño: " + attackData.get(0).get("damage").toString());
-                attack1Type.setText("Tipo: " + attackData.get(0).get("type").toString());
-
-                attack2Name.setText(attackData.get(1).get("name").toString());
-                attack2Damage.setText("Daño: " + attackData.get(1).get("damage").toString());
-                attack2Type.setText("Tipo: " + attackData.get(1).get("type").toString());
-
-                attack3Name.setText(attackData.get(2).get("name").toString());
-                attack3Damage.setText("Daño: " + attackData.get(2).get("damage").toString());
-                attack3Type.setText("Tipo: " + attackData.get(2).get("type").toString());
-
-                attack4Name.setText(attackData.get(3).get("name").toString());
-                attack4Damage.setText("Daño: " + attackData.get(3).get("damage").toString());
-                attack4Type.setText("Tipo: " + attackData.get(3).get("type").toString());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Error al cargar ataques desde la base de datos: " + e.getMessage());
-            }
-        }
-
-    public void setPlayerPokemon(Pokemon pokemon1, Pokemon pokemon2, Pokemon pokemon3) {
-        // Store the selected Pokémon for the battle
-        this.playerPokemon = new Pokemon[] { pokemon1, pokemon2, pokemon3 };
-    }
-
-    public void setBattleBackground(String backgroundImagePath) {
-        // Logic to set the background image, e.g., updating an ImageView
-        System.out.println("Background set to: " + backgroundImagePath);
-    }
-
-    private void updateBattleStatus() {
-        playerHPLabel.setText("PS: " + playerHP + "/100");
-        opponentHPLabel.setText("PS: " + opponentHP + "/100");
-    }
-
-    @FXML
-    private void handleAttack1() {
-        processAttack(15, "Ataque rápido!");
-    }
-
-    @FXML
-    private void handleAttack2() {
-        processAttack(10, "Placaje!");
-    }
-
-    @FXML
-    private void handleAttack3() {
-        processAttack(20, "Latigazo!");
-    }
-
-    @FXML
-    private void handleAttack4() {
-        processAttack(25, "Rayo solar!");
-    }
-
-    private void processAttack(int damage, String attackName) {
-        opponentHP -= damage;
-
-        if (opponentHP <= 0) {
-            opponentHPLabel.setText("¡Has ganado la batalla!");
-            saveBattleResult("Ganado");
-        } else {
-            enemyTurn();
-        }
-    }
-
-    private void enemyTurn() {
-        int damage = random.nextInt(15) + 5;
-        playerHP -= damage;
-
-        if (playerHP <= 0) {
-            playerHPLabel.setText("Has perdido la batalla...");
-            saveBattleResult("Perdido");
-        }
-
-        updateBattleStatus();
-    }
-
-    private void saveBattleResult(String result) {
         try {
             AppData db = AppData.getInstance();
-            db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('" + trainer + "', '" + map + "', '" + result + "')");
+
+            // Obtener equipo del jugador
+            playerTeam = db.query("SELECT * FROM Pokemon WHERE trainer = 'Jugador'");
+            if (!playerTeam.isEmpty()) {
+                playerPokemon = playerTeam.get(currentPokemonIndex);
+                playerHealth = Integer.parseInt(playerPokemon.get("health").toString());
+            }
+
+            // Obtener oponente
+            opponentPokemon = db.query("SELECT * FROM Pokemon WHERE trainer = 'Oponente'").get(0);
+            opponentHealthPoints = Integer.parseInt(opponentPokemon.get("health").toString());
+
+            updateBattleUI();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Error al guardar el resultado de la batalla: " + e.getMessage());
         }
+    }
+
+    private void updateBattleUI() {
+        playerPokemonName.setText(playerPokemon.get("name").toString());
+        playerPokemonHealth.setText("PS: " + playerHealth);
+        opponentHealth.setText("PS: " + opponentHealthPoints);
+    }
+
+    @FXML
+    private void handleAttack(int attackIndex) {
+        try {
+            int attackDamage = Integer.parseInt(playerPokemon.get("attack" + attackIndex).toString());
+            int opponentSpeed = Integer.parseInt(opponentPokemon.get("speed").toString());
+            int playerSpeed = Integer.parseInt(playerPokemon.get("speed").toString());
+
+            // Determinar quién ataca primero
+            if (playerSpeed >= opponentSpeed) {
+                opponentHealthPoints -= attackDamage;
+                if (opponentHealthPoints <= 0) {
+                    handleVictory();
+                } else {
+                    opponentCounterAttack();
+                }
+            } else {
+                opponentCounterAttack();
+                if (playerHealth <= 0) {
+                    handlePokemonFaint();
+                } else {
+                    opponentHealthPoints -= attackDamage;
+                    if (opponentHealthPoints <= 0) handleVictory();
+                }
+            }
+
+            updateBattleUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void opponentCounterAttack() {
+        int attackDamage = Integer.parseInt(opponentPokemon.get("attack1").toString());
+        playerHealth -= attackDamage;
+        if (playerHealth <= 0) {
+            handlePokemonFaint();
+        }
+    }
+
+    private void handlePokemonFaint() {
+        System.out.println(playerPokemon.get("name") + " ha caído!");
+
+        currentPokemonIndex++;
+        if (currentPokemonIndex < playerTeam.size()) {
+            playerPokemon = playerTeam.get(currentPokemonIndex);
+            playerHealth = Integer.parseInt(playerPokemon.get("health").toString());
+            updateBattleUI();
+        } else {
+            handleDefeat();
+        }
+    }
+
+    private void handleVictory() {
+        System.out.println("¡Has ganado la batalla!");
+        AppData db = AppData.getInstance();
+        db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', 'Bosque Verde', 'Ganado')");
+    }
+
+    private void handleDefeat() {
+        System.out.println("¡Has perdido la batalla!");
+        AppData db = AppData.getInstance();
+        db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', 'Bosque Verde', 'Perdido')");
     }
 }
