@@ -29,7 +29,6 @@ public class ControllerPokemonSettings implements Initializable {
     private int xAttackCount = 0;
     private int xDefenseCount = 0;
 
-    private String pokemonName = "Pikachu"; // Define the Pokémon name
     @FXML
     private Label xDefenseAvailable; // Define the xDefenseAvailable label
     @FXML
@@ -37,14 +36,26 @@ public class ControllerPokemonSettings implements Initializable {
     private int bottleCapCount = 0; // Initialize bottleCapCount
 
     private String selectedPokemonName; // Almacena el nombre del Pokémon seleccionado
+    private String selectedPokemonImage; // Almacena la imagen del Pokémon seleccionado
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configurar el nombre y la imagen del Pokémon
-        labelPokemonName.setText(pokemonName);
-        pokemonImageView.setImage(new Image(getClass().getResource("/gif/pikachu.gif").toExternalForm()));
+        // Retrasar la ejecución hasta que la escena esté completamente cargada
+        javafx.application.Platform.runLater(() -> {
+            // Obtener los datos del Stage
+            Stage stage = (Stage) pokemonImageView.getScene().getWindow();
+            String[] pokemonData = (String[]) stage.getUserData();
 
-        // Actualizar la disponibilidad inicial de ítems
-        updateItemAvailability();
+            // Configurar el nombre y la imagen del Pokémon
+            selectedPokemonName = pokemonData[0];
+            selectedPokemonImage = pokemonData[1];
+
+            labelPokemonName.setText(selectedPokemonName);
+            pokemonImageView.setImage(new Image(getClass().getResource(selectedPokemonImage).toExternalForm()));
+
+            // Actualizar la disponibilidad inicial de ítems
+            updateItemAvailability();
+        });
     }
 
     private void updateItemAvailability() {
@@ -52,15 +63,9 @@ public class ControllerPokemonSettings implements Initializable {
         bottleCapAvailable.setText("Available: " + bottleCapCount);
     }
 
-    public void setSelectedPokemon(String pokemonName) {
+    public void setSelectedPokemon(String pokemonName, String pokemonImage) {
         this.selectedPokemonName = pokemonName;
-        this.pokemonName = pokemonName; // Actualiza el nombre del Pokémon
-        labelPokemonName.setText(pokemonName); // Actualiza la etiqueta con el nombre
-        pokemonImageView.setImage(new Image(getClass().getResource("/gif/" + pokemonName.toLowerCase() + ".gif").toExternalForm())); // Actualiza la imagen
-    }
-
-    public void setPokemonImage(String imagePath) {
-        pokemonImageView.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
+        this.selectedPokemonImage = pokemonImage;
     }
 
     @FXML

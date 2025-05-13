@@ -118,12 +118,11 @@ public class ControllerManagement implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewPokemonSettings.fxml"));
             Scene newScene = new Scene(loader.load());
-            // Pasar el Pokémon seleccionado al controlador
-            ControllerPokemonSettings ctl = loader.getController();
-            ctl.setSelectedPokemon(pokemonNames.get(currentIndex));
-            ctl.setPokemonImage(pokemonImages.get(currentIndex));
-
+            
+            // Guardar los datos en el Stage
             Stage stage = (Stage) editPokemonButton.getScene().getWindow();
+            stage.setUserData(new String[]{pokemonNames.get(currentIndex), pokemonImages.get(currentIndex)});
+
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
