@@ -1,18 +1,18 @@
 package com.projecte;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 /**
  * Controlador para la selección de Pokémon en la interfaz gráfica.
@@ -40,11 +40,14 @@ public class ControllerPokemonSelection {
      */
     @FXML
     public void initialize() {
-        
         // Cargar Pokémon desde la base de datos
         getPokemonList();
 
+        // Actualizar la selección inicial
         updatePokemonSelection();
+
+        // Deshabilitar el botón de confirmación al inicio
+        updateConfirmButtonState();
     }
 
     /**
@@ -62,13 +65,40 @@ public class ControllerPokemonSelection {
         
     }
 
-    /**
-     * Actualiza la interfaz gráfica para mostrar el Pokémon actualmente seleccionado.
-     */
-    private void updatePokemonSelection() {
-        Pokemon currentPokemon = availablePokemon.get(currentPokemonIndex);
-        selectedPokemonImage.setImage(new Image(getClass().getResource(currentPokemon.getImagePath()).toExternalForm()));
-        selectedPokemonName.setText(currentPokemon.getName());
+    @FXML
+    private void handleSelectPokemon() {
+        if (selectedCount < 3) {
+            // Añadir el Pokémon seleccionado al array de seleccionados
+            selectedPokemon[selectedCount] = availablePokemon.get(currentPokemonIndex);
+
+            // Eliminar el Pokémon seleccionado de la lista de disponibles
+            availablePokemon.remove(currentPokemonIndex);
+
+            // Ajustar el índice actual si es necesario
+            if (currentPokemonIndex >= availablePokemon.size()) {
+                currentPokemonIndex = availablePokemon.size() - 1; // Ajustar al último índice válido
+            }
+
+            // Actualizar la interfaz gráfica
+            updateChosenPokemonDisplay();
+
+            // Incrementar el contador de seleccionados
+            selectedCount++;
+
+            // Actualizar la selección actual si quedan Pokémon disponibles
+            if (!availablePokemon.isEmpty()) {
+                updatePokemonSelection();
+            } else {
+                // Si no quedan Pokémon disponibles, deshabilitar el botón de selección
+                selectPokemonButton.setDisable(true);
+            }
+
+            // Actualizar el estado de los botones de navegación
+            updateNavigationButtons();
+
+            // Actualizar el estado del botón de confirmación
+            updateConfirmButtonState();
+        }
     }
 
     @FXML
@@ -76,6 +106,7 @@ public class ControllerPokemonSelection {
         if (currentPokemonIndex > 0) {
             currentPokemonIndex--;
             updatePokemonSelection();
+            updateNavigationButtons();
         }
     }
 
@@ -84,16 +115,22 @@ public class ControllerPokemonSelection {
         if (currentPokemonIndex < availablePokemon.size() - 1) {
             currentPokemonIndex++;
             updatePokemonSelection();
+            updateNavigationButtons();
         }
     }
 
-    @FXML
-    private void handleSelectPokemon() {
-        if (selectedCount < 3) {
-            selectedPokemon[selectedCount] = availablePokemon.get(currentPokemonIndex);
-            updateChosenPokemonDisplay();
-            selectedCount++;
-        }
+    /**
+     * Actualiza el estado de los botones de navegación según la posición actual y la lista de Pokémon disponibles.
+     */
+    private void updateNavigationButtons() {
+        // Desactivar el botón "Anterior" si no hay Pokémon a la izquierda
+        prevPokemonButton.setDisable(currentPokemonIndex <= 0);
+
+        // Desactivar el botón "Siguiente" si no hay Pokémon a la derecha
+        nextPokemonButton.setDisable(currentPokemonIndex >= availablePokemon.size() - 1);
+
+        // Desactivar el botón "Seleccionar" si no hay Pokémon disponibles
+        selectPokemonButton.setDisable(availablePokemon.isEmpty());
     }
 
     private void updateChosenPokemonDisplay() {
@@ -129,5 +166,27 @@ public class ControllerPokemonSelection {
         } else {
             System.out.println("Selecciona exactamente 3 Pokémon antes de continuar.");
         }
+    }
+
+    /**
+     * Actualiza el estado del botón de confirmación según el número de Pokémon seleccionados.
+     */
+    private void updateConfirmButtonState() {
+        confirmSelectionButton.setDisable(selectedCount < 3);
+    }
+
+    /**
+     * Actualiza la interfaz gráfica para mostrar el Pokémon actualmente seleccionado.
+     */
+    private void updatePokemonSelection() {
+        if (!availablePokemon.isEmpty()) {
+            Pokemon currentPokemon = availablePokemon.get(currentPokemonIndex);
+            selectedPokemonImage.setImage(new Image(getClass().getResource(currentPokemon.getImagePath()).toExternalForm()));
+            selectedPokemonName.setText(currentPokemon.getName());
+        } else {
+            selectedPokemonImage.setImage(null);
+            selectedPokemonName.setText("");
+        }
+        updateNavigationButtons();
     }
 }
