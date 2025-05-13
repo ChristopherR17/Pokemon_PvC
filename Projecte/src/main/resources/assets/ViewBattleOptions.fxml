@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="610.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerBattleOptions">
     <children>
-        <ImageView fx:id="backgroundImage" fitHeight="610.0" fitWidth="810.0" preserveRatio="false"/>
+        <ImageView fx:id="backgroundImage" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" />
         
-        <Label layoutX="127.0" layoutY="14.0" prefHeight="59.0" prefWidth="579.0" style="-fx-font-size: 40; -fx-font-weight: bold; -fx-text-fill: yellow;" text="⚔ Opciones de Batalla ⚔"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="46.0" prefHeight="59.0" prefWidth="579.0" style="-fx-font-size: 40; -fx-font-weight: bold; -fx-text-fill: yellow;" text="⚔ Opciones de Batalla ⚔" />
         
-        <VBox alignment="CENTER" layoutX="160.0" layoutY="102.0" spacing="20">
+        <VBox alignment="CENTER" layoutX="324.0" layoutY="203.0" spacing="20">
             <children>
                 <Label fx:id="mapNameLabel" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: white;" />
                 <Label fx:id="teamSelectionLabel" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white;" />
                 <Label fx:id="activePokemonLabel" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white;" />
                 
-                <Button fx:id="confirmOptionsButton" onAction="#handleConfirmOptions" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4500;" text="✔ Confirmar"/>
+                <Button fx:id="confirmOptionsButton" onAction="#handleConfirmOptions" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: #ff4500;" text="✔ Confirmar" />
             </children>
         </VBox>
     </children>
