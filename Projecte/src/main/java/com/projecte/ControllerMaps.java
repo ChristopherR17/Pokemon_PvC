@@ -6,6 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -66,10 +72,6 @@ public class ControllerMaps {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewBattle.fxml"));
             Parent root = loader.load();
-
-            // Opcional: pasar datos al controlador de la vista de batalla
-            ViewBattleController controller = loader.getController();
-            controller.setSelectedMap(selectedMap);
 
             Stage stage = new Stage();
             stage.setTitle("Batalla");
