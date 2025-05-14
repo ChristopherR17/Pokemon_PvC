@@ -90,15 +90,14 @@ public class ControllerMaps {
 
             // Cargar la vista de batalla.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewBattleAttack.fxml"));
-            Parent battleView = loader.load();
-
-            // Obtener el controlador de la batalla y pasarle el mapa seleccionado.
-            ControllerBattleAttack battleController = loader.getController();
-            battleController.setBattleMap(selectedMap);
+            System.out.println("Cargando archivo FXML desde: " + getClass().getResource("/assets/ViewBattleAttack.fxml"));
+            Scene battleView = new Scene(loader.load());
 
             // Se carga la escena de batalla.
             Stage stage = (Stage) confirmMapButton.getScene().getWindow();
-            stage.setScene(new Scene(battleView));
+            stage.setUserData(selectedMap); // Guardar el mapa seleccionado en el Stage
+
+            stage.setScene(battleView); 
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

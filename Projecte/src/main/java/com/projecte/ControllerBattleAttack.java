@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import java.util.ResourceBundle;
 public class ControllerBattleAttack implements Initializable {
 
     // Fondo de batalla
-    @FXML private ImageView battleBackground;
+    @FXML 
+    private ImageView battleBackground;
     
     // Información del Pokémon enemigo
     @FXML private Label enemyPokemonName;
@@ -68,34 +70,57 @@ public class ControllerBattleAttack implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicializaciones adicionales (si fueran necesarias)
+        // Retrasar la ejecución hasta que la escena esté completamente cargada
+        javafx.application.Platform.runLater(() -> {
+            // Obtener el Stage actual
+            Stage stage = (Stage) battleBackground.getScene().getWindow();
+
+            // Recuperar el mapa seleccionado del Stage
+            battleMap = (String) stage.getUserData();
+
+            // Usar el mapa seleccionado para establecer el fondo
+            if (battleMap != null) {
+                setBattleMap();
+                System.out.println("Mapa recibido en ControllerBattleAttack: " + battleMap);
+            } else {
+                System.err.println("No se recibió ningún mapa en ControllerBattleAttack.");
+            }
+        });
     }
     
     /**
      * Establece el mapa de batalla y carga el fondo correspondiente.
      * Se verifica que la imagen se encuentre en el classpath para evitar NullPointerException.
      */
-    public void setBattleMap(String map) {
-        this.battleMap = map;
+    public void setBattleMap() {
+        String map = battleMap.trim();
         String imagePath = "";
-        if(map.equals("Bosque Verde")) {
-            imagePath = "/img/maps/battleMaps/map1.jpg";
-        } else if(map.equals("Cueva Oscura")) {
-            imagePath = "/img/maps/battleMaps/map2.jpg";
-        } else if(map.equals("Montaña Roca")) {
-            imagePath = "/img/maps/battleMaps/map3.jpg";
-        } else if(map.equals("Nieve Azulona")) {
-            imagePath = "/img/maps/battleMaps/map4.jpg";
-        } else if(map.equals("Gimnasio Elite")) {
-            imagePath = "/img/maps/battleMaps/map5.jpg";
-        }
-        // Agrega más condiciones según tus mapas disponibles
-      
-        URL bgUrl = getClass().getResource(imagePath);
-        if(bgUrl != null) {
-            battleBackground.setImage(new Image(bgUrl.toExternalForm()));
+        if (map.equalsIgnoreCase("Bosque Verde")) {
+            imagePath = "/img/maps/battleMaps/mapa1.png";
+        } else if (map.equalsIgnoreCase("Cueva Oscura")) {
+            imagePath = "/img/maps/battleMaps/mapa2.png";
+        } else if (map.equalsIgnoreCase("Montaña Roca")) {
+            imagePath = "/img/maps/battleMaps/mapa3.png";
+        } else if (map.equalsIgnoreCase("Nieve Azulona")) {
+            imagePath = "/img/maps/battleMaps/mapa4.png";
+        } else if (map.equalsIgnoreCase("Gimnasio Elite")) {
+            imagePath = "/img/maps/battleMaps/mapa5.png";
         } else {
-            System.err.println("No se encontró la imagen de fondo: " + imagePath);
+            System.err.println("Mapa desconocido: " + map);
+            imagePath = "/img/maps/defaultBattleMap.png"; // Imagen predeterminada
+        }
+
+        // Cargar la imagen del mapa
+        try {
+            URL imageUrl = getClass().getResource(imagePath);
+            if (imageUrl != null) {
+                battleBackground.setImage(new Image(imageUrl.toExternalForm()));
+            } else {
+                System.err.println("No se encontró la imagen del mapa: " + imagePath);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cargar la imagen del mapa: " + imagePath);
+            e.printStackTrace();
         }
     }
     
