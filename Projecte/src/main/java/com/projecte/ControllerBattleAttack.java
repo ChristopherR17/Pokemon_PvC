@@ -1,5 +1,10 @@
 package com.projecte;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -8,16 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
 public class ControllerBattleAttack implements Initializable {
 
     // Fondo de batalla
-    @FXML 
-    private ImageView battleBackground;
+    @FXML private ImageView battleBackground;
     
     // Información del Pokémon enemigo
     @FXML private Label enemyPokemonName;
@@ -96,18 +95,18 @@ public class ControllerBattleAttack implements Initializable {
         String map = battleMap.trim();
         String imagePath = "";
         if (map.equalsIgnoreCase("Bosque Verde")) {
-            imagePath = "/img/maps/battleMaps/mapa1.png";
+            imagePath = "/img/maps/battleMaps/desierto.jpg";
         } else if (map.equalsIgnoreCase("Cueva Oscura")) {
-            imagePath = "/img/maps/battleMaps/mapa2.png";
+            imagePath = "/img/bg/mapa2.png";
         } else if (map.equalsIgnoreCase("Montaña Roca")) {
-            imagePath = "/img/maps/battleMaps/mapa3.png";
+            imagePath = "/img/bg/mapa3.png";
         } else if (map.equalsIgnoreCase("Nieve Azulona")) {
-            imagePath = "/img/maps/battleMaps/mapa4.png";
+            imagePath = "/img/bg/fondoMaps.png";
         } else if (map.equalsIgnoreCase("Gimnasio Elite")) {
-            imagePath = "/img/maps/battleMaps/mapa5.png";
+            imagePath = "/img/bg/mapa5.png";
         } else {
             System.err.println("Mapa desconocido: " + map);
-            imagePath = "/img/maps/defaultBattleMap.png"; // Imagen predeterminada
+            imagePath = "/img/bg/defaultBattleMap.png"; // Imagen predeterminada
         }
 
         // Cargar la imagen del mapa
