@@ -111,7 +111,7 @@ public class ControllerMenu implements Initializable {
     @FXML
     private void handleBattleHistory() {
         System.out.println("Boton 'Battle History' presionado. Navegando...");
-        navigateTo("BattleHistory.fxml");
+        navigateTo("viewBattleHistory.fxml");
     }
 
     @FXML
