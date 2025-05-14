@@ -97,13 +97,13 @@ public class ControllerBattleAttack implements Initializable {
         if (map.equalsIgnoreCase("Bosque Verde")) {
             imagePath = "/img/maps/battleMaps/desierto.jpg";
         } else if (map.equalsIgnoreCase("Cueva Oscura")) {
-            imagePath = "/img/bg/mapa2.png";
+            imagePath = "/img/maps/battleMaps/estadios.jpg";
         } else if (map.equalsIgnoreCase("Montaña Roca")) {
-            imagePath = "/img/bg/mapa3.png";
+            imagePath = "/img/maps/battleMaps/psiquico.jpg";
         } else if (map.equalsIgnoreCase("Nieve Azulona")) {
-            imagePath = "/img/bg/fondoMaps.png";
+            imagePath = "/img/maps/battleMaps/roca.png";
         } else if (map.equalsIgnoreCase("Gimnasio Elite")) {
-            imagePath = "/img/bg/mapa5.png";
+            imagePath = "/img/maps/battleMaps/well.png";
         } else {
             System.err.println("Mapa desconocido: " + map);
             imagePath = "/img/bg/defaultBattleMap.png"; // Imagen predeterminada
