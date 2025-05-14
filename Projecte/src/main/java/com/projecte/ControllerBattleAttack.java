@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -104,7 +105,8 @@ public class ControllerBattleAttack implements Initializable {
                 // Llamar a setPlayerTeam para cargar los Pokémon de reserva
                 if (playerTeam != null) {
                     setPlayerTeam();
-                    setActivePokemon(); // <-- Añadido aquí
+                    setActivePokemon();
+                    setEnemyPokemon();
                 }
             } else {
                 System.err.println("No se recibió el DTO esperado en ControllerBattleAttack.");
@@ -220,18 +222,22 @@ public class ControllerBattleAttack implements Initializable {
      * Establece el Pokémon enemigo, actualizando su información:
      * nombre, imagen (usando "image_front") y salud.
      */
-    public void setEnemyPokemon(HashMap<String, Object> pokemon) {
-        this.enemyPokemon = pokemon;
-        enemyPokemonName.setText(pokemon.get("name").toString());
-        String frontPath = pokemon.get("image_front").toString();
+    public void setEnemyPokemon() {
+        Random rd = new Random();
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> enemyList = db.query(String.format("SELECT * FROM pokemon WHERE id = %d", rd.nextInt(1, 31)));
+
+        enemyPokemon = enemyList.get(0);
+        enemyPokemonName.setText(enemyPokemon.get("name").toString());
+        String frontPath = enemyPokemon.get("image_front").toString();
         URL frontUrl = getClass().getResource(frontPath);
         if(frontUrl != null) {
             enemyPokemonImage.setImage(new Image(frontUrl.toExternalForm()));
         } else {
             System.err.println("No se encontró la imagen del Pokémon enemigo (front): " + frontPath);
         }
-        enemyCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
-        enemyMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
+        enemyCurrentHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
+        enemyMaxHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         updateEnemyHealthBar();
     }
     
