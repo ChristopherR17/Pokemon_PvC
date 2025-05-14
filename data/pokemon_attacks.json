@@ -1,10 +1,176 @@
 [
   {
-    "pokemon_id": 1,
-    "attack_id": 1
+    "name": "Flamethrower",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Charizard"
   },
   {
-    "pokemon_id": 2,
-    "attack_id": 2
+    "name": "Fire Spin",
+    "damage": 35,
+    "staminaCost": 10,
+    "pokemonName": "Charizard"
+  },
+  {
+    "name": "Heat Wave",
+    "damage": 95,
+    "staminaCost": 38,
+    "pokemonName": "Charizard"
+  },
+  {
+    "name": "Blast Burn",
+    "damage": 110,
+    "staminaCost": 45,
+    "pokemonName": "Charizard"
+  },
+
+  {
+    "name": "Flare Blitz",
+    "damage": 100,
+    "staminaCost": 40,
+    "pokemonName": "Arcanine"
+  },
+  {
+    "name": "Extreme Speed",
+    "damage": 60,
+    "staminaCost": 20,
+    "pokemonName": "Arcanine"
+  },
+  {
+    "name": "Crunch",
+    "damage": 70,
+    "staminaCost": 25,
+    "pokemonName": "Arcanine"
+  },
+  {
+    "name": "Fire Fang",
+    "damage": 55,
+    "staminaCost": 15,
+    "pokemonName": "Arcanine"
+  },
+
+  {
+    "name": "Hydro Pump",
+    "damage": 130,
+    "staminaCost": 50,
+    "pokemonName": "Blastoise"
+  },
+  {
+    "name": "Water Pulse",
+    "damage": 60,
+    "staminaCost": 20,
+    "pokemonName": "Blastoise"
+  },
+  {
+    "name": "Skull Bash",
+    "damage": 85,
+    "staminaCost": 35,
+    "pokemonName": "Blastoise"
+  },
+  {
+    "name": "Aqua Tail",
+    "damage": 65,
+    "staminaCost": 22,
+    "pokemonName": "Blastoise"
+  },
+
+  {
+    "name": "Aqua Ring",
+    "damage": 0,
+    "staminaCost": 10,
+    "pokemonName": "Vaporeon"
+  },
+  {
+    "name": "Surf",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Vaporeon"
+  },
+  {
+    "name": "Muddy Water",
+    "damage": 85,
+    "staminaCost": 32,
+    "pokemonName": "Vaporeon"
+  },
+  {
+    "name": "Acid Armor",
+    "damage": 0,
+    "staminaCost": 15,
+    "pokemonName": "Vaporeon"
+  },
+
+  {
+    "name": "Water Shuriken",
+    "damage": 60,
+    "staminaCost": 20,
+    "pokemonName": "Greninja"
+  },
+  {
+    "name": "Night Slash",
+    "damage": 70,
+    "staminaCost": 25,
+    "pokemonName": "Greninja"
+  },
+  {
+    "name": "Double Team",
+    "damage": 0,
+    "staminaCost": 15,
+    "pokemonName": "Greninja"
+  },
+  {
+    "name": "Hydro Cannon",
+    "damage": 130,
+    "staminaCost": 50,
+    "pokemonName": "Greninja"
+  },
+
+  {
+    "name": "Thunderbolt",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Jolteon"
+  },
+  {
+    "name": "Volt Switch",
+    "damage": 45,
+    "staminaCost": 15,
+    "pokemonName": "Jolteon"
+  },
+  {
+    "name": "Discharge",
+    "damage": 65,
+    "staminaCost": 22,
+    "pokemonName": "Jolteon"
+  },
+  {
+    "name": "Pin Missile",
+    "damage": 50,
+    "staminaCost": 20,
+    "pokemonName": "Jolteon"
+  },
+
+  {
+    "name": "Zap Cannon",
+    "damage": 120,
+    "staminaCost": 45,
+    "pokemonName": "Magnezone"
+  },
+  {
+    "name": "Magnet Bomb",
+    "damage": 70,
+    "staminaCost": 25,
+    "pokemonName": "Magnezone"
+  },
+  {
+    "name": "Mirror Shot",
+    "damage": 60,
+    "staminaCost": 20,
+    "pokemonName": "Magnezone"
+  },
+  {
+    "name": "Flash Cannon",
+    "damage": 100,
+    "staminaCost": 40,
+    "pokemonName": "Magnezone"
   }
 ]
