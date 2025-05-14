@@ -47,7 +47,6 @@ public class BuildDatabase {
                 type TEXT NOT NULL,
                 image_front TEXT,
                 image_back TEXT, 
-                vida INTEGER NOT NULL,
                 nickname TEXT,
                 max_hp INTEGER NOT NULL,
                 attack INTEGER NOT NULL,
@@ -200,13 +199,12 @@ public class BuildDatabase {
             for (Object o : pokemons) {
                 JSONObject p = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO Pokemon (id, name, type, image_front, image_back, vida, nickname, max_hp, attack, stamina, unlocked) VALUES (%d, '%s', '%s', '%s', '%s', %d, '%s', %d, %d, %d, %b)",
+                    "INSERT INTO Pokemon (id, name, type, image_front, image_back, nickname, max_hp, attack, stamina, unlocked) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %b)",
                     p.getInt("id"),
                     p.getString("name").replace("'", "''"),
                     p.getString("type").replace("'", "''"),
                     p.optString("image_front", "").replace("'", "''"),
                     p.optString("image_back", "").replace("'", "''"),
-                    p.getInt("vida"),
                     p.optString("nickname", "").replace("'", "''"), // Escapar comillas simples
                     p.getInt("max_hp"),
                     p.getInt("attack"),
