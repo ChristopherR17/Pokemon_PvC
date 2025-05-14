@@ -12,6 +12,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+
 
 public class ControllerBattleAttack implements Initializable {
 
@@ -30,6 +35,11 @@ public class ControllerBattleAttack implements Initializable {
     @FXML private ImageView playerStaminaBar;    // Barra de estamina
     @FXML private ImageView playerPokemonImage;
     
+    // Botón de retroceso
+    @FXML 
+    private Button backButton;
+
+
     // Pokémon de reserva
     @FXML private ImageView backupPokemon1;
     @FXML private ImageView backupPokemon2;
@@ -97,13 +107,13 @@ public class ControllerBattleAttack implements Initializable {
         if (map.equalsIgnoreCase("Bosque Verde")) {
             imagePath = "/img/maps/battleMaps/desierto.jpg";
         } else if (map.equalsIgnoreCase("Cueva Oscura")) {
-            imagePath = "/img/bg/mapa2.png";
+            imagePath = "/img/maps/battleMaps/estadios.jpg";
         } else if (map.equalsIgnoreCase("Montaña Roca")) {
-            imagePath = "/img/bg/mapa3.png";
+            imagePath = "/img/maps/battleMaps/psiquico.png";
         } else if (map.equalsIgnoreCase("Nieve Azulona")) {
-            imagePath = "/img/bg/fondoMaps.png";
+            imagePath = "/img/maps/battleMaps/roca.png";
         } else if (map.equalsIgnoreCase("Gimnasio Elite")) {
-            imagePath = "/img/bg/mapa5.png";
+            imagePath = "/img/maps/battleMaps/well.png";
         } else {
             System.err.println("Mapa desconocido: " + map);
             imagePath = "/img/bg/defaultBattleMap.png"; // Imagen predeterminada
@@ -295,5 +305,21 @@ public class ControllerBattleAttack implements Initializable {
     private void updateEnemyHealthBar() {
         double porcentaje = (double) enemyCurrentHP / enemyMaxHP;
         enemyHealthBar.setFitWidth(120 * porcentaje);
+    }
+
+    @FXML
+    private void handleBackButton() {
+    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+    // Aquí implementa la navegación a la vista anterior
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMaps.fxml")); 
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+    }
     }
 }

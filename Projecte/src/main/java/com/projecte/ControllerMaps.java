@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +26,8 @@ public class ControllerMaps {
     private Label mapNameLabel;
     @FXML 
     private Button prevMapButton, nextMapButton, confirmMapButton;
+    @FXML
+    private Button backButton;
 
     // Lista de nombres y rutas de mapas. Asegúrate de que las rutas (mapPaths) sean correctas
     private ArrayList<String> mapNames = new ArrayList<>(Arrays.asList(
@@ -104,4 +109,21 @@ public class ControllerMaps {
             System.err.println("Error al cargar la vista de batalla: " + e.getMessage());
         }
     }
+
+    @FXML
+    private void handleBackButton() {
+    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+    // Aquí implementa la navegación a la vista anterior
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/pokemonSelection.fxml")); 
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+    }
+    }
+
 }
