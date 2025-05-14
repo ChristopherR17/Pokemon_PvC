@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 
 /**
@@ -160,11 +159,9 @@ public class ControllerPokemonSelection {
 
                 // Guardar los Pokémon seleccionados en el Stage
                 Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
-                if (stage == null) {
-                    System.err.println("No se pudo obtener el Stage.");
-                    return;
-                }
-                stage.setUserData(selectedPokemon);
+                BattleDataDTO battleData = new BattleDataDTO(null, null);
+                battleData.setPlayerTeam(selectedPokemon);
+                stage.setUserData(battleData);
 
                 // Cambiar a la nueva escena
                 stage.setScene(battleScene);

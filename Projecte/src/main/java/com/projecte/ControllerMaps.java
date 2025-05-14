@@ -1,22 +1,18 @@
 package com.projecte;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.control.Button;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ControllerMaps {
 
@@ -100,7 +96,9 @@ public class ControllerMaps {
 
             // Se carga la escena de batalla.
             Stage stage = (Stage) confirmMapButton.getScene().getWindow();
-            stage.setUserData(selectedMap); // Guardar el mapa seleccionado en el Stage
+            BattleDataDTO battleData = (BattleDataDTO) stage.getUserData(); // Obtener los datos de batalla
+            battleData.setBattleMap(selectedMap); // Establecer el mapa seleccionado
+            stage.setUserData(battleData); // Guardar el mapa seleccionado en el Stage
 
             stage.setScene(battleView); 
             stage.show();

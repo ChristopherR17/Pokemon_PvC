@@ -67,8 +67,9 @@ public class ControllerBattleAttack implements Initializable {
     
     // Datos de la batalla que se pasan desde la vista anterior.
     private String battleMap;
-    private ArrayList<HashMap<String, Object>> playerTeam;
-    private HashMap<String, Object> activePokemon;
+    private Pokemon[] playerTeam;
+
+    // Pokémon enemigo (se puede obtener de la base de datos)
     private HashMap<String, Object> enemyPokemon;
     
     // Variables para controlar la salud actual y máxima
@@ -84,15 +85,29 @@ public class ControllerBattleAttack implements Initializable {
             // Obtener el Stage actual
             Stage stage = (Stage) battleBackground.getScene().getWindow();
 
-            // Recuperar el mapa seleccionado del Stage
-            battleMap = (String) stage.getUserData();
+            // Recuperar el DTO del Stage
+            Object data = stage.getUserData();
+            if (data instanceof BattleDataDTO) {
+                BattleDataDTO battleData = (BattleDataDTO) data;
+                // Extraer el mapa y los Pokémon seleccionados
+                battleMap = battleData.getBattleMap();
+                playerTeam = battleData.getPlayerTeam();
 
-            // Usar el mapa seleccionado para establecer el fondo
-            if (battleMap != null) {
-                setBattleMap();
-                System.out.println("Mapa recibido en ControllerBattleAttack: " + battleMap);
+                // Usar el mapa seleccionado para establecer el fondo
+                if (battleMap != null) {
+                    setBattleMap();
+                    System.out.println("Mapa recibido en ControllerBattleAttack: " + battleMap);
+                } else {
+                    System.err.println("No se recibió ningún mapa en ControllerBattleAttack.");
+                }
+
+                // Llamar a setPlayerTeam para cargar los Pokémon de reserva
+                if (playerTeam != null) {
+                    setPlayerTeam();
+                    setActivePokemon(); // <-- Añadido aquí
+                }
             } else {
-                System.err.println("No se recibió ningún mapa en ControllerBattleAttack.");
+                System.err.println("No se recibió el DTO esperado en ControllerBattleAttack.");
             }
         });
     }
@@ -137,29 +152,29 @@ public class ControllerBattleAttack implements Initializable {
      * Establece el equipo del jugador y carga las imágenes de los Pokémon de reserva
      * utilizando el campo "image_back".
      */
-    public void setPlayerTeam(ArrayList<HashMap<String, Object>> team) {
-        this.playerTeam = team;
-        // Actualiza reserva 1
-        if(team.size() > 1) {
-            HashMap<String, Object> backup1Data = team.get(1);
-            String backupPath = backup1Data.get("image_back").toString();
-            URL backupUrl = getClass().getResource(backupPath);
-            if(backupUrl != null) {
-                backupPokemon1.setImage(new Image(backupUrl.toExternalForm()));
-            } else {
-                System.err.println("No se encontró la imagen de backup: " + backupPath);
-            }
+    public void setPlayerTeam() {
+        Pokemon[] team = this.playerTeam;
+
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> infoPokemon1 = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", team[1].getName()));
+        ArrayList<HashMap<String, Object>> infoPokemon2 = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", team[2].getName()));
+
+        // Cargar Pokémon de reserva 1
+        String backupPath1 = infoPokemon1.get(0).get("image_front").toString();
+        URL backupUrl1 = getClass().getResource(backupPath1);
+        if (backupUrl1 != null) {
+            backupPokemon1.setImage(new Image(backupUrl1.toExternalForm()));
+        } else {
+            System.err.println("No se encontró la imagen de reserva 1: " + backupPath1);
         }
-        // Actualiza reserva 2
-        if(team.size() > 2) {
-            HashMap<String, Object> backup2Data = team.get(2);
-            String backupPath = backup2Data.get("image_back").toString();
-            URL backupUrl = getClass().getResource(backupPath);
-            if(backupUrl != null) {
-                backupPokemon2.setImage(new Image(backupUrl.toExternalForm()));
-            } else {
-                System.err.println("No se encontró la imagen de backup: " + backupPath);
-            }
+
+        // Cargar Pokémon de reserva 2
+        String backupPath2 = infoPokemon2.get(0).get("image_front").toString();
+        URL backupUrl2 = getClass().getResource(backupPath2);
+        if (backupUrl2 != null) {
+            backupPokemon2.setImage(new Image(backupUrl2.toExternalForm()));
+        } else {
+            System.err.println("No se encontró la imagen de reserva 2: " + backupPath2);
         }
     }
     
@@ -168,9 +183,13 @@ public class ControllerBattleAttack implements Initializable {
      * nombre, imagen (usando "image_back"), y salud.
      * Además, se actualizan los detalles de los ataques de ejemplo.
      */
-    public void setActivePokemon(HashMap<String, Object> pokemon) {
-        this.activePokemon = pokemon;
-        playerPokemonName.setText(pokemon.get("name").toString());
+    public void setActivePokemon() {
+        Pokemon active = playerTeam[0]; // Suponiendo que el primer Pokémon es el activo
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", active.getName()));
+        HashMap<String, Object> pokemon = pokemonInfo.get(0);
+
+        playerPokemonName.setText(active.getName());
         String backPath = pokemon.get("image_back").toString();
         URL backUrl = getClass().getResource(backPath);
         if(backUrl != null) {
@@ -178,11 +197,23 @@ public class ControllerBattleAttack implements Initializable {
         } else {
             System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
         }
-        playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
+        playerCurrentHP = Integer.parseInt(pokemon.get("max_hp").toString());
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
         updatePlayerHealthBar();
+
+        // playerPokemonName.setText(pokemon.get("name").toString());
+        // String backPath = pokemon.get("image_back").toString();
+        // URL backUrl = getClass().getResource(backPath);
+        // if(backUrl != null) {
+        //     playerPokemonImage.setImage(new Image(backUrl.toExternalForm()));
+        // } else {
+        //     System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
+        // }
+        // playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
+        // playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
+        // updatePlayerHealthBar();
         
-        updateAttackDetails();
+        // updateAttackDetails();
     }
     
     /**
@@ -208,28 +239,28 @@ public class ControllerBattleAttack implements Initializable {
      * Actualiza los detalles de los ataques del Pokémon activo.
      * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
      */
-    public void updateAttackDetails() {
-        if(activePokemon != null) {
-            int baseAttack = Integer.parseInt(activePokemon.get("attack").toString());
-            String pokeType = activePokemon.get("type").toString();
+    // public void updateAttackDetails() {
+    //     if(activePokemon != null) {
+    //         int baseAttack = Integer.parseInt(activePokemon.get("attack").toString());
+    //         String pokeType = activePokemon.get("type").toString();
             
-            attack1Name.setText("Flamethrower");
-            attack1Damage.setText("Daño: " + baseAttack);
-            attack1Type.setText("Tipo: " + pokeType);
+    //         attack1Name.setText("Flamethrower");
+    //         attack1Damage.setText("Daño: " + baseAttack);
+    //         attack1Type.setText("Tipo: " + pokeType);
             
-            attack2Name.setText("Fire Spin");
-            attack2Damage.setText("Daño: " + (baseAttack - 10));
-            attack2Type.setText("Tipo: " + pokeType);
+    //         attack2Name.setText("Fire Spin");
+    //         attack2Damage.setText("Daño: " + (baseAttack - 10));
+    //         attack2Type.setText("Tipo: " + pokeType);
             
-            attack3Name.setText("Scratch");
-            attack3Damage.setText("Daño: 30");
-            attack3Type.setText("Tipo: Normal");
+    //         attack3Name.setText("Scratch");
+    //         attack3Damage.setText("Daño: 30");
+    //         attack3Type.setText("Tipo: Normal");
             
-            attack4Name.setText("Fire Blast");
-            attack4Damage.setText("Daño: " + (baseAttack + 10));
-            attack4Type.setText("Tipo: " + pokeType);
-        }
-    }
+    //         attack4Name.setText("Fire Blast");
+    //         attack4Damage.setText("Daño: " + (baseAttack + 10));
+    //         attack4Type.setText("Tipo: " + pokeType);
+    //     }
+    // }
     
     /**
      * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño
