@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
 
 /**
  * Controlador para la selección de Pokémon en la interfaz gráfica.
@@ -27,7 +29,7 @@ public class ControllerPokemonSelection {
     private Label selectedPokemonName;
 
     @FXML
-    private Button prevPokemonButton, nextPokemonButton, selectPokemonButton, confirmSelectionButton;
+    private Button prevPokemonButton, nextPokemonButton, selectPokemonButton, confirmSelectionButton, backButton;
 
     private final List<Pokemon> availablePokemon = new ArrayList<>();
     private final Pokemon[] selectedPokemon = new Pokemon[3];
@@ -197,5 +199,21 @@ public class ControllerPokemonSelection {
             selectedPokemonName.setText("");
         }
         updateNavigationButtons();
+    }
+
+    @FXML
+    private void handleBackButton() {
+    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+    // Aquí implementa la navegación a la vista anterior
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml")); 
+        Scene newScene = new Scene(loader.load());
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+    }
     }
 }
