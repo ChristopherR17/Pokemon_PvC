@@ -250,8 +250,8 @@ public class ControllerBattleAttack implements Initializable {
         AppData db = AppData.getInstance();
         ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM PokemonAttacks WHERE pokemon_name = '%s'", activePokemon.getName()));
         HashMap<String, Object> pokemon = pokemonInfo.get(0);
-        if(activePokemon != null) {
-            int baseAttack = Integer.parseInt(poekmon.get("attack").toString());
+        if(activePokemon !=  {
+            int baseAttack = Integer.parseInt(pokemon.get("attack").toString());
             String pokeType = activePokemon.get("type").toString();
             
             attack1Name.setText("Flamethrower");
