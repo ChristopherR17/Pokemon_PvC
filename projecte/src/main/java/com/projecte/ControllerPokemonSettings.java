@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -70,15 +71,25 @@ public class ControllerPokemonSettings implements Initializable {
 
     @FXML
     private void handleNicknameChange() {
-        String newNickname = nicknameField.getText();
-        if (!newNickname.isEmpty()) {
-            // Aquí puedes agregar la lógica para guardar el nuevo apodo en la base de datos
-            System.out.println("Nuevo apodo guardado: " + newNickname);
-            AppData db = AppData.getInstance();
-            db.update(String.format("UPDATE Pokemon SET nickname = '%s' WHERE name = '%s'", newNickname, selectedPokemonName));
-        } else {
-            System.out.println("El campo de apodo está vacío.");
+        String newNickname = nicknameField.getText().trim();
+
+        if (newNickname.isEmpty()) {
+            return;
         }
+
+        AppData db = AppData.getInstance();
+        db.update(String.format("UPDATE Pokemon SET nickname = '%s' WHERE name = '%s'", newNickname, selectedPokemonName));
+
+        showAlert("Apodo cambiado exitosamente a \"" + newNickname + "\".", Alert.AlertType.INFORMATION);
+    }
+
+
+    private void showAlert(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Información");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
     }
 
     @FXML

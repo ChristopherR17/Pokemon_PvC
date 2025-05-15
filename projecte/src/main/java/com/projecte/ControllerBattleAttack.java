@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -373,6 +374,7 @@ public class ControllerBattleAttack implements Initializable {
 
             if (enemyCurrentHP <= 0) {
                 System.out.println("¡El enemigo ha sido derrotado!");
+                showAlert("¡Has derrotado al Pokémon enemigo!", Alert.AlertType.INFORMATION);
                 // Ir a vista de resultado, guardar victoria, etc.
             } else {
                 enemyCounterAttack();
@@ -395,6 +397,7 @@ public class ControllerBattleAttack implements Initializable {
         System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
         if (playerCurrentHP <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
+            showAlert("¡Tu Pokémon ha sido derrotado!", Alert.AlertType.WARNING);
             // Aquí se maneja el fin de la batalla o el cambio a otro Pokémon.
             
         }
@@ -435,6 +438,15 @@ public class ControllerBattleAttack implements Initializable {
             System.err.println("enemyStaminaLabel is not initialized.");
         }
     }
+
+    private void showAlert(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Información");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
+    }
+
 
     @FXML
     private void handleBackButton() {
