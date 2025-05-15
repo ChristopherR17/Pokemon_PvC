@@ -273,6 +273,8 @@ public class ControllerBattleAttack implements Initializable {
             loadEnemyPokemon(currentEnemyIndex);
         } else {
             showAlert("¡Has derrotado a todos los Pokémon enemigos!", Alert.AlertType.INFORMATION);
+            // Todos los Pokémon enemigos han sido derrotados
+            openAttackResultView(true); // true = victoria del jugador
             // Aquí puedes terminar la batalla, volver al menú, etc.
         }
     }
@@ -484,8 +486,45 @@ public class ControllerBattleAttack implements Initializable {
         // Si todos están derrotados, termina la batalla
         showAlert("¡Todos tus Pokémon han sido derrotados!", Alert.AlertType.ERROR);
         // Aquí puedes volver al menú o mostrar pantalla de derrota
+        // Si todos están derrotados, termina la batalla
+        openAttackResultView(false); // false = derrota del jugador
     }
     
+    // ...existing code...
+
+    // Abre la vista de resultados de la batalla
+    private void openAttackResultView(boolean playerWon) {
+        try {
+            // 1. Guarda el resultado en la base de datos antes de mostrar la pantalla de resultado
+            AppData db = AppData.getInstance();
+            String trainerName = System.getProperty("user.name"); // O usa el nombre real del jugador si lo tienes
+            String mapName = battleMap != null ? battleMap : "Desconocido";
+            String result = playerWon ? "Ganado" : "Perdido";
+            db.update(String.format(
+                "INSERT INTO BattleHistory (trainer, map, result) VALUES ('%s', '%s', '%s')",
+                trainerName.replace("'", "''"), // Escapa comillas simples
+                mapName.replace("'", "''"),
+                result
+            ));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewAttackResult.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) battleBackground.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+
+            // Si necesitas pasar información a la vista de resultados:
+            ControllerAttackResult controller = loader.getController();
+            controller.setResult(playerWon, playerWon ? trainerName : "MÁQUINA");
+            // Puedes pasar más datos si lo necesitas
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar la vista de resultados: " + e.getMessage());
+        }
+    }
+// ...existing code...
+
     /**
      * Actualiza la visualización de la vida del jugador en un Label.
      */
