@@ -32,7 +32,7 @@ public class BuildDatabase {
         db.update("DROP TABLE IF EXISTS ItemInventory");
         db.update("DROP TABLE IF EXISTS Item");
         db.update("DROP TABLE IF EXISTS TypeEffectiveness");
-        db.update("DROP TABLE IF EXISTS PokemonAttack");
+        db.update("DROP TABLE IF EXISTS PokemonAttacks");
         db.update("DROP TABLE IF EXISTS Attack");   
         db.update("DROP TABLE IF EXISTS PlayerPokemon");
         db.update("DROP TABLE IF EXISTS Player");

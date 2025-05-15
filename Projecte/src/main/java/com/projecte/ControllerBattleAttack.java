@@ -202,6 +202,7 @@ public class ControllerBattleAttack implements Initializable {
         playerCurrentHP = Integer.parseInt(pokemon.get("max_hp").toString());
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
         updatePlayerHealthBar();
+        updateAttackDetails();
 
         // playerPokemonName.setText(pokemon.get("name").toString());
         // String backPath = pokemon.get("image_back").toString();
@@ -249,27 +250,34 @@ public class ControllerBattleAttack implements Initializable {
         Pokemon activePokemon = playerTeam[0];
         AppData db = AppData.getInstance();
         ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM PokemonAttacks WHERE pokemon_name = '%s'", activePokemon.getName()));
-        HashMap<String, Object> pokemon = pokemonInfo.get(0);
-        if(activePokemon !=  {
-            int baseAttack = Integer.parseInt(pokemon.get("attack").toString());
-            String pokeType = activePokemon.get("type").toString();
-            
-            attack1Name.setText("Flamethrower");
-            attack1Damage.setText("Daño: " + baseAttack);
-            attack1Type.setText("Tipo: " + pokeType);
-            
-            attack2Name.setText("Fire Spin");
-            attack2Damage.setText("Daño: " + (baseAttack - 10));
-            attack2Type.setText("Tipo: " + pokeType);
-            
-            attack3Name.setText("Scratch");
-            attack3Damage.setText("Daño: 30");
-            attack3Type.setText("Tipo: Normal");
-            
-            attack4Name.setText("Fire Blast");
-            attack4Damage.setText("Daño: " + (baseAttack + 10));
-            attack4Type.setText("Tipo: " + pokeType);
-        }
+        
+        if (pokemonInfo.size() >= 4) {
+        // Ataque 1
+        HashMap<String, Object> attack1 = pokemonInfo.get(0);
+        attack1Name.setText((String) attack1.get("name"));
+        attack1Damage.setText("Daño: " + attack1.get("damage"));
+        attack1Type.setText("Tipo: " + attack1.get("type"));
+
+        // Ataque 2
+        HashMap<String, Object> attack2 = pokemonInfo.get(1);
+        attack2Name.setText((String) attack2.get("name"));
+        attack2Damage.setText("Daño: " + attack2.get("damage"));
+        attack2Type.setText("Tipo: " + attack2.get("type"));
+
+        // Ataque 3
+        HashMap<String, Object> attack3 = pokemonInfo.get(2);
+        attack3Name.setText((String) attack3.get("name"));
+        attack3Damage.setText("Daño: " + attack3.get("damage"));
+        attack3Type.setText("Tipo: " + attack3.get("type"));
+
+        // Ataque 4
+        HashMap<String, Object> attack4 = pokemonInfo.get(3);
+        attack4Name.setText((String) attack4.get("name"));
+        attack4Damage.setText("Daño: " + attack4.get("damage"));
+        attack4Type.setText("Tipo: " + attack4.get("type"));
+    } else {
+        System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
+    }
     }
     
     /**
