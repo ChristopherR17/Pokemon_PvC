@@ -33,9 +33,9 @@ public class ControllerStart implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fondoStart.setImage(new Image(getClass().getResource("/img/bg/fondoStart.jpg").toExternalForm()));
-        pokemon1.setImage(new Image(getClass().getResource("/gif/charmander.gif").toExternalForm()));
-        pokemon2.setImage(new Image(getClass().getResource("/gif/Pikachu2.gif").toExternalForm()));
-        pokemon3.setImage(new Image(getClass().getResource("/gif/Mew.gif").toExternalForm()));
+        // pokemon1.setImage(new Image(getClass().getResource("/gif/charmander.gif").toExternalForm()));
+        // pokemon2.setImage(new Image(getClass().getResource("/gif/Pikachu2.gif").toExternalForm()));
+        // pokemon3.setImage(new Image(getClass().getResource("/gif/Mew.gif").toExternalForm()));
 
         System.out.println("Imagenes y GIFs cargados correctamente al iniciar la vista.");
     }
