@@ -75,6 +75,8 @@ public class ControllerBattleAttack implements Initializable {
 
     // Pokémon enemigo (se puede obtener de la base de datos)
     private HashMap<String, Object> enemyPokemon;
+    private ArrayList<HashMap<String, Object>> enemyAttacks;
+
     
     // Variables para controlar la salud actual y máxima
     private int playerCurrentHP;
@@ -252,7 +254,31 @@ public class ControllerBattleAttack implements Initializable {
         enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
         enemyMaxStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
+
+        loadEnemyAttacks();
+
     }
+
+    /**
+     * Carga los ataques del Pokémon enemigo desde la base de datos.
+     */
+
+    private void loadEnemyAttacks() {
+        AppData db = AppData.getInstance();
+        String enemyName = enemyPokemon.get("name").toString();
+
+        String query = String.format(
+            "SELECT pt.name, pt.damage, pt.stamina_cost " +
+            "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
+            "WHERE pt.pokemon_name = '%s'", enemyName);
+
+        enemyAttacks = db.query(query);
+
+        if (enemyAttacks.size() < 1) {
+            System.err.println("El enemigo no tiene ataques registrados.");
+        }
+    }
+
 
     @FXML
     private void switchActivePokemon(MouseEvent event) {
@@ -390,18 +416,40 @@ public class ControllerBattleAttack implements Initializable {
      * Simula el contraataque del enemigo aplicando un daño fijo al Pokémon del jugador.
      */
     private void enemyCounterAttack() {
-        int enemyAtk = 30; // Danho fijo de ejemplo; puede basarse en enemyPokemon.get("attack")
-        playerCurrentHP -= enemyAtk;
+        if (enemyAttacks == null || enemyAttacks.isEmpty()) {
+            System.err.println("El enemigo no tiene ataques cargados.");
+            return;
+        }
+
+        Random rand = new Random();
+        HashMap<String, Object> attack = enemyAttacks.get(rand.nextInt(enemyAttacks.size()));
+
+        int damage = Integer.parseInt(attack.get("damage").toString());
+        int staminaCost = Integer.parseInt(attack.get("stamina_cost").toString());
+
+        // Comprobar si el enemigo tiene suficiente estamina
+        if (enemyCurrentStamina < staminaCost) {
+            System.out.println("El enemigo no tiene suficiente estamina para atacar.");
+            return;
+        }
+
+        enemyCurrentStamina -= staminaCost;
+        playerCurrentHP -= damage;
+
         if (playerCurrentHP < 0) playerCurrentHP = 0;
+
         updatePlayerHealthLabel();
-        System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
+        updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
+
+        System.out.println("El enemigo usó un ataque causando " + damage + " de daño. Estamina restante: " + enemyCurrentStamina);
+
         if (playerCurrentHP <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
             showAlert("¡Tu Pokémon ha sido derrotado!", Alert.AlertType.WARNING);
-            // Aquí se maneja el fin de la batalla o el cambio a otro Pokémon.
-            
+            // Puedes hacer lógica para forzar cambio de Pokémon aquí
         }
     }
+
     
     /**
      * Actualiza la visualización de la vida del jugador en un Label.

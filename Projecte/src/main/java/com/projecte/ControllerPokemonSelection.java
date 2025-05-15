@@ -61,6 +61,7 @@ public class ControllerPokemonSelection {
         for (HashMap<String, Object> row : llista) {
             String name = (String) row.get("name");
             String imagePath = (String) row.get("image_front");
+            // Use the correct constructor for Pokemon
             this.availablePokemon.add(new Pokemon(name, imagePath));
         }
         
