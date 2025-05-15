@@ -50,21 +50,25 @@ public class ControllerBattleAttack implements Initializable {
     @FXML private VBox attack1Container;
     @FXML private Label attack1Name;
     @FXML private Label attack1Damage;
+    @FXML private Label attack1Stamina;
     @FXML private Label attack1Type;
     
     @FXML private VBox attack2Container;
     @FXML private Label attack2Name;
     @FXML private Label attack2Damage;
+    @FXML private Label attack2Stamina;
     @FXML private Label attack2Type;
     
     @FXML private VBox attack3Container;
     @FXML private Label attack3Name;
     @FXML private Label attack3Damage;
+    @FXML private Label attack3Stamina;
     @FXML private Label attack3Type;
     
     @FXML private VBox attack4Container;
     @FXML private Label attack4Name;
     @FXML private Label attack4Damage;
+    @FXML private Label attack4Stamina;
     @FXML private Label attack4Type;
     
     // Datos de la batalla que se pasan desde la vista anterior.
@@ -322,7 +326,7 @@ public class ControllerBattleAttack implements Initializable {
         AppData db = AppData.getInstance();
 
         String query = String.format(
-            "SELECT pt.name, pt.damage, pt.stamina_cost " +
+            "SELECT pt.name, pt.damage, pt.stamina_cost, pt.type " +
             "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
             "WHERE pt.pokemon_name = '%s'", activePokemon.getName());
 
@@ -334,10 +338,10 @@ public class ControllerBattleAttack implements Initializable {
         }
 
         // Helper para asignar datos
-        setAttackData(attack1Name, attack1Damage, attack1Type, pokemonInfo.get(0));
-        setAttackData(attack2Name, attack2Damage, attack2Type, pokemonInfo.get(1));
-        setAttackData(attack3Name, attack3Damage, attack3Type, pokemonInfo.get(2));
-        setAttackData(attack4Name, attack4Damage, attack4Type, pokemonInfo.get(3));
+        setAttackData(attack1Name, attack1Damage, attack1Stamina, attack1Type,pokemonInfo.get(0));
+        setAttackData(attack2Name, attack2Damage, attack2Stamina, attack2Type,pokemonInfo.get(1));
+        setAttackData(attack3Name, attack3Damage, attack3Stamina, attack3Type,pokemonInfo.get(2));
+        setAttackData(attack4Name, attack4Damage, attack4Stamina, attack4Type,pokemonInfo.get(3));
 
         // Opcional: Agregar manejo de clics
         attack1Container.setOnMouseClicked(_ -> handleAttackSelection(1));
@@ -353,14 +357,16 @@ public class ControllerBattleAttack implements Initializable {
      * @param staminaLabel Label para el coste de estamina del ataque.
      * @param attackData HashMap con los datos del ataque.
      */
-    private void setAttackData(Label nameLabel, Label damageLabel, Label staminaLabel, HashMap<String, Object> attackData) {
+    private void setAttackData(Label nameLabel, Label damageLabel, Label staminaLabel, Label typeLabel, HashMap<String, Object> attackData) {
         String name = (String) attackData.get("name");
         int damage = Integer.parseInt(attackData.get("damage").toString());
         int stamina = Integer.parseInt(attackData.get("stamina_cost").toString());
+        String type = (String) attackData.get("type");
 
         nameLabel.setText(name);
         damageLabel.setText("Daño: " + damage);
         staminaLabel.setText("Sta: " + stamina);
+        typeLabel.setText("Tipo: " + type);
     }
 
     
@@ -377,19 +383,19 @@ public class ControllerBattleAttack implements Initializable {
             switch (attackIndex) {
                 case 1:
                     damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
-                    staminaCost = Integer.parseInt(attack1Type.getText().replace("Sta: ", ""));
+                    staminaCost = Integer.parseInt(attack1Stamina.getText().replace("Sta: ", ""));
                     break;
                 case 2:
                     damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
-                    staminaCost = Integer.parseInt(attack2Type.getText().replace("Sta: ", ""));
+                    staminaCost = Integer.parseInt(attack2Stamina.getText().replace("Sta: ", ""));
                     break;
                 case 3:
                     damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
-                    staminaCost = Integer.parseInt(attack3Type.getText().replace("Sta: ", ""));
+                    staminaCost = Integer.parseInt(attack3Stamina.getText().replace("Sta: ", ""));
                     break;
                 case 4:
                     damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
-                    staminaCost = Integer.parseInt(attack4Type.getText().replace("Sta: ", ""));
+                    staminaCost = Integer.parseInt(attack4Stamina.getText().replace("Sta: ", ""));
                     break;
                 default:
                     System.out.println("Ataque inválido");
