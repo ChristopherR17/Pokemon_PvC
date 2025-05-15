@@ -6,149 +6,149 @@
     "pokemonName": "Charizard"
   },
   {
-    "name": "FireSpi",
-    "damage": 35,
-    "staminaCost": 10,
-    "pokemonName": "Charizard"
-  },
-  {
-    "name": "HeatWav",
-    "damage": 95,
-    "staminaCost": 38,
-    "pokemonName": "Charizard"
-  },
-  {
-    "name": "BlastBu",
+    "name": "FireBla",
     "damage": 110,
-    "staminaCost": 45,
+    "staminaCost": 40,
     "pokemonName": "Charizard"
   },
-
   {
-    "name": "FlareBl",
-    "damage": 100,
-    "staminaCost": 40,
+    "name": "AirSlas",
+    "damage": 75,
+    "staminaCost": 25,
+    "pokemonName": "Charizard"
+  },
+  {
+    "name": "DragonC",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Charizard"
+  },
+  {
+    "name": "FireFan",
+    "damage": 85,
+    "staminaCost": 30,
     "pokemonName": "Arcanine"
   },
   {
-    "name": "ExtSpee",
-    "damage": 60,
-    "staminaCost": 20,
+    "name": "Extremes",
+    "damage": 100,
+    "staminaCost": 38,
     "pokemonName": "Arcanine"
   },
   {
     "name": "Crunch",
     "damage": 70,
-    "staminaCost": 25,
+    "staminaCost": 22,
     "pokemonName": "Arcanine"
   },
   {
-    "name": "FireFan",
-    "damage": 55,
-    "staminaCost": 15,
+    "name": "FlareBl",
+    "damage": 120,
+    "staminaCost": 45,
     "pokemonName": "Arcanine"
   },
-
   {
     "name": "HydroPu",
-    "damage": 130,
-    "staminaCost": 50,
+    "damage": 80,
+    "staminaCost": 28,
     "pokemonName": "Blastoise"
   },
   {
-    "name": "WatPuls",
-    "damage": 60,
-    "staminaCost": 20,
-    "pokemonName": "Blastoise"
-  },
-  {
-    "name": "SkulBsh",
+    "name": "SkullBa",
     "damage": 85,
-    "staminaCost": 35,
+    "staminaCost": 32,
+    "pokemonName": "Blastoise"
+  },
+  {
+    "name": "IceBeam",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Blastoise"
+  },
+  {
+    "name": "FlashCa",
+    "damage": 100,
+    "staminaCost": 36,
     "pokemonName": "Blastoise"
   },
   {
     "name": "AquaTai",
-    "damage": 65,
+    "damage": 78,
+    "staminaCost": 25,
+    "pokemonName": "Vaporeon"
+  },
+  {
+    "name": "WaterPu",
+    "damage": 70,
     "staminaCost": 22,
-    "pokemonName": "Blastoise"
-  },
-
-  {
-    "name": "AquaRin",
-    "damage": 0,
-    "staminaCost": 10,
     "pokemonName": "Vaporeon"
   },
   {
-    "name": "Surf",
-    "damage": 90,
-    "staminaCost": 33,
+    "name": "HydroPu",
+    "damage": 110,
+    "staminaCost": 40,
     "pokemonName": "Vaporeon"
   },
   {
-    "name": "MudWatr",
-    "damage": 85,
-    "staminaCost": 32,
-    "pokemonName": "Vaporeon"
-  },
-  {
-    "name": "AciArmr",
+    "name": "AcidArm",
     "damage": 0,
     "staminaCost": 15,
     "pokemonName": "Vaporeon"
   },
-
   {
-    "name": "WatShur",
+    "name": "WaterSh",
+    "damage": 75,
+    "staminaCost": 26,
+    "pokemonName": "Greninja"
+  },
+  {
+    "name": "NightSl",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Greninja"
+  },
+  {
+    "name": "AerialAc",
     "damage": 60,
     "staminaCost": 20,
     "pokemonName": "Greninja"
   },
   {
-    "name": "NitSlsh",
-    "damage": 70,
-    "staminaCost": 25,
+    "name": "HydroPu",
+    "damage": 110,
+    "staminaCost": 40,
     "pokemonName": "Greninja"
   },
   {
-    "name": "DblTeam",
-    "damage": 0,
-    "staminaCost": 15,
-    "pokemonName": "Greninja"
-  },
-  {
-    "name": "HydCann",
-    "damage": 130,
-    "staminaCost": 50,
-    "pokemonName": "Greninja"
-  },
-
-  {
-    "name": "Thundrb",
-    "damage": 90,
-    "staminaCost": 33,
+    "name": "ThundeBo",
+    "damage": 88,
+    "staminaCost": 31,
     "pokemonName": "Jolteon"
   },
   {
-    "name": "VoltSwi",
-    "damage": 45,
-    "staminaCost": 15,
+    "name": "Thunder",
+    "damage": 110,
+    "staminaCost": 40,
     "pokemonName": "Jolteon"
   },
   {
     "name": "Dischar",
     "damage": 65,
-    "staminaCost": 22,
+    "staminaCost": 20,
     "pokemonName": "Jolteon"
   },
   {
     "name": "PinMiss",
-    "damage": 50,
-    "staminaCost": 20,
+    "damage": 70,
+    "staminaCost": 22,
     "pokemonName": "Jolteon"
   },
-
+  {
+    "name": "ElectroC",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Magnezone"
+  },
   {
     "name": "ZapCann",
     "damage": 120,
@@ -156,21 +156,591 @@
     "pokemonName": "Magnezone"
   },
   {
-    "name": "MagBomb",
-    "damage": 70,
-    "staminaCost": 25,
-    "pokemonName": "Magnezone"
-  },
-  {
-    "name": "MirShot",
-    "damage": 60,
+    "name": "MirrorSh",
+    "damage": 65,
     "staminaCost": 20,
     "pokemonName": "Magnezone"
   },
   {
-    "name": "FlaCann",
+    "name": "FlashCa",
     "damage": 100,
-    "staminaCost": 40,
+    "staminaCost": 36,
     "pokemonName": "Magnezone"
+  },
+  {
+    "name": "VoltTac",
+    "damage": 92,
+    "staminaCost": 35,
+    "pokemonName": "Electivire"
+  },
+  {
+    "name": "ThunderP",
+    "damage": 75,
+    "staminaCost": 25,
+    "pokemonName": "Electivire"
+  },
+  {
+    "name": "IcePunc",
+    "damage": 75,
+    "staminaCost": 25,
+    "pokemonName": "Electivire"
+  },
+  {
+    "name": "WildCha",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Electivire"
+  },
+  {
+    "name": "HydroCa",
+    "damage": 85,
+    "staminaCost": 30,
+    "pokemonName": "Lapras"
+  },
+  {
+    "name": "Blizzar",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Lapras"
+  },
+  {
+    "name": "IceShar",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Lapras"
+  },
+  {
+    "name": "Surf",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Lapras"
+  },
+  {
+    "name": "IceBeam",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Froslass"
+  },
+  {
+    "name": "ShadowBa",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Froslass"
+  },
+  {
+    "name": "Avalanc",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Froslass"
+  },
+  {
+    "name": "Crunch",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Froslass"
+  },
+  {
+    "name": "GunkSho",
+    "damage": 79,
+    "staminaCost": 27,
+    "pokemonName": "Muk"
+  },
+  {
+    "name": "SludgeWa",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Muk"
+  },
+  {
+    "name": "DarkPul",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Muk"
+  },
+  {
+    "name": "AcidSpr",
+    "damage": 55,
+    "staminaCost": 15,
+    "pokemonName": "Muk"
+  },
+  {
+    "name": "LeafSto",
+    "damage": 81,
+    "staminaCost": 29,
+    "pokemonName": "Serperior"
+  },
+  {
+    "name": "FrenzyPl",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Serperior"
+  },
+  {
+    "name": "AquaTai",
+    "damage": 50,
+    "staminaCost": 12,
+    "pokemonName": "Serperior"
+  },
+  {
+    "name": "DragonP",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Serperior"
+  },
+  {
+    "name": "ShadowBa",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Gengar"
+  },
+  {
+    "name": "SludgeBo",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Gengar"
+  },
+  {
+    "name": "FocusBl",
+    "damage": 120,
+    "staminaCost": 45,
+    "pokemonName": "Gengar"
+  },
+  {
+    "name": "DarkPul",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Gengar"
+  },
+  {
+    "name": "SolarBe",
+    "damage": 95,
+    "staminaCost": 36,
+    "pokemonName": "Venusaur"
+  },
+  {
+    "name": "PetalBl",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Venusaur"
+  },
+  {
+    "name": "SludgeBo",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Venusaur"
+  },
+  {
+    "name": "Earthqu",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Venusaur"
+  },
+  {
+    "name": "WoodHam",
+    "damage": 92,
+    "staminaCost": 34,
+    "pokemonName": "Torterra"
+  },
+  {
+    "name": "Earthqu",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Torterra"
+  },
+  {
+    "name": "StoneEd",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Torterra"
+  },
+  {
+    "name": "FrenzyPl",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Torterra"
+  },
+  {
+    "name": "XSciss",
+    "damage": 85,
+    "staminaCost": 31,
+    "pokemonName": "Scizor"
+  },
+  {
+    "name": "IronHea",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Scizor"
+  },
+  {
+    "name": "BulletPu",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Scizor"
+  },
+  {
+    "name": "NightSl",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Scizor"
+  },
+  {
+    "name": "BugBuzz",
+    "damage": 88,
+    "staminaCost": 32,
+    "pokemonName": "Volcarona"
+  },
+  {
+    "name": "FieryDan",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Volcarona"
+  },
+  {
+    "name": "Hurrica",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Volcarona"
+  },
+  {
+    "name": "HeatWav",
+    "damage": 95,
+    "staminaCost": 36,
+    "pokemonName": "Volcarona"
+  },
+  {
+    "name": "StoneEd",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Tyranitar"
+  },
+  {
+    "name": "Crunch",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Tyranitar"
+  },
+  {
+    "name": "FireBla",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Tyranitar"
+  },
+  {
+    "name": "Earthqu",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Tyranitar"
+  },
+  {
+    "name": "EarthQu",
+    "damage": 91,
+    "staminaCost": 34,
+    "pokemonName": "Donphan"
+  },
+  {
+    "name": "HeavySla",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Donphan"
+  },
+  {
+    "name": "PlayRou",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Donphan"
+  },
+  {
+    "name": "RockSli",
+    "damage": 83,
+    "staminaCost": 30,
+    "pokemonName": "Donphan"
+  },
+  {
+    "name": "DragonC",
+    "damage": 89,
+    "staminaCost": 32,
+    "pokemonName": "Garchomp"
+  },
+  {
+    "name": "Earthqu",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Garchomp"
+  },
+  {
+    "name": "Outrage",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Garchomp"
+  },
+  {
+    "name": "SandTom",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Garchomp"
+  },
+  {
+    "name": "RockSli",
+    "damage": 83,
+    "staminaCost": 30,
+    "pokemonName": "Onix"
+  },
+  {
+    "name": "StoneEd",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Onix"
+  },
+  {
+    "name": "SandTom",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Onix"
+  },
+  {
+    "name": "HeavySla",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Onix"
+  },
+  {
+    "name": "DracoMet",
+    "damage": 97,
+    "staminaCost": 38,
+    "pokemonName": "Dragonite"
+  },
+  {
+    "name": "Hurrica",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Dragonite"
+  },
+  {
+    "name": "Outrage",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Dragonite"
+  },
+  {
+    "name": "DragonC",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Dragonite"
+  },
+  {
+    "name": "ShadowFo",
+    "damage": 95,
+    "staminaCost": 37,
+    "pokemonName": "Giratina"
+  },
+  {
+    "name": "DragonC",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Giratina"
+  },
+  {
+    "name": "AncientP",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Giratina"
+  },
+  {
+    "name": "ShadowBa",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Giratina"
+  },
+  {
+    "name": "BlazeKic",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Infernape"
+  },
+  {
+    "name": "CloseCom",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Infernape"
+  },
+  {
+    "name": "FlareBl",
+    "damage": 120,
+    "staminaCost": 45,
+    "pokemonName": "Infernape"
+  },
+  {
+    "name": "MachPun",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Infernape"
+  },
+  {
+    "name": "PlayRou",
+    "damage": 85,
+    "staminaCost": 31,
+    "pokemonName": "Mimikyu"
+  },
+  {
+    "name": "ShadowCl",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Mimikyu"
+  },
+  {
+    "name": "WoodHam",
+    "damage": 92,
+    "staminaCost": 34,
+    "pokemonName": "Mimikyu"
+  },
+  {
+    "name": "ShadowSn",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Mimikyu"
+  },
+  {
+    "name": "FireBla",
+    "damage": 95,
+    "staminaCost": 36,
+    "pokemonName": "Blaziken"
+  },
+  {
+    "name": "BraveBir",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Blaziken"
+  },
+  {
+    "name": "BlazeKic",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Blaziken"
+  },
+  {
+    "name": "FocusBl",
+    "damage": 120,
+    "staminaCost": 45,
+    "pokemonName": "Blaziken"
+  },
+  {
+    "name": "DragonAs",
+    "damage": 98,
+    "staminaCost": 39,
+    "pokemonName": "Rayquaza"
+  },
+  {
+    "name": "Outrage",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Rayquaza"
+  },
+  {
+    "name": "Hurrica",
+    "damage": 110,
+    "staminaCost": 40,
+    "pokemonName": "Rayquaza"
+  },
+  {
+    "name": "AncientP",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Rayquaza"
+  },
+  {
+    "name": "AuraSph",
+    "damage": 88,
+    "staminaCost": 32,
+    "pokemonName": "Lucario"
+  },
+  {
+    "name": "CloseCom",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Lucario"
+  },
+  {
+    "name": "ShadowBa",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Lucario"
+  },
+  {
+    "name": "FlashCa",
+    "damage": 100,
+    "staminaCost": 36,
+    "pokemonName": "Lucario"
+  },
+  {
+    "name": "Psychic",
+    "damage": 91,
+    "staminaCost": 34,
+    "pokemonName": "Mew"
+  },
+  {
+    "name": "AncientP",
+    "damage": 70,
+    "staminaCost": 22,
+    "pokemonName": "Mew"
+  },
+  {
+    "name": "Flameth",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Mew"
+  },
+  {
+    "name": "IceBeam",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Mew"
+  },
+  {
+    "name": "MoonBla",
+    "damage": 93,
+    "staminaCost": 35,
+    "pokemonName": "Sylveon"
+  },
+  {
+    "name": "Psyshoc",
+    "damage": 80,
+    "staminaCost": 28,
+    "pokemonName": "Sylveon"
+  },
+  {
+    "name": "Drainin",
+    "damage": 60,
+    "staminaCost": 18,
+    "pokemonName": "Sylveon"
+  },
+  {
+    "name": "LastRes",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Sylveon"
+  },
+  {
+    "name": "DazzlGl",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Gardevoir"
+  },
+  {
+    "name": "ShadowBa",
+    "damage": 90,
+    "staminaCost": 33,
+    "pokemonName": "Gardevoir"
+  },
+  {
+    "name": "Psychic",
+    "damage": 91,
+    "staminaCost": 34,
+    "pokemonName": "Gardevoir"
+  },
+  {
+    "name": "Moonbla",
+    "damage": 93,
+    "staminaCost": 35,
+    "pokemonName": "Gardevoir"
   }
 ]

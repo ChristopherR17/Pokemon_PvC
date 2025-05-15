@@ -17,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+
 
 
 public class ControllerBattleAttack implements Initializable {
@@ -114,6 +116,11 @@ public class ControllerBattleAttack implements Initializable {
                     setPlayerTeam();
                     setActivePokemon();
                     setEnemyPokemon();
+
+                    backupPokemon1.setOnMouseClicked(_ -> switchActivePokemonByIndex(1));
+                    backupPokemon2.setOnMouseClicked(_ -> switchActivePokemonByIndex(2));
+
+
                 }
             } else {
                 System.err.println("No se recibió el DTO esperado en ControllerBattleAttack.");
@@ -245,7 +252,30 @@ public class ControllerBattleAttack implements Initializable {
         enemyMaxStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
     }
-    
+
+    @FXML
+    private void switchActivePokemon(MouseEvent event) {
+        ImageView clicked = (ImageView) event.getSource();
+
+        if (clicked == backupPokemon1) {
+            switchActivePokemonByIndex(1);
+        } else if (clicked == backupPokemon2) {
+            switchActivePokemonByIndex(2);
+        }
+    }
+
+    private void switchActivePokemonByIndex(int benchIndex) {
+        if (benchIndex < 1 || benchIndex > 2) return;
+
+        Pokemon temp = playerTeam[0];
+        playerTeam[0] = playerTeam[benchIndex];
+        playerTeam[benchIndex] = temp;
+
+        setPlayerTeam();
+        setActivePokemon();
+    }
+
+
     /**
      * Actualiza los detalles de los ataques del Pokémon activo.
      * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
