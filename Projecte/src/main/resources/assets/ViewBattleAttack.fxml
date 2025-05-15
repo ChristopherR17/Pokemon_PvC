@@ -17,21 +17,23 @@
         <VBox layoutX="525.0" layoutY="32.0" spacing="5">
             <children>
                 <!-- Nombre y nivel -->
-                <Label fx:id="enemyPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Tangela" />
-                <!-- Barra de vida -->
-                <HBox spacing="10">
+                <!-- Nombre del Pokémon enemigo (en rojo brillante con sombra) -->
+                <Label fx:id="enemyPokemonName" prefHeight="45.0" prefWidth="143.0" style="-fx-font-size: 24; -fx-text-fill: #FF4500; -fx-font-weight: bold;                      -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0); -fx-padding: 5; -fx-background-color: rgba(0, 0, 0, 0.3);" text="Tangela" />
+
+                <!-- Barra de vida (verde intenso para claridad) -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
                     <children>
-                        <Label fx:id="enemyHealthLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
-                        <ImageView fx:id="enemyHealthBar" fitHeight="10.0" fitWidth="120.0" />
+                        <Label fx:id="enemyHealthLabel" prefHeight="40.0" prefWidth="143.0" style="-fx-font-size: 18; -fx-text-fill: #32CD32; -fx-font-weight: bold;                             -fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: #FFFFFF; -fx-border-width: 1;                             -fx-padding: 5; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="PS:" />
                     </children>
                 </HBox>
-                <!-- Barra de estamina -->
-                <HBox spacing="10">
+
+                <!-- Barra de estamina (en azul eléctrico) -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
                     <children>
-                        <Label fx:id="enemyStaminaLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
-                        <ImageView fx:id="enemyStaminaBar" fitHeight="10.0" fitWidth="120.0" />
+                        <Label fx:id="enemyStaminaLabel" prefHeight="40.0" prefWidth="143.0" style="-fx-font-size: 18; -fx-text-fill: #1E90FF;                             -fx-font-weight: bold; -fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: #FFFFFF;                             -fx-border-width: 1; -fx-padding: 5; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="Estamina:" />
                     </children>
                 </HBox>
+
                 <!-- Imagen del Pokémon enemigo -->
                 <ImageView fx:id="enemyPokemonImage" fitHeight="180.0" fitWidth="180.0" preserveRatio="true" />
             </children>
@@ -40,20 +42,24 @@
         <!-- Información del Pokémon del jugador -->
         <VBox layoutX="14.0" layoutY="250.0" spacing="5">
             <children>
-                <!-- Nombre y nivel -->
-                <Label fx:id="playerPokemonName" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;" text="Gyarados" />
-                <!-- Barra de vida -->
-                <HBox spacing="10">
+                <!-- Nombre -->
+                <!-- Nombre del Pokémon (más grande y con sombra) -->
+                <Label fx:id="playerPokemonName" prefHeight="45.0" prefWidth="143.0" style="-fx-font-size: 24; -fx-text-fill: #FFD700; -fx-font-weight: bold;                      -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0); -fx-padding: 5; -fx-background-color: rgba(0, 0, 0, 0.3);" text="Gyarados" />
+
+                <!-- Vida (ajuste de color y tamaño para mejor visibilidad) -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
                     <children>
-                        <Label fx:id="playerHealthLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
+                        <Label fx:id="playerHealthLabel" prefHeight="40.0" prefWidth="143.0" style="-fx-font-size: 18; -fx-text-fill: #32CD32; -fx-font-weight: bold;                             -fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: #FFFFFF; -fx-border-width: 1;                             -fx-padding: 5; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="PS:" />
                     </children>
                 </HBox>
-                <!-- Barra de estamina -->
-                <HBox spacing="10">
+
+                <!-- Estamina (con fondo oscuro y letra en negrita) -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
                     <children>
-                        <Label fx:id="playerStaminaLabel" prefHeight="26.0" prefWidth="70.0" style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
+                        <Label fx:id="playerStaminaLabel" prefHeight="40.0" prefWidth="143.0" style="-fx-font-size: 18; -fx-text-fill: #00BFFF;                             -fx-font-weight: bold; -fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: #FFFFFF;                             -fx-border-width: 1; -fx-padding: 5; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);" text="Estamina:" />
                     </children>
                 </HBox>
+
                 <!-- Imagen del Pokémon del jugador -->
                 <ImageView fx:id="playerPokemonImage" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" />
             </children>
