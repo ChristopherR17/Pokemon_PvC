@@ -280,39 +280,48 @@ public class ControllerBattleAttack implements Initializable {
      * Actualiza los detalles de los ataques del Pokémon activo.
      * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
      */
-    public void updateAttackDetails() {
-        Pokemon activePokemon = playerTeam[0];
-        AppData db = AppData.getInstance();
-        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT pt.name, p.type, pt.damage, pt.stamina_cost FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name WHERE pt.pokemon_name = '%s'", activePokemon.getName()));
-        
-        if (pokemonInfo.size() >= 4) {
-        // Ataque 1
-        HashMap<String, Object> attack1 = pokemonInfo.get(0);
-        attack1Name.setText((String) attack1.get("name"));
-        attack1Damage.setText("Daño: " + attack1.get("damage"));
-        attack1Type.setText("Sta: " + attack1.get("stamina_cost"));
+        public void updateAttackDetails() {
+            Pokemon activePokemon = playerTeam[0];  // Suponiendo que playerTeam está definido
+            AppData db = AppData.getInstance();
 
-        // Ataque 2
-        HashMap<String, Object> attack2 = pokemonInfo.get(1);
-        attack2Name.setText((String) attack2.get("name"));
-        attack2Damage.setText("Daño: " + attack2.get("damage"));
-        attack2Type.setText("Sta: " + attack2.get("stamina_cost"));
+            String query = String.format(
+                "SELECT pt.name, pt.damage, pt.stamina_cost " +
+                "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
+                "WHERE pt.pokemon_name = '%s'", activePokemon.getName());
 
-        // Ataque 3
-        HashMap<String, Object> attack3 = pokemonInfo.get(2);
-        attack3Name.setText((String) attack3.get("name"));
-        attack3Damage.setText("Daño: " + attack3.get("damage"));
-        attack3Type.setText("Sta: " + attack3.get("stamina_cost"));
+            ArrayList<HashMap<String, Object>> pokemonInfo = db.query(query);
 
-        // Ataque 4
-        HashMap<String, Object> attack4 = pokemonInfo.get(3);
-        attack4Name.setText((String) attack4.get("name"));
-        attack4Damage.setText("Daño: " + attack4.get("damage"));
-        attack4Type.setText("Sta: " + attack4.get("stamina_cost"));
-        } else {
-            System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
+            if (pokemonInfo.size() < 4) {
+                System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
+                return;
+            }
+
+            // Helper para asignar datos
+            setAttackData(attack1Name, attack1Damage, attack1Type, pokemonInfo.get(0));
+            setAttackData(attack2Name, attack2Damage, attack2Type, pokemonInfo.get(1));
+            setAttackData(attack3Name, attack3Damage, attack3Type, pokemonInfo.get(2));
+            setAttackData(attack4Name, attack4Damage, attack4Type, pokemonInfo.get(3));
+
+            // Opcional: Agregar manejo de clics
+            attack1Container.setOnMouseClicked(_ -> handleAttackSelection(1));
+            attack2Container.setOnMouseClicked(_ -> handleAttackSelection(2));
+            attack3Container.setOnMouseClicked(_ -> handleAttackSelection(3));
+            attack4Container.setOnMouseClicked(_ -> handleAttackSelection(4));
         }
-    }
+
+        /**
+         * Asigna los datos de un ataque a los labels correspondientes.
+         */
+        private void setAttackData(Label nameLabel, Label damageLabel, Label staminaLabel, HashMap<String, Object> attackData) {
+            String name = (String) attackData.get("name");
+            int damage = Integer.parseInt(attackData.get("damage").toString());
+            int stamina = Integer.parseInt(attackData.get("stamina_cost").toString());
+
+            nameLabel.setText(name);
+            damageLabel.setText("Daño: " + damage);
+            staminaLabel.setText("Sta: " + stamina);
+        }
+
     
     /**
      * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño
@@ -320,43 +329,60 @@ public class ControllerBattleAttack implements Initializable {
      */
     public void handleAttackSelection(int attackIndex) {
         int damage = 0;
+        int staminaCost = 0;
+
         try {
             switch (attackIndex) {
                 case 1:
                     damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
+                    staminaCost = Integer.parseInt(attack1Type.getText().replace("Sta: ", ""));
                     break;
                 case 2:
                     damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
+                    staminaCost = Integer.parseInt(attack2Type.getText().replace("Sta: ", ""));
                     break;
                 case 3:
                     damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
+                    staminaCost = Integer.parseInt(attack3Type.getText().replace("Sta: ", ""));
                     break;
                 case 4:
                     damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
+                    staminaCost = Integer.parseInt(attack4Type.getText().replace("Sta: ", ""));
                     break;
                 default:
                     System.out.println("Ataque inválido");
                     return;
             }
+
+            // Verificar si hay estamina suficiente
+            if (playerCurrentStamina < staminaCost) {
+                System.out.println("¡No tienes suficiente estamina para este ataque!");
+                return;
+            }
+
+            // Aplicar daño
+            enemyCurrentHP -= damage;
+            playerCurrentStamina -= staminaCost;
+
+            if (enemyCurrentHP < 0) enemyCurrentHP = 0;
+
+            updateEnemyHealthLabel();
+            updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
+
+            System.out.println("Ataque " + attackIndex + " hizo " + damage + " de daño. Estamina restante: " + playerCurrentStamina);
+
+            if (enemyCurrentHP <= 0) {
+                System.out.println("¡El enemigo ha sido derrotado!");
+                // Ir a vista de resultado, guardar victoria, etc.
+            } else {
+                enemyCounterAttack();
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            return;
-        }
-        
-        System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
-        enemyCurrentHP -= damage;
-        if (enemyCurrentHP < 0) enemyCurrentHP = 0;
-        updateEnemyHealthLabel();
-        System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
-        
-        if (enemyCurrentHP <= 0) {
-            System.out.println("¡El enemigo ha sido derrotado!");
-            // Aquí puedes desencadenar la transición a la vista de resultados, 
-            // e insertar el resultado en la base de datos usando un valor permitido ("Ganado" o "Perdido").
-        } else {
-            enemyCounterAttack();
         }
     }
+
     
     /**
      * Simula el contraataque del enemigo aplicando un daño fijo al Pokémon del jugador.
