@@ -26,14 +26,14 @@ public class ControllerBattleAttack implements Initializable {
     
     // Información del Pokémon enemigo
     @FXML private Label enemyPokemonName;
-    @FXML private ImageView enemyHealthBar;    // Barra de vida (se actualizará dinámicamente)
-    @FXML private ImageView enemyStaminaBar;   // Barra de estamina (puedes implementar la actualización)
+    @FXML private Label enemyHealthLabel;    // Barra de vida (se actualizará dinámicamente)
+    @FXML private Label enemyStaminaLabel;   // Barra de estamina (puedes implementar la actualización)
     @FXML private ImageView enemyPokemonImage;
     
     // Información del Pokémon del jugador
     @FXML private Label playerPokemonName;
-    @FXML private ImageView playerHealthBar;     // Barra de vida
-    @FXML private ImageView playerStaminaBar;    // Barra de estamina
+    @FXML private Label playerHealthLabel;     // Barra de vida
+    @FXML private Label playerStaminaLabel;    // Barra de estamina
     @FXML private ImageView playerPokemonImage;
     
     // Botón de retroceso
@@ -201,7 +201,7 @@ public class ControllerBattleAttack implements Initializable {
         }
         playerCurrentHP = Integer.parseInt(pokemon.get("max_hp").toString());
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        updatePlayerHealthBar();
+        updatePlayerHealthLabel();
 
         // playerPokemonName.setText(pokemon.get("name").toString());
         // String backPath = pokemon.get("image_back").toString();
@@ -213,7 +213,7 @@ public class ControllerBattleAttack implements Initializable {
         // }
         // playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
         // playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        // updatePlayerHealthBar();
+        // updatePlayerHealthLabel();
         
         // updateAttackDetails();
     }
@@ -238,7 +238,7 @@ public class ControllerBattleAttack implements Initializable {
         }
         enemyCurrentHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         enemyMaxHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
-        updateEnemyHealthBar();
+        updateEnemyHealthLabel();
     }
     
     /**
@@ -250,9 +250,9 @@ public class ControllerBattleAttack implements Initializable {
         AppData db = AppData.getInstance();
         ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM PokemonAttacks WHERE pokemon_name = '%s'", activePokemon.getName()));
         HashMap<String, Object> pokemon = pokemonInfo.get(0);
-        if(activePokemon !=  {
+        if (activePokemon != null) {
             int baseAttack = Integer.parseInt(pokemon.get("attack").toString());
-            String pokeType = activePokemon.get("type").toString();
+            String pokeType = pokemon.get("type").toString(); // Retrieve type from DB
             
             attack1Name.setText("Flamethrower");
             attack1Damage.setText("Daño: " + baseAttack);
@@ -304,7 +304,7 @@ public class ControllerBattleAttack implements Initializable {
         System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
         enemyCurrentHP -= damage;
         if (enemyCurrentHP < 0) enemyCurrentHP = 0;
-        updateEnemyHealthBar();
+        updateEnemyHealthLabel();
         System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
         
         if (enemyCurrentHP <= 0) {
@@ -323,7 +323,7 @@ public class ControllerBattleAttack implements Initializable {
         int enemyAtk = 30; // Danho fijo de ejemplo; puede basarse en enemyPokemon.get("attack")
         playerCurrentHP -= enemyAtk;
         if (playerCurrentHP < 0) playerCurrentHP = 0;
-        updatePlayerHealthBar();
+        updatePlayerHealthLabel();
         System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
         if (playerCurrentHP <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
@@ -332,20 +332,17 @@ public class ControllerBattleAttack implements Initializable {
     }
     
     /**
-     * Actualiza la visualización de la barra de vida del jugador 
-     * ajustando el ancho proporcionalmente a un ancho base de 120.
+     * Actualiza la visualización de la vida del jugador en un Label.
      */
-    private void updatePlayerHealthBar() {
-        double porcentaje = (double) playerCurrentHP / playerMaxHP;
-        playerHealthBar.setFitWidth(120 * porcentaje);
+    private void updatePlayerHealthLabel() {
+        playerHealthLabel.setText(playerCurrentHP + " / " + playerMaxHP);
     }
-    
+
     /**
-     * Actualiza la visualización de la barra de vida del enemigo de forma similar.
+     * Actualiza la visualización de la vida del enemigo en un Label.
      */
-    private void updateEnemyHealthBar() {
-        double porcentaje = (double) enemyCurrentHP / enemyMaxHP;
-        enemyHealthBar.setFitWidth(120 * porcentaje);
+    private void updateEnemyHealthLabel() {
+        enemyHealthLabel.setText(enemyCurrentHP + " / " + enemyMaxHP);
     }
 
     @FXML
