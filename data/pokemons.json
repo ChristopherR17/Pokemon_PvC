@@ -9,7 +9,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -22,7 +22,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -35,7 +35,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -48,7 +48,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -61,7 +61,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -74,7 +74,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -87,7 +87,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -100,7 +100,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -113,7 +113,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -126,7 +126,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -139,7 +139,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -152,7 +152,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -165,7 +165,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -178,7 +178,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -191,7 +191,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -204,7 +204,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -217,7 +217,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -230,7 +230,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -243,7 +243,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -256,7 +256,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -269,7 +269,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -282,7 +282,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -295,7 +295,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -308,7 +308,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -321,7 +321,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -334,7 +334,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -347,7 +347,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -360,7 +360,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -373,7 +373,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -386,7 +386,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -399,7 +399,7 @@
     "nickname": "",
     "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   }
 ]
