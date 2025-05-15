@@ -40,9 +40,7 @@ public class ControllerBattleAttack implements Initializable {
     @FXML private ImageView playerPokemonImage;
     
     // Botón de retroceso
-    @FXML 
-    private Button backButton;
-
+    @FXML private Button backButton;
 
     // Pokémon de reserva
     @FXML private ImageView backupPokemon1;
@@ -75,8 +73,8 @@ public class ControllerBattleAttack implements Initializable {
 
     // Pokémon enemigo (se puede obtener de la base de datos)
     private HashMap<String, Object> enemyPokemon;
-    private ArrayList<HashMap<String, Object>> enemyAttacks;
-
+    private ArrayList<HashMap<String, Object>> enemyTeam = new ArrayList<>();
+    private int currentEnemyIndex = 0;
     
     // Variables para controlar la salud actual y máxima
     private int playerCurrentHP;
@@ -90,7 +88,13 @@ public class ControllerBattleAttack implements Initializable {
     private int playerMaxStamina;
     private int enemyMaxStamina;
 
+    //Inicializamos el objeto Random
+    Random rd = new Random();
     
+    /**
+     * Inicializa la escena de batalla, carga los datos del DTO, el fondo del mapa,
+     * el equipo del jugador y los Pokémon enemigos.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Retrasar la ejecución hasta que la escena esté completamente cargada
@@ -118,12 +122,15 @@ public class ControllerBattleAttack implements Initializable {
                 if (playerTeam != null) {
                     setPlayerTeam();
                     setActivePokemon();
-                    setEnemyPokemon();
+
+                    // Cargar 3 enemigos aleatorios al inicio
+                    AppData db = AppData.getInstance();
+                    enemyTeam = db.query("SELECT * FROM pokemon ORDER BY RANDOM() LIMIT 3");
+                    currentEnemyIndex = 0;
+                    loadEnemyPokemon(currentEnemyIndex);
 
                     backupPokemon1.setOnMouseClicked(_ -> switchActivePokemonByIndex(1));
                     backupPokemon2.setOnMouseClicked(_ -> switchActivePokemonByIndex(2));
-
-
                 }
             } else {
                 System.err.println("No se recibió el DTO esperado en ControllerBattleAttack.");
@@ -148,19 +155,11 @@ public class ControllerBattleAttack implements Initializable {
             imagePath = "/img/maps/battleMaps/roca.png";
         } else if (map.equalsIgnoreCase("Gimnasio Elite")) {
             imagePath = "/img/maps/battleMaps/well.png";
-        } else {
-            System.err.println("Mapa desconocido: " + map);
-            imagePath = "/img/bg/defaultBattleMap.png"; // Imagen predeterminada
-        }
+        } 
 
         // Cargar la imagen del mapa
         try {
-            URL imageUrl = getClass().getResource(imagePath);
-            if (imageUrl != null) {
-                battleBackground.setImage(new Image(imageUrl.toExternalForm()));
-            } else {
-                System.err.println("No se encontró la imagen del mapa: " + imagePath);
-            }
+            setImageFromResource(battleBackground, imagePath, "No se encontró la imagen del mapa: ");
         } catch (Exception e) {
             System.err.println("Error al cargar la imagen del mapa: " + imagePath);
             e.printStackTrace();
@@ -180,20 +179,25 @@ public class ControllerBattleAttack implements Initializable {
 
         // Cargar Pokémon de reserva 1
         String backupPath1 = infoPokemon1.get(0).get("image_front").toString();
-        URL backupUrl1 = getClass().getResource(backupPath1);
-        if (backupUrl1 != null) {
-            backupPokemon1.setImage(new Image(backupUrl1.toExternalForm()));
-        } else {
-            System.err.println("No se encontró la imagen de reserva 1: " + backupPath1);
-        }
+        setImageFromResource(backupPokemon1, backupPath1, "No se encontró la imagen de reserva 1: ");
 
         // Cargar Pokémon de reserva 2
         String backupPath2 = infoPokemon2.get(0).get("image_front").toString();
-        URL backupUrl2 = getClass().getResource(backupPath2);
-        if (backupUrl2 != null) {
-            backupPokemon2.setImage(new Image(backupUrl2.toExternalForm()));
+        setImageFromResource(backupPokemon2, backupPath2, "No se encontró la imagen de reserva 2: ");
+
+        if (playerTeam[1].isDefeated()) {
+            backupPokemon1.setOpacity(0.5);
+            backupPokemon1.setDisable(true);
         } else {
-            System.err.println("No se encontró la imagen de reserva 2: " + backupPath2);
+            backupPokemon1.setOpacity(1.0);
+            backupPokemon1.setDisable(false);
+        }
+        if (playerTeam[2].isDefeated()) {
+            backupPokemon2.setOpacity(0.5);
+            backupPokemon2.setDisable(true);
+        } else {
+            backupPokemon2.setOpacity(1.0);
+            backupPokemon2.setDisable(false);
         }
     }
     
@@ -203,26 +207,30 @@ public class ControllerBattleAttack implements Initializable {
      * Además, se actualizan los detalles de los ataques de ejemplo.
      */
     public void setActivePokemon() {
-        Pokemon active = playerTeam[0]; // Suponiendo que el primer Pokémon es el activo
+        Pokemon active = playerTeam[0];
         AppData db = AppData.getInstance();
         ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", active.getName()));
         HashMap<String, Object> pokemon = pokemonInfo.get(0);
 
         playerPokemonName.setText(active.getName());
         String backPath = pokemon.get("image_back").toString();
-        URL backUrl = getClass().getResource(backPath);
-        if(backUrl != null) {
-            playerPokemonImage.setImage(new Image(backUrl.toExternalForm()));
-        } else {
-            System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
-        }
-        playerCurrentHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        updatePlayerHealthLabel();
+        setImageFromResource(playerPokemonImage, backPath, "No se encontró la imagen del Pokémon activo (back): ");
 
-        // acar la stamina del jugador
-        playerCurrentStamina = Integer.parseInt(pokemon.get("stamina").toString());
-        playerMaxStamina = Integer.parseInt(pokemon.get("stamina").toString());
+        // Solo asigna los valores máximos una vez, si los campos actuales no están inicializados
+        int maxHP = Integer.parseInt(pokemon.get("max_hp").toString());
+        int maxStamina = Integer.parseInt(pokemon.get("stamina").toString());
+        playerMaxHP = maxHP;
+        playerMaxStamina = maxStamina;
+
+        // Si el Pokémon nunca fue usado, inicializa sus valores actuales
+        if (active.getCurrentHP() == 0) active.setCurrentHP(maxHP);
+        if (active.getCurrentStamina() == 0) active.setCurrentStamina(maxStamina);
+
+        // Usa los valores actuales almacenados en el objeto
+        playerCurrentHP = active.getCurrentHP();
+        playerCurrentStamina = active.getCurrentStamina();
+
+        updatePlayerHealthLabel();
         updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
 
         updateAttackDetails();
@@ -231,55 +239,44 @@ public class ControllerBattleAttack implements Initializable {
     /**
      * Establece el Pokémon enemigo, actualizando su información:
      * nombre, imagen (usando "image_front") y salud.
+     * @param index Índice del Pokémon enemigo en la lista enemyTeam.
      */
-    public void setEnemyPokemon() {
-        Random rd = new Random();
-        AppData db = AppData.getInstance();
-        ArrayList<HashMap<String, Object>> enemyList = db.query(String.format("SELECT * FROM pokemon WHERE id = %d", rd.nextInt(1, 31)));
-
-        enemyPokemon = enemyList.get(0);
+    private void loadEnemyPokemon(int index) {
+        if (index >= enemyTeam.size()) {
+            showAlert("¡Has derrotado a todos los Pokémon enemigos!", Alert.AlertType.INFORMATION);
+            // Aquí puedes terminar la batalla, volver al menú, etc.
+            return;
+        }
+        enemyPokemon = enemyTeam.get(index);
         enemyPokemonName.setText(enemyPokemon.get("name").toString());
         String frontPath = enemyPokemon.get("image_front").toString();
-        URL frontUrl = getClass().getResource(frontPath);
-        if(frontUrl != null) {
-            enemyPokemonImage.setImage(new Image(frontUrl.toExternalForm()));
-        } else {
-            System.err.println("No se encontró la imagen del Pokémon enemigo (front): " + frontPath);
-        }
+        setImageFromResource(enemyPokemonImage, frontPath, "No se encontró la imagen del Pokémon enemigo (front): ");
         enemyCurrentHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         enemyMaxHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
-        updateEnemyHealthLabel();
-
-        // Aplicar la stamina del enemigo
         enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
         enemyMaxStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
+        updateEnemyHealthLabel();
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
-
-        loadEnemyAttacks();
-
     }
 
     /**
-     * Carga los ataques del Pokémon enemigo desde la base de datos.
+     * Cambia al siguiente Pokémon enemigo en la lista. Si no quedan más, muestra un mensaje de victoria.
      */
-
-    private void loadEnemyAttacks() {
-        AppData db = AppData.getInstance();
-        String enemyName = enemyPokemon.get("name").toString();
-
-        String query = String.format(
-            "SELECT pt.name, pt.damage, pt.stamina_cost " +
-            "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
-            "WHERE pt.pokemon_name = '%s'", enemyName);
-
-        enemyAttacks = db.query(query);
-
-        if (enemyAttacks.size() < 1) {
-            System.err.println("El enemigo no tiene ataques registrados.");
+    private void nextEnemyPokemon() {
+        currentEnemyIndex++;
+        if (currentEnemyIndex < enemyTeam.size()) {
+            showAlert("¡El enemigo ha cambiado de Pokémon!", Alert.AlertType.INFORMATION);
+            loadEnemyPokemon(currentEnemyIndex);
+        } else {
+            showAlert("¡Has derrotado a todos los Pokémon enemigos!", Alert.AlertType.INFORMATION);
+            // Aquí puedes terminar la batalla, volver al menú, etc.
         }
     }
 
-
+    /**
+     * Cambia el Pokémon activo del jugador por uno de los de reserva al hacer clic en su imagen.
+     * @param event Evento de ratón asociado al clic en el ImageView.
+     */
     @FXML
     private void switchActivePokemon(MouseEvent event) {
         ImageView clicked = (ImageView) event.getSource();
@@ -291,9 +288,22 @@ public class ControllerBattleAttack implements Initializable {
         }
     }
 
+    /**
+     * Cambia el Pokémon activo por el de la banca indicado por el índice.
+     * Guarda el estado del Pokémon activo antes de intercambiarlo.
+     * @param benchIndex Índice del Pokémon de la banca (1 o 2).
+     */
     private void switchActivePokemonByIndex(int benchIndex) {
         if (benchIndex < 1 || benchIndex > 2) return;
+        if (playerTeam[benchIndex].isDefeated()) {
+            showAlert("¡Ese Pokémon ya está derrotado y no puede combatir!", Alert.AlertType.WARNING);
+            return;
+        }
+        // Guarda el estado del Pokémon activo actual
+        playerTeam[0].setCurrentHP(playerCurrentHP);
+        playerTeam[0].setCurrentStamina(playerCurrentStamina);
 
+        // Intercambia el Pokémon activo con el de la banca
         Pokemon temp = playerTeam[0];
         playerTeam[0] = playerTeam[benchIndex];
         playerTeam[benchIndex] = temp;
@@ -307,52 +317,57 @@ public class ControllerBattleAttack implements Initializable {
      * Actualiza los detalles de los ataques del Pokémon activo.
      * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
      */
-        public void updateAttackDetails() {
-            Pokemon activePokemon = playerTeam[0];  // Suponiendo que playerTeam está definido
-            AppData db = AppData.getInstance();
+    public void updateAttackDetails() {
+        Pokemon activePokemon = playerTeam[0];  // Suponiendo que playerTeam está definido
+        AppData db = AppData.getInstance();
 
-            String query = String.format(
-                "SELECT pt.name, pt.damage, pt.stamina_cost " +
-                "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
-                "WHERE pt.pokemon_name = '%s'", activePokemon.getName());
+        String query = String.format(
+            "SELECT pt.name, pt.damage, pt.stamina_cost " +
+            "FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name " +
+            "WHERE pt.pokemon_name = '%s'", activePokemon.getName());
 
-            ArrayList<HashMap<String, Object>> pokemonInfo = db.query(query);
+        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(query);
 
-            if (pokemonInfo.size() < 4) {
-                System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
-                return;
-            }
-
-            // Helper para asignar datos
-            setAttackData(attack1Name, attack1Damage, attack1Type, pokemonInfo.get(0));
-            setAttackData(attack2Name, attack2Damage, attack2Type, pokemonInfo.get(1));
-            setAttackData(attack3Name, attack3Damage, attack3Type, pokemonInfo.get(2));
-            setAttackData(attack4Name, attack4Damage, attack4Type, pokemonInfo.get(3));
-
-            // Opcional: Agregar manejo de clics
-            attack1Container.setOnMouseClicked(_ -> handleAttackSelection(1));
-            attack2Container.setOnMouseClicked(_ -> handleAttackSelection(2));
-            attack3Container.setOnMouseClicked(_ -> handleAttackSelection(3));
-            attack4Container.setOnMouseClicked(_ -> handleAttackSelection(4));
+        if (pokemonInfo.size() < 4) {
+            System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
+            return;
         }
 
-        /**
-         * Asigna los datos de un ataque a los labels correspondientes.
-         */
-        private void setAttackData(Label nameLabel, Label damageLabel, Label staminaLabel, HashMap<String, Object> attackData) {
-            String name = (String) attackData.get("name");
-            int damage = Integer.parseInt(attackData.get("damage").toString());
-            int stamina = Integer.parseInt(attackData.get("stamina_cost").toString());
+        // Helper para asignar datos
+        setAttackData(attack1Name, attack1Damage, attack1Type, pokemonInfo.get(0));
+        setAttackData(attack2Name, attack2Damage, attack2Type, pokemonInfo.get(1));
+        setAttackData(attack3Name, attack3Damage, attack3Type, pokemonInfo.get(2));
+        setAttackData(attack4Name, attack4Damage, attack4Type, pokemonInfo.get(3));
 
-            nameLabel.setText(name);
-            damageLabel.setText("Daño: " + damage);
-            staminaLabel.setText("Sta: " + stamina);
-        }
+        // Opcional: Agregar manejo de clics
+        attack1Container.setOnMouseClicked(_ -> handleAttackSelection(1));
+        attack2Container.setOnMouseClicked(_ -> handleAttackSelection(2));
+        attack3Container.setOnMouseClicked(_ -> handleAttackSelection(3));
+        attack4Container.setOnMouseClicked(_ -> handleAttackSelection(4));
+    }
+
+    /**
+     * Asigna los datos de un ataque a los labels correspondientes.
+     * @param nameLabel Label para el nombre del ataque.
+     * @param damageLabel Label para el daño del ataque.
+     * @param staminaLabel Label para el coste de estamina del ataque.
+     * @param attackData HashMap con los datos del ataque.
+     */
+    private void setAttackData(Label nameLabel, Label damageLabel, Label staminaLabel, HashMap<String, Object> attackData) {
+        String name = (String) attackData.get("name");
+        int damage = Integer.parseInt(attackData.get("damage").toString());
+        int stamina = Integer.parseInt(attackData.get("stamina_cost").toString());
+
+        nameLabel.setText(name);
+        damageLabel.setText("Daño: " + damage);
+        staminaLabel.setText("Sta: " + stamina);
+    }
 
     
     /**
      * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño
      * sobre el Pokémon enemigo y, si aún no ha sido derrotado, provoca un contraataque.
+     * @param attackIndex Índice del ataque seleccionado (1 a 4).
      */
     public void handleAttackSelection(int attackIndex) {
         int damage = 0;
@@ -398,12 +413,13 @@ public class ControllerBattleAttack implements Initializable {
 
             System.out.println("Ataque " + attackIndex + " hizo " + damage + " de daño. Estamina restante: " + playerCurrentStamina);
 
-            if (enemyCurrentHP <= 0) {
+            if (enemyCurrentHP <= 0 || enemyCurrentStamina <= 0) {
                 System.out.println("¡El enemigo ha sido derrotado!");
                 showAlert("¡Has derrotado al Pokémon enemigo!", Alert.AlertType.INFORMATION);
-                // Ir a vista de resultado, guardar victoria, etc.
+                nextEnemyPokemon();
+                return;
             } else {
-                enemyCounterAttack();
+                enemyCounterAttack(rd);
             }
 
         } catch (Exception e) {
@@ -413,80 +429,94 @@ public class ControllerBattleAttack implements Initializable {
 
     
     /**
-     * Simula el contraataque del enemigo aplicando un daño fijo al Pokémon del jugador.
+     * Simula el contraataque del enemigo aplicando un daño aleatorio al Pokémon del jugador.
+     * @param rd Objeto Random para seleccionar el ataque enemigo.
      */
-    private void enemyCounterAttack() {
-        if (enemyAttacks == null || enemyAttacks.isEmpty()) {
-            System.err.println("El enemigo no tiene ataques cargados.");
-            return;
-        }
+    private void enemyCounterAttack(Random rd) {     
+        AppData db = AppData.getInstance();
+        String query = String.format(
+            "SELECT name, damage, stamina_cost FROM PokemonAttacks WHERE pokemon_name = '%s'",
+            enemyPokemon.get("name").toString()
+        );
 
-        Random rand = new Random();
-        HashMap<String, Object> attack = enemyAttacks.get(rand.nextInt(enemyAttacks.size()));
+        ArrayList<HashMap<String, Object>> llista = db.query(query);
+        int enemyAttackIndex = rd.nextInt(llista.size());
+        HashMap<String, Object> enemyAttack = llista.get(enemyAttackIndex);
 
-        int damage = Integer.parseInt(attack.get("damage").toString());
-        int staminaCost = Integer.parseInt(attack.get("stamina_cost").toString());
-
-        // Comprobar si el enemigo tiene suficiente estamina
-        if (enemyCurrentStamina < staminaCost) {
-            System.out.println("El enemigo no tiene suficiente estamina para atacar.");
-            return;
-        }
-
+        int enemyAtk = Integer.parseInt(enemyAttack.get("damage").toString());
+        playerCurrentHP -= enemyAtk;
+        int staminaCost = Integer.parseInt(enemyAttack.get("stamina_cost").toString());
         enemyCurrentStamina -= staminaCost;
-        playerCurrentHP -= damage;
-
-        if (playerCurrentHP < 0) playerCurrentHP = 0;
-
-        updatePlayerHealthLabel();
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
 
-        System.out.println("El enemigo usó un ataque causando " + damage + " de daño. Estamina restante: " + enemyCurrentStamina);
-
-        if (playerCurrentHP <= 0) {
+        if (playerCurrentHP < 0) playerCurrentHP = 0;
+        updatePlayerHealthLabel();
+        System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
+        if (enemyCurrentStamina <= 0) {
+            System.out.println("¡El Pokémon enemigo se ha quedado sin estamina!");
+            nextEnemyPokemon();
+            return;
+        }
+        if (playerCurrentHP <= 0 || playerCurrentStamina <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
             showAlert("¡Tu Pokémon ha sido derrotado!", Alert.AlertType.WARNING);
-            // Puedes hacer lógica para forzar cambio de Pokémon aquí
+            playerTeam[0].setDefeated(true); // Marcar como derrotado
+            forceSwitchPokemon();
+            return;
         }
     }
 
+    private void forceSwitchPokemon() {
+        // Busca el primer Pokémon de la banca que NO esté derrotado
+        for (int i = 1; i < playerTeam.length; i++) {
+            if (!playerTeam[i].isDefeated()) {
+                switchActivePokemonByIndex(i);
+                showAlert("¡Has enviado a " + playerTeam[0].getName() + " al combate!", Alert.AlertType.INFORMATION);
+                return;
+            }
+        }
+        // Si todos están derrotados, termina la batalla
+        showAlert("¡Todos tus Pokémon han sido derrotados!", Alert.AlertType.ERROR);
+        // Aquí puedes volver al menú o mostrar pantalla de derrota
+    }
     
     /**
      * Actualiza la visualización de la vida del jugador en un Label.
      */
     private void updatePlayerHealthLabel() {
-        playerHealthLabel.setText(playerCurrentHP + " / " + playerMaxHP);
+        updateStatLabel(playerHealthLabel, playerCurrentHP, playerMaxHP, "playerHealthLabel");
     }
 
     /**
      * Actualiza la visualización de la vida del enemigo en un Label.
      */
     private void updateEnemyHealthLabel() {
-        enemyHealthLabel.setText(enemyCurrentHP + " / " + enemyMaxHP);
+        updateStatLabel(enemyHealthLabel, enemyCurrentHP, enemyMaxHP, "enemyHealthLabel");
     }
 
     /**
      * Actualiza la visualización de la estamina del jugador en un Label.
+     * @param currentStamina Valor actual de estamina.
+     * @param maxStamina Valor máximo de estamina.
      */
     private void updatePlayerStaminaLabel(int currentStamina, int maxStamina) {
-        if (playerStaminaLabel != null) {
-            playerStaminaLabel.setText(currentStamina + " / " + maxStamina);
-        } else {
-            System.err.println("playerStaminaLabel is not initialized.");
-        }
+        updateStatLabel(playerStaminaLabel, currentStamina, maxStamina, "playerStaminaLabel");
     }
 
     /**
      * Actualiza la visualización de la estamina del enemigo en un Label.
+     * @param currentStamina Valor actual de estamina.
+     * @param maxStamina Valor máximo de estamina.
      */
     private void updateEnemyStaminaLabel(int currentStamina, int maxStamina) {
-        if (enemyStaminaLabel != null) {
-            enemyStaminaLabel.setText(currentStamina + " / " + maxStamina);
-        } else {
-            System.err.println("enemyStaminaLabel is not initialized.");
-        }
+        updateStatLabel(enemyStaminaLabel, currentStamina, maxStamina, "enemyStaminaLabel");
     }
 
+    /**
+     * Muestra una alerta en pantalla con el mensaje y tipo especificados.
+     * @param message Mensaje a mostrar.
+     * @param type Tipo de alerta (INFORMATION, ERROR, WARNING, etc.).
+     */
     private void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Información");
@@ -495,7 +525,40 @@ public class ControllerBattleAttack implements Initializable {
         alert.show();
     }
 
+    /**
+     * Actualiza el texto de un Label con el formato "actual / máximo".
+     * @param label Label a actualizar.
+     * @param current Valor actual.
+     * @param max Valor máximo.
+     * @param labelName Nombre del label (para mensajes de error).
+     */
+    private void updateStatLabel(Label label, int current, int max, String labelName) {
+        if (label != null) {
+            label.setText(current + " / " + max);
+        } else {
+            System.err.println(labelName + " is not initialized.");
+        }
+    }
 
+    /**
+     * Asigna una imagen a un ImageView a partir de una ruta de recurso.
+     * Si no se encuentra la imagen, muestra un mensaje de error.
+     * @param imageView ImageView donde se asignará la imagen.
+     * @param resourcePath Ruta del recurso de la imagen.
+     * @param errorMsg Mensaje de error si no se encuentra la imagen.
+     */
+    private void setImageFromResource(ImageView imageView, String resourcePath, String errorMsg) {
+        URL url = getClass().getResource(resourcePath);
+        if (url != null) {
+            imageView.setImage(new Image(url.toExternalForm()));
+        } else {
+            System.err.println(errorMsg + ": " + resourcePath);
+        }
+    }
+
+    /**
+     * Maneja el evento del botón "Back" para volver a la vista anterior.
+     */
     @FXML
     private void handleBackButton() {
     System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");

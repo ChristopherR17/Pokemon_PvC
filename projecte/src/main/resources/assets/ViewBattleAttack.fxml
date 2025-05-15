@@ -84,7 +84,7 @@
                     </children>
                 </VBox>
 
-                <VBox fx:id="attack2Container" style="-fx-background-color: linear-gradient(to bottom, #ff4444, #dd2222); -fx-border-color: #b20000; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                <VBox fx:id="attack2Container" prefHeight="86.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(to bottom, #ff4444, #dd2222); -fx-border-color: #b20000; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
                     <children>
                         <Label fx:id="attack2Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="Ataque 2" />
                         <Label fx:id="attack2Damage" style="-fx-font-size: 14; -fx-text-fill: white;" text="Daño: 30" />
@@ -92,7 +92,7 @@
                     </children>
                 </VBox>
 
-                <VBox fx:id="attack3Container" style="-fx-background-color: linear-gradient(to bottom, #44ccff, #22aadd); -fx-border-color: #0077b3; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                <VBox fx:id="attack3Container" prefHeight="86.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(to bottom, #44ccff, #22aadd); -fx-border-color: #0077b3; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
                     <children>
                         <Label fx:id="attack3Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="Ataque 3" />
                         <Label fx:id="attack3Damage" style="-fx-font-size: 14; -fx-text-fill: white;" text="Daño: 35" />
@@ -100,7 +100,7 @@
                     </children>
                 </VBox>
 
-                <VBox fx:id="attack4Container" style="-fx-background-color: linear-gradient(to bottom, #66ff66, #44dd44); -fx-border-color: #229922; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                <VBox fx:id="attack4Container" prefHeight="86.0" prefWidth="109.0" style="-fx-background-color: linear-gradient(to bottom, #66ff66, #44dd44); -fx-border-color: #229922; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
                     <children>
                         <Label fx:id="attack4Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" text="Ataque 4" />
                         <Label fx:id="attack4Damage" style="-fx-font-size: 14; -fx-text-fill: black;" text="Daño: 45" />
