@@ -78,6 +78,12 @@ public class ControllerBattleAttack implements Initializable {
     private int enemyCurrentHP;
     private int playerMaxHP;
     private int enemyMaxHP;
+
+    // variables para controlar la estamina actual y máxima
+    private int playerCurrentStamina;
+    private int enemyCurrentStamina;
+    private int playerMaxStamina;
+    private int enemyMaxStamina;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -203,18 +209,11 @@ public class ControllerBattleAttack implements Initializable {
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
         updatePlayerHealthLabel();
 
-        // playerPokemonName.setText(pokemon.get("name").toString());
-        // String backPath = pokemon.get("image_back").toString();
-        // URL backUrl = getClass().getResource(backPath);
-        // if(backUrl != null) {
-        //     playerPokemonImage.setImage(new Image(backUrl.toExternalForm()));
-        // } else {
-        //     System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
-        // }
-        // playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
-        // playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        // updatePlayerHealthLabel();
-        
+        // Aplicar la stamina del jugador
+        playerCurrentStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
+        playerMaxStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
+        updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
+
         // updateAttackDetails();
     }
     
@@ -239,6 +238,11 @@ public class ControllerBattleAttack implements Initializable {
         enemyCurrentHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         enemyMaxHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         updateEnemyHealthLabel();
+
+        // Aplicar la stamina del enemigo
+        enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
+        enemyMaxStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
+        updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
     }
     
     /**
@@ -328,6 +332,7 @@ public class ControllerBattleAttack implements Initializable {
         if (playerCurrentHP <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
             // Aquí se maneja el fin de la batalla o el cambio a otro Pokémon.
+            
         }
     }
     
@@ -343,6 +348,20 @@ public class ControllerBattleAttack implements Initializable {
      */
     private void updateEnemyHealthLabel() {
         enemyHealthLabel.setText(enemyCurrentHP + " / " + enemyMaxHP);
+    }
+
+    /**
+     * Actualiza la visualización de la estamina del jugador en un Label.
+     */
+    private void updatePlayerStaminaLabel(int currentStamina, int maxStamina) {
+        playerStaminaLabel.setText(currentStamina + " / " + maxStamina);
+    }
+
+    /**
+     * Actualiza la visualización de la estamina del enemigo en un Label.
+     */
+    private void updateEnemyStaminaLabel(int currentStamina, int maxStamina) {
+        enemyStaminaLabel.setText(currentStamina + " / " + maxStamina);
     }
 
     @FXML
