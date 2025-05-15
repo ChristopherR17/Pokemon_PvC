@@ -84,6 +84,7 @@ public class ControllerBattleAttack implements Initializable {
     private int enemyCurrentStamina;
     private int playerMaxStamina;
     private int enemyMaxStamina;
+
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -209,9 +210,9 @@ public class ControllerBattleAttack implements Initializable {
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
         updatePlayerHealthLabel();
 
-        // Aplicar la stamina del jugador
-        playerCurrentStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
-        playerMaxStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
+        // acar la stamina del jugador
+        playerCurrentStamina = Integer.parseInt(pokemon.get("stamina").toString());
+        playerMaxStamina = Integer.parseInt(pokemon.get("stamina").toString());
         updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
 
         updateAttackDetails();
@@ -240,8 +241,8 @@ public class ControllerBattleAttack implements Initializable {
         updateEnemyHealthLabel();
 
         // Aplicar la stamina del enemigo
-        enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
-        enemyMaxStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
+        enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
+        enemyMaxStamina = Integer.parseInt(enemyPokemon.get("stamina").toString());
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
     }
     
@@ -278,9 +279,9 @@ public class ControllerBattleAttack implements Initializable {
         attack4Name.setText((String) attack4.get("name"));
         attack4Damage.setText("Daño: " + attack4.get("damage"));
         attack4Type.setText("Tipo: " + attack4.get("type"));
-    } else {
-        System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
-    }
+        } else {
+            System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
+        }
     }
     
     /**
@@ -361,14 +362,22 @@ public class ControllerBattleAttack implements Initializable {
      * Actualiza la visualización de la estamina del jugador en un Label.
      */
     private void updatePlayerStaminaLabel(int currentStamina, int maxStamina) {
-        playerStaminaLabel.setText(currentStamina + " / " + maxStamina);
+        if (playerStaminaLabel != null) {
+            playerStaminaLabel.setText(currentStamina + " / " + maxStamina);
+        } else {
+            System.err.println("playerStaminaLabel is not initialized.");
+        }
     }
 
     /**
      * Actualiza la visualización de la estamina del enemigo en un Label.
      */
     private void updateEnemyStaminaLabel(int currentStamina, int maxStamina) {
-        enemyStaminaLabel.setText(currentStamina + " / " + maxStamina);
+        if (enemyStaminaLabel != null) {
+            enemyStaminaLabel.setText(currentStamina + " / " + maxStamina);
+        } else {
+            System.err.println("enemyStaminaLabel is not initialized.");
+        }
     }
 
     @FXML
