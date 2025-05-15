@@ -216,6 +216,7 @@ public class ControllerBattleAttack implements Initializable {
         ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", active.getName()));
         HashMap<String, Object> pokemon = pokemonInfo.get(0);
 
+        active.setType(pokemon.get("type").toString());
         playerPokemonName.setText(active.getName());
         String backPath = pokemon.get("image_back").toString();
         setImageFromResource(playerPokemonImage, backPath, "No se encontró la imagen del Pokémon activo (back): ");
@@ -380,29 +381,38 @@ public class ControllerBattleAttack implements Initializable {
     public void handleAttackSelection(int attackIndex) {
         int damage = 0;
         int staminaCost = 0;
-
+        String attackType = "";
         try {
             switch (attackIndex) {
                 case 1:
                     damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
                     staminaCost = Integer.parseInt(attack1Stamina.getText().replace("Sta: ", ""));
+                    attackType = attack1Type.getText().replace("Tipo: ", "");
                     break;
                 case 2:
                     damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
                     staminaCost = Integer.parseInt(attack2Stamina.getText().replace("Sta: ", ""));
+                    attackType = attack2Type.getText().replace("Tipo: ", "");
                     break;
                 case 3:
                     damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
                     staminaCost = Integer.parseInt(attack3Stamina.getText().replace("Sta: ", ""));
+                    attackType = attack3Type.getText().replace("Tipo: ", "");
                     break;
                 case 4:
                     damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
                     staminaCost = Integer.parseInt(attack4Stamina.getText().replace("Sta: ", ""));
+                    attackType = attack4Type.getText().replace("Tipo: ", "");
                     break;
                 default:
                     System.out.println("Ataque inválido");
                     return;
             }
+
+            String enemyType = enemyPokemon.get("type").toString();
+
+            double multiplier = getTypeMultiplier(attackType, enemyType);
+            int finalDamage = (int) Math.round(damage * multiplier);
 
             // Verificar si hay estamina suficiente
             if (playerCurrentStamina < staminaCost) {
@@ -411,7 +421,7 @@ public class ControllerBattleAttack implements Initializable {
             }
 
             // Aplicar daño
-            enemyCurrentHP -= damage;
+            enemyCurrentHP -= finalDamage;
             playerCurrentStamina -= staminaCost;
 
             if (enemyCurrentHP < 0) enemyCurrentHP = 0;
@@ -443,7 +453,7 @@ public class ControllerBattleAttack implements Initializable {
     private void enemyCounterAttack(Random rd) {     
         AppData db = AppData.getInstance();
         String query = String.format(
-            "SELECT name, damage, stamina_cost FROM PokemonAttacks WHERE pokemon_name = '%s'",
+            "SELECT name, damage, stamina_cost, type FROM PokemonAttacks WHERE pokemon_name = '%s'",
             enemyPokemon.get("name").toString()
         );
 
@@ -452,7 +462,10 @@ public class ControllerBattleAttack implements Initializable {
         HashMap<String, Object> enemyAttack = llista.get(enemyAttackIndex);
 
         int enemyAtk = Integer.parseInt(enemyAttack.get("damage").toString());
-        playerCurrentHP -= enemyAtk;
+        String enemyAttackType = enemyAttack.get("type").toString();
+        double multiplier = getTypeMultiplier(enemyAttackType, playerTeam[0].getType());
+        int finalDamage = (int) Math.round(enemyAtk * multiplier);
+        playerCurrentHP -= finalDamage;
         int staminaCost = Integer.parseInt(enemyAttack.get("stamina_cost").toString());
         enemyCurrentStamina -= staminaCost;
         updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
@@ -489,8 +502,6 @@ public class ControllerBattleAttack implements Initializable {
         // Si todos están derrotados, termina la batalla
         openAttackResultView(false); // false = derrota del jugador
     }
-    
-    // ...existing code...
 
     // Abre la vista de resultados de la batalla
     private void openAttackResultView(boolean playerWon) {
@@ -523,7 +534,6 @@ public class ControllerBattleAttack implements Initializable {
             System.err.println("Error al cargar la vista de resultados: " + e.getMessage());
         }
     }
-// ...existing code...
 
     /**
      * Actualiza la visualización de la vida del jugador en un Label.
@@ -555,6 +565,24 @@ public class ControllerBattleAttack implements Initializable {
      */
     private void updateEnemyStaminaLabel(int currentStamina, int maxStamina) {
         updateStatLabel(enemyStaminaLabel, currentStamina, maxStamina, "enemyStaminaLabel");
+    }
+
+    /**
+     * Devuelve el multiplicador de daño según la efectividad del tipo de ataque contra el tipo del Pokémon enemigo.
+     * @param attackType Tipo del ataque (por ejemplo, "Fuego").
+     * @param enemyType Tipo del Pokémon enemigo (por ejemplo, "Planta").
+     * @return Multiplicador de daño (ej: 2.0 si es muy eficaz, 0.5 si es poco eficaz, 1.0 si es normal).
+     */
+    private double getTypeMultiplier(String attackType, String enemyType) {
+        AppData db = AppData.getInstance();
+        // Aquí puedes implementar una consulta a la base de datos para obtener los multiplicadores
+        ArrayList<HashMap<String, Object>> llista = db.query("SELECT * FROM TypeEffectiveness WHERE attack_type = '" + attackType + "' AND target_type = '" + enemyType + "'");
+        if (llista.size() > 0) {
+            double multiplier = Double.parseDouble(llista.get(0).get("multiplier").toString());
+            return multiplier;
+        }
+        // Por defecto, daño normal
+        return 1.0;
     }
 
     /**

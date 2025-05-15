@@ -5,6 +5,7 @@ public class Pokemon {
     private final String imagePath;
     private int currentHP;
     private int currentStamina;
+    private String type;
     private boolean defeated = false;
 
     public Pokemon(String name, String imagePath) {
@@ -42,5 +43,13 @@ public class Pokemon {
 
     public void setDefeated(boolean defeated) { 
         this.defeated = defeated; 
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
