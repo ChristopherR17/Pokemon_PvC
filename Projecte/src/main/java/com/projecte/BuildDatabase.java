@@ -87,12 +87,12 @@ public class BuildDatabase {
         """);
 
         db.update("""
-            CREATE TABLE PokemonAttack (
-                pokemon_id INTEGER NOT NULL,
-                attack_id INTEGER NOT NULL,
-                PRIMARY KEY (pokemon_id, attack_id),
-                FOREIGN KEY (pokemon_id) REFERENCES Pokemon(id),
-                FOREIGN KEY (attack_id) REFERENCES Attack(id)
+            CREATE TABLE PokemonAttacks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                damage INTEGER NOT NULL,
+                stamina_cost INTEGER NOT NULL,
+                pokemon_name TEXT NOT NULL
             )
         """);
 
@@ -131,11 +131,6 @@ public class BuildDatabase {
                 current_win_streak INTEGER DEFAULT 0
             )
         """);
-
-        // Insertar datos iniciales en GameStats
-        // db.update(String.format(
-        //     "INSERT INTO GameStats (total_experience, battles_played, max_win_streak, current_win_streak) VALUES ('%d', '%d', '%d', '%d');", 0, 0, 0, 0
-        // ));
 
         db.update("""
             CREATE TABLE Battle (
@@ -235,9 +230,11 @@ public class BuildDatabase {
             for (Object o : pokAtts) {
                 JSONObject pa = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO PokemonAttack (pokemon_id, attack_id) VALUES (%d, %d)",
-                    pa.getInt("pokemon_id"), 
-                    pa.getInt("attack_id")
+                    "INSERT INTO PokemonAttacks (name, damage, stamina_cost, pokemon_name) VALUES ('%s', %d, %d, '%s')",
+                    pa.getString("name").replace("'", "''"),
+                    pa.getInt("damage"),
+                    pa.getInt("staminaCost"),
+                    pa.getString("pokemonName").replace("'", "''")
                 ));
             }
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");

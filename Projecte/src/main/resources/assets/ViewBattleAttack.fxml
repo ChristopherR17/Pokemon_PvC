@@ -75,7 +75,12 @@
                 <VBox fx:id="attack1Container" style="-fx-background-color: linear-gradient(to bottom, #ffcc00, #eeaa00); -fx-border-color: #d68c00; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
                     <children>
                         <Label fx:id="attack1Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" text="Ataque 1" />
-                        <Label fx:id="attack1Damage" style="-fx-font-size: 14; -fx-text-fill: black;" text="Daño: 40" />
+                  <HBox prefHeight="20.0" prefWidth="0.0">
+                     <children>
+                              <Label fx:id="damageLabel" prefHeight="20.0" prefWidth="42.0" style="-fx-font-size: 14; -fx-text-fill: black;" text="Daño:" />
+                        <Label fx:id="attack1Damage" prefHeight="22.0" prefWidth="32.0" text="Label" />
+                     </children>
+                  </HBox>
                         <Label fx:id="attack1Type" style="-fx-font-size: 14; -fx-text-fill: black;" text="Tipo: Eléctrico" />
                     </children>
                 </VBox>

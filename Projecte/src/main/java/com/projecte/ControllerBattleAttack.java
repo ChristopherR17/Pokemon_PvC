@@ -245,28 +245,32 @@ public class ControllerBattleAttack implements Initializable {
      * Actualiza los detalles de los ataques del Pokémon activo.
      * En este ejemplo se generan 4 ataques de muestra utilizando el valor de "attack" y "type".
      */
-    // public void updateAttackDetails() {
-    //     if(activePokemon != null) {
-    //         int baseAttack = Integer.parseInt(activePokemon.get("attack").toString());
-    //         String pokeType = activePokemon.get("type").toString();
+    public void updateAttackDetails() {
+        Pokemon activePokemon = playerTeam[0];
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM PokemonAttacks WHERE pokemon_name = '%s'", activePokemon.getName()));
+        HashMap<String, Object> pokemon = pokemonInfo.get(0);
+        if(activePokemon != null) {
+            int baseAttack = Integer.parseInt(poekmon.get("attack").toString());
+            String pokeType = activePokemon.get("type").toString();
             
-    //         attack1Name.setText("Flamethrower");
-    //         attack1Damage.setText("Daño: " + baseAttack);
-    //         attack1Type.setText("Tipo: " + pokeType);
+            attack1Name.setText("Flamethrower");
+            attack1Damage.setText("Daño: " + baseAttack);
+            attack1Type.setText("Tipo: " + pokeType);
             
-    //         attack2Name.setText("Fire Spin");
-    //         attack2Damage.setText("Daño: " + (baseAttack - 10));
-    //         attack2Type.setText("Tipo: " + pokeType);
+            attack2Name.setText("Fire Spin");
+            attack2Damage.setText("Daño: " + (baseAttack - 10));
+            attack2Type.setText("Tipo: " + pokeType);
             
-    //         attack3Name.setText("Scratch");
-    //         attack3Damage.setText("Daño: 30");
-    //         attack3Type.setText("Tipo: Normal");
+            attack3Name.setText("Scratch");
+            attack3Damage.setText("Daño: 30");
+            attack3Type.setText("Tipo: Normal");
             
-    //         attack4Name.setText("Fire Blast");
-    //         attack4Damage.setText("Daño: " + (baseAttack + 10));
-    //         attack4Type.setText("Tipo: " + pokeType);
-    //     }
-    // }
+            attack4Name.setText("Fire Blast");
+            attack4Damage.setText("Daño: " + (baseAttack + 10));
+            attack4Type.setText("Tipo: " + pokeType);
+        }
+    }
     
     /**
      * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño

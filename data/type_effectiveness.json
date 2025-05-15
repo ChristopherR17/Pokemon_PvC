@@ -10,63 +10,63 @@
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Foc",
-    "target_type": "Insectes",
+    "attack_type": "Fire",
+    "target_type": "Bug",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Foc",
-    "target_type": "Acer",
+    "attack_type": "Fire",
+    "target_type": "Steel",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Foc",
-    "target_type": "Aigua",
+    "attack_type": "Fire",
+    "target_type": "Water",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Foc",
+    "attack_type": "Fire",
     "target_type": "Roca",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Foc",
-    "target_type": "Foc",
+    "attack_type": "Fire",
+    "target_type": "Fire",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Foc",
+    "attack_type": "Water",
+    "target_type": "Fire",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Aigua",
+    "attack_type": "Water",
     "target_type": "Roca",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Terra",
+    "attack_type": "Water",
+    "target_type": "Earth",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Aigua",
+    "attack_type": "Water",
+    "target_type": "Water",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Plantes",
+    "attack_type": "Water",
+    "target_type": "Grass",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Dracs",
+    "attack_type": "Water",
+    "target_type": "Dragon",
     "multiplier": "0.5"
   },
   {
     "attack_type": "Electric",
-    "target_type": "Aigua",
+    "target_type": "Water",
     "multiplier": "2.0"
   },
   {
@@ -76,57 +76,57 @@
   },
   {
     "attack_type": "Electric",
-    "target_type": "Terra",
+    "target_type": "Earth",
     "multiplier": "0.0"
   },
   {
     "attack_type": "Electric",
-    "target_type": "Plantes",
+    "target_type": "Grass",
     "multiplier": "0.5"
   },
   {
     "attack_type": "Electric",
-    "target_type": "Dracs",
+    "target_type": "Dragon",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Plantes",
+    "attack_type": "Ice",
+    "target_type": "Grass",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Terra",
+    "attack_type": "Ice",
+    "target_type": "Earth",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Volador",
+    "attack_type": "Ice",
+    "target_type": "Flying",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Dracs",
+    "attack_type": "Ice",
+    "target_type": "Dragon",
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Foc",
+    "attack_type": "Ice",
+    "target_type": "Fire",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Aigua",
+    "attack_type": "Ice",
+    "target_type": "Water",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Acer",
+    "attack_type": "Ice",
+    "target_type": "Steel",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Veri",
-    "target_type": "Plantes",
+    "attack_type": "Poison",
+    "target_type": "Grass",
     "multiplier": "2.0"
   },
   {
@@ -135,68 +135,68 @@
     "multiplier": "2.0"
   },
   {
-    "attack_type": "Veri",
-    "target_type": "Terra",
+    "attack_type": "Poison",
+    "target_type": "Earth",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Veri",
-    "target_type": "Fantasmes",
+    "attack_type": "Poison",
+    "target_type": "Ghost",
     "multiplier": "0.5"
   },
   {
-    "attack_type": "Veri",
-    "target_type": "Acer",
+    "attack_type": "Poison",
+    "target_type": "Steel",
     "multiplier": "0.0"
   },
   {
-    "attack_type": "Foc",
-    "target_type": "Terra",
+    "attack_type": "Fire",
+    "target_type": "Earth",
     "multiplier": "1.0"
   },
   {
-    "attack_type": "Aigua",
-    "target_type": "Gel",
-    "multiplier": "1.0"
-  },
-  {
-    "attack_type": "Electric",
-    "target_type": "Foc",
-    "multiplier": "1.0"
-  },
-  {
-    "attack_type": "Gel",
-    "target_type": "Insectes",
-    "multiplier": "1.0"
-  },
-  {
-    "attack_type": "Veri",
-    "target_type": "Gel",
-    "multiplier": "1.0"
-  },
-  {
-    "attack_type": "Foc",
-    "target_type": "Fades",
-    "multiplier": "1.0"
-  },
-  {
-    "attack_type": "Aigua",
-    "target_type": "Volador",
+    "attack_type": "Water",
+    "target_type": "Ice",
     "multiplier": "1.0"
   },
   {
     "attack_type": "Electric",
-    "target_type": "Insectes",
+    "target_type": "Fire",
     "multiplier": "1.0"
   },
   {
-    "attack_type": "Gel",
-    "target_type": "Fades",
+    "attack_type": "Ice",
+    "target_type": "Bug",
     "multiplier": "1.0"
   },
   {
-    "attack_type": "Veri",
-    "target_type": "Dracs",
+    "attack_type": "Poison",
+    "target_type": "Ice",
+    "multiplier": "1.0"
+  },
+  {
+    "attack_type": "Fire",
+    "target_type": "Fairy",
+    "multiplier": "1.0"
+  },
+  {
+    "attack_type": "Water",
+    "target_type": "Flying",
+    "multiplier": "1.0"
+  },
+  {
+    "attack_type": "Electric",
+    "target_type": "Bug",
+    "multiplier": "1.0"
+  },
+  {
+    "attack_type": "Ice",
+    "target_type": "Fairy",
+    "multiplier": "1.0"
+  },
+  {
+    "attack_type": "Poison",
+    "target_type": "Dragon",
     "multiplier": "1.0"
   }
 ]
