@@ -15,9 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
 
 
 
@@ -87,6 +87,9 @@ public class ControllerBattleAttack implements Initializable {
     private int playerMaxStamina;
     private int enemyMaxStamina;
 
+    //Informacion del pokemon activo
+    private ArrayList<HashMap<String, Object>> pokemonInfo;
+
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -120,7 +123,12 @@ public class ControllerBattleAttack implements Initializable {
                     backupPokemon1.setOnMouseClicked(_ -> switchActivePokemonByIndex(1));
                     backupPokemon2.setOnMouseClicked(_ -> switchActivePokemonByIndex(2));
 
-
+                    // Añade listeners a los VBoxes de ataques
+                    attack1Container.setOnMouseClicked(_ -> handleAttackVBoxClick(0));
+                    attack2Container.setOnMouseClicked(_ -> handleAttackVBoxClick(1));
+                    attack3Container.setOnMouseClicked(_ -> handleAttackVBoxClick(2));
+                    attack4Container.setOnMouseClicked(_ -> handleAttackVBoxClick(3));
+                    
                 }
             } else {
                 System.err.println("No se recibió el DTO esperado en ControllerBattleAttack.");
@@ -202,8 +210,8 @@ public class ControllerBattleAttack implements Initializable {
     public void setActivePokemon() {
         Pokemon active = playerTeam[0]; // Suponiendo que el primer Pokémon es el activo
         AppData db = AppData.getInstance();
-        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", active.getName()));
-        HashMap<String, Object> pokemon = pokemonInfo.get(0);
+        ArrayList<HashMap<String, Object>> llista = db.query(String.format("SELECT * FROM pokemon WHERE name = '%s'", active.getName()));
+        HashMap<String, Object> pokemon = llista.get(0);
 
         playerPokemonName.setText(active.getName());
         String backPath = pokemon.get("image_back").toString();
@@ -283,7 +291,7 @@ public class ControllerBattleAttack implements Initializable {
     public void updateAttackDetails() {
         Pokemon activePokemon = playerTeam[0];
         AppData db = AppData.getInstance();
-        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT pt.name, p.type, pt.damage, pt.stamina_cost FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name WHERE pt.pokemon_name = '%s'", activePokemon.getName()));
+        pokemonInfo = db.query(String.format("SELECT pt.name, p.type, p.stamina, pt.damage, pt.stamina_cost FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name WHERE pt.pokemon_name = '%s'", activePokemon.getName()));
         
         if (pokemonInfo.size() >= 4) {
         // Ataque 1
@@ -313,50 +321,95 @@ public class ControllerBattleAttack implements Initializable {
             System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
         }
     }
+
+    /**
+     * Maneja el click sobre un VBox de ataque.
+     * @param attackIndex El índice del ataque (0 a 3)
+     */
+    private void handleAttackVBoxClick(int attackIndex) {
+        // Obtén el daño del ataque seleccionado
+        int damage = 0;
+        String type = "";
+        int stamina = 0;
+
+        switch (attackIndex) {
+            case 0:
+                damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
+                // type = attack1Type.getText().replace("Tipo: ", "");
+                stamina = Integer.parseInt(attack1Type.getText().replace("Sta: ", ""));
+                break;
+            case 1:
+                damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
+                // type = attack2Type.getText().replace("Tipo: ", "");
+                stamina = Integer.parseInt(attack2Type.getText().replace("Sta: ", ""));
+                break;
+            case 2:
+                damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
+                // type = attack3Type.getText().replace("Tipo: ", "");
+                stamina = Integer.parseInt(attack3Type.getText().replace("Sta: ", ""));
+                break;
+            case 3:
+                damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
+                // type = attack4Type.getText().replace("Tipo: ", "");
+                stamina = Integer.parseInt(attack4Type.getText().replace("Sta: ", ""));
+                break;
+        }
+
+        // Resta el daño a la vida del enemigo y actualiza la etiqueta
+        enemyCurrentHP -= damage;
+        playerCurrentStamina -= stamina;
+        if (enemyCurrentHP <= 0) enemyCurrentHP = 0;
+        updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
+        updateEnemyHealthLabel();
+
+        System.out.println("Has usado un ataque de tipo " + type + " con daño " + damage + ". Vida del enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
+
+        // Aquí puedes añadir lógica extra, como comprobar si el enemigo ha sido derrotado, etc.
+    }
     
     /**
      * Maneja la selección de un ataque (índice 1 a 4). Simula la aplicación de daño
      * sobre el Pokémon enemigo y, si aún no ha sido derrotado, provoca un contraataque.
      */
-    public void handleAttackSelection(int attackIndex) {
-        int damage = 0;
-        try {
-            switch (attackIndex) {
-                case 1:
-                    damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
-                    break;
-                case 2:
-                    damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
-                    break;
-                case 3:
-                    damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
-                    break;
-                case 4:
-                    damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
-                    break;
-                default:
-                    System.out.println("Ataque inválido");
-                    return;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
+    // public void handleAttackSelection(int attackIndex) {
+    //     int damage = 0;
+    //     try {
+    //         switch (attackIndex) {
+    //             case 1:
+    //                 damage = Integer.parseInt(attack1Damage.getText().replace("Daño: ", ""));
+    //                 break;
+    //             case 2:
+    //                 damage = Integer.parseInt(attack2Damage.getText().replace("Daño: ", ""));
+    //                 break;
+    //             case 3:
+    //                 damage = Integer.parseInt(attack3Damage.getText().replace("Daño: ", ""));
+    //                 break;
+    //             case 4:
+    //                 damage = Integer.parseInt(attack4Damage.getText().replace("Daño: ", ""));
+    //                 break;
+    //             default:
+    //                 System.out.println("Ataque inválido");
+    //                 return;
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return;
+    //     }
         
-        System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
-        enemyCurrentHP -= damage;
-        if (enemyCurrentHP < 0) enemyCurrentHP = 0;
-        updateEnemyHealthLabel();
-        System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
+    //     System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
+    //     enemyCurrentHP -= damage;
+    //     if (enemyCurrentHP < 0) enemyCurrentHP = 0;
+    //     updateEnemyHealthLabel();
+    //     System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
         
-        if (enemyCurrentHP <= 0) {
-            System.out.println("¡El enemigo ha sido derrotado!");
-            // Aquí puedes desencadenar la transición a la vista de resultados, 
-            // e insertar el resultado en la base de datos usando un valor permitido ("Ganado" o "Perdido").
-        } else {
-            enemyCounterAttack();
-        }
-    }
+    //     if (enemyCurrentHP <= 0) {
+    //         System.out.println("¡El enemigo ha sido derrotado!");
+    //         // Aquí puedes desencadenar la transición a la vista de resultados, 
+    //         // e insertar el resultado en la base de datos usando un valor permitido ("Ganado" o "Perdido").
+    //     } else {
+    //         enemyCounterAttack();
+    //     }
+    // }
     
     /**
      * Simula el contraataque del enemigo aplicando un daño fijo al Pokémon del jugador.
