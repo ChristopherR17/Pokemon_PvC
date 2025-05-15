@@ -283,32 +283,32 @@ public class ControllerBattleAttack implements Initializable {
     public void updateAttackDetails() {
         Pokemon activePokemon = playerTeam[0];
         AppData db = AppData.getInstance();
-        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT * FROM PokemonAttacks WHERE pokemon_name = '%s'", activePokemon.getName()));
+        ArrayList<HashMap<String, Object>> pokemonInfo = db.query(String.format("SELECT pt.name, p.type, pt.damage, pt.stamina_cost FROM Pokemon p JOIN PokemonAttacks pt ON p.name = pt.pokemon_name WHERE pt.pokemon_name = '%s'", activePokemon.getName()));
         
         if (pokemonInfo.size() >= 4) {
         // Ataque 1
         HashMap<String, Object> attack1 = pokemonInfo.get(0);
         attack1Name.setText((String) attack1.get("name"));
         attack1Damage.setText("Daño: " + attack1.get("damage"));
-        attack1Type.setText("Tipo: " + attack1.get("type"));
+        attack1Type.setText("Sta: " + attack1.get("stamina_cost"));
 
         // Ataque 2
         HashMap<String, Object> attack2 = pokemonInfo.get(1);
         attack2Name.setText((String) attack2.get("name"));
         attack2Damage.setText("Daño: " + attack2.get("damage"));
-        attack2Type.setText("Tipo: " + attack2.get("type"));
+        attack2Type.setText("Sta: " + attack2.get("stamina_cost"));
 
         // Ataque 3
         HashMap<String, Object> attack3 = pokemonInfo.get(2);
         attack3Name.setText((String) attack3.get("name"));
         attack3Damage.setText("Daño: " + attack3.get("damage"));
-        attack3Type.setText("Tipo: " + attack3.get("type"));
+        attack3Type.setText("Sta: " + attack3.get("stamina_cost"));
 
         // Ataque 4
         HashMap<String, Object> attack4 = pokemonInfo.get(3);
         attack4Name.setText((String) attack4.get("name"));
         attack4Damage.setText("Daño: " + attack4.get("damage"));
-        attack4Type.setText("Tipo: " + attack4.get("type"));
+        attack4Type.setText("Sta: " + attack4.get("stamina_cost"));
         } else {
             System.err.println("El Pokémon no tiene 4 ataques registrados en la base de datos.");
         }
