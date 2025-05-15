@@ -26,14 +26,14 @@ public class ControllerBattleAttack implements Initializable {
     
     // Información del Pokémon enemigo
     @FXML private Label enemyPokemonName;
-    @FXML private ImageView enemyHealthBar;    // Barra de vida (se actualizará dinámicamente)
-    @FXML private ImageView enemyStaminaBar;   // Barra de estamina (puedes implementar la actualización)
+    @FXML private Label enemyHealthLabel;    // Barra de vida (se actualizará dinámicamente)
+    @FXML private Label enemyStaminaLabel;   // Barra de estamina (puedes implementar la actualización)
     @FXML private ImageView enemyPokemonImage;
     
     // Información del Pokémon del jugador
     @FXML private Label playerPokemonName;
-    @FXML private ImageView playerHealthBar;     // Barra de vida
-    @FXML private ImageView playerStaminaBar;    // Barra de estamina
+    @FXML private Label playerHealthLabel;     // Barra de vida
+    @FXML private Label playerStaminaLabel;    // Barra de estamina
     @FXML private ImageView playerPokemonImage;
     
     // Botón de retroceso
@@ -78,6 +78,12 @@ public class ControllerBattleAttack implements Initializable {
     private int enemyCurrentHP;
     private int playerMaxHP;
     private int enemyMaxHP;
+
+    // variables para controlar la estamina actual y máxima
+    private int playerCurrentStamina;
+    private int enemyCurrentStamina;
+    private int playerMaxStamina;
+    private int enemyMaxStamina;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -201,22 +207,14 @@ public class ControllerBattleAttack implements Initializable {
         }
         playerCurrentHP = Integer.parseInt(pokemon.get("max_hp").toString());
         playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        updatePlayerHealthBar();
-        updateAttackDetails();
+        updatePlayerHealthLabel();
 
-        // playerPokemonName.setText(pokemon.get("name").toString());
-        // String backPath = pokemon.get("image_back").toString();
-        // URL backUrl = getClass().getResource(backPath);
-        // if(backUrl != null) {
-        //     playerPokemonImage.setImage(new Image(backUrl.toExternalForm()));
-        // } else {
-        //     System.err.println("No se encontró la imagen del Pokémon activo (back): " + backPath);
-        // }
-        // playerCurrentHP = Integer.parseInt(pokemon.get("vida").toString());
-        // playerMaxHP = Integer.parseInt(pokemon.get("max_hp").toString());
-        // updatePlayerHealthBar();
-        
-        // updateAttackDetails();
+        // Aplicar la stamina del jugador
+        playerCurrentStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
+        playerMaxStamina = Integer.parseInt(pokemon.get("max_stamina").toString());
+        updatePlayerStaminaLabel(playerCurrentStamina, playerMaxStamina);
+
+        updateAttackDetails();
     }
     
     /**
@@ -239,7 +237,12 @@ public class ControllerBattleAttack implements Initializable {
         }
         enemyCurrentHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
         enemyMaxHP = Integer.parseInt(enemyPokemon.get("max_hp").toString());
-        updateEnemyHealthBar();
+        updateEnemyHealthLabel();
+
+        // Aplicar la stamina del enemigo
+        enemyCurrentStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
+        enemyMaxStamina = Integer.parseInt(enemyPokemon.get("max_stamina").toString());
+        updateEnemyStaminaLabel(enemyCurrentStamina, enemyMaxStamina);
     }
     
     /**
@@ -312,7 +315,7 @@ public class ControllerBattleAttack implements Initializable {
         System.out.println("Ataque " + attackIndex + " seleccionado con daño: " + damage);
         enemyCurrentHP -= damage;
         if (enemyCurrentHP < 0) enemyCurrentHP = 0;
-        updateEnemyHealthBar();
+        updateEnemyHealthLabel();
         System.out.println("Salud enemigo: " + enemyCurrentHP + "/" + enemyMaxHP);
         
         if (enemyCurrentHP <= 0) {
@@ -331,29 +334,41 @@ public class ControllerBattleAttack implements Initializable {
         int enemyAtk = 30; // Danho fijo de ejemplo; puede basarse en enemyPokemon.get("attack")
         playerCurrentHP -= enemyAtk;
         if (playerCurrentHP < 0) playerCurrentHP = 0;
-        updatePlayerHealthBar();
+        updatePlayerHealthLabel();
         System.out.println("Salud jugador: " + playerCurrentHP + "/" + playerMaxHP);
         if (playerCurrentHP <= 0) {
             System.out.println("¡Tu Pokémon ha sido derrotado!");
             // Aquí se maneja el fin de la batalla o el cambio a otro Pokémon.
+            
         }
     }
     
     /**
-     * Actualiza la visualización de la barra de vida del jugador 
-     * ajustando el ancho proporcionalmente a un ancho base de 120.
+     * Actualiza la visualización de la vida del jugador en un Label.
      */
-    private void updatePlayerHealthBar() {
-        double porcentaje = (double) playerCurrentHP / playerMaxHP;
-        playerHealthBar.setFitWidth(120 * porcentaje);
+    private void updatePlayerHealthLabel() {
+        playerHealthLabel.setText(playerCurrentHP + " / " + playerMaxHP);
     }
-    
+
     /**
-     * Actualiza la visualización de la barra de vida del enemigo de forma similar.
+     * Actualiza la visualización de la vida del enemigo en un Label.
      */
-    private void updateEnemyHealthBar() {
-        double porcentaje = (double) enemyCurrentHP / enemyMaxHP;
-        enemyHealthBar.setFitWidth(120 * porcentaje);
+    private void updateEnemyHealthLabel() {
+        enemyHealthLabel.setText(enemyCurrentHP + " / " + enemyMaxHP);
+    }
+
+    /**
+     * Actualiza la visualización de la estamina del jugador en un Label.
+     */
+    private void updatePlayerStaminaLabel(int currentStamina, int maxStamina) {
+        playerStaminaLabel.setText(currentStamina + " / " + maxStamina);
+    }
+
+    /**
+     * Actualiza la visualización de la estamina del enemigo en un Label.
+     */
+    private void updateEnemyStaminaLabel(int currentStamina, int maxStamina) {
+        enemyStaminaLabel.setText(currentStamina + " / " + maxStamina);
     }
 
     @FXML

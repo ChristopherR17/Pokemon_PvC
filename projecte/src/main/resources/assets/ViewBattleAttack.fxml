@@ -21,14 +21,14 @@
                 <!-- Barra de vida -->
                 <HBox spacing="10">
                     <children>
-                        <Label style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
+                        <Label fx:id="enemyHealthLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
                         <ImageView fx:id="enemyHealthBar" fitHeight="10.0" fitWidth="120.0" />
                     </children>
                 </HBox>
                 <!-- Barra de estamina -->
                 <HBox spacing="10">
                     <children>
-                        <Label style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
+                        <Label fx:id="enemyStaminaLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
                         <ImageView fx:id="enemyStaminaBar" fitHeight="10.0" fitWidth="120.0" />
                     </children>
                 </HBox>
@@ -45,15 +45,13 @@
                 <!-- Barra de vida -->
                 <HBox spacing="10">
                     <children>
-                        <Label fx:id="playerHelathLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
-                        <ImageView fx:id="playerHealthBar" fitHeight="10.0" fitWidth="120.0" />
+                        <Label fx:id="playerHealthLabel" style="-fx-font-size: 16; -fx-text-fill: white;" text="PS:" />
                     </children>
                 </HBox>
                 <!-- Barra de estamina -->
                 <HBox spacing="10">
                     <children>
-                        <Label style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
-                        <ImageView fx:id="playerStaminaBar" fitHeight="10.0" fitWidth="120.0" />
+                        <Label fx:id="playerStaminaLabel" prefHeight="26.0" prefWidth="70.0" style="-fx-font-size: 16; -fx-text-fill: white;" text="Estamina:" />
                     </children>
                 </HBox>
                 <!-- Imagen del Pokémon del jugador -->
