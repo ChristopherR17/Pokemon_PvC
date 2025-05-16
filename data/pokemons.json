@@ -7,9 +7,9 @@
     "image_back": "/gif/sprites/back/charizardBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -20,9 +20,9 @@
     "image_back": "/gif/sprites/back/arcanineBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -33,9 +33,9 @@
     "image_back": "/gif/sprites/back/blastoiseBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -46,9 +46,9 @@
     "image_back": "/gif/sprites/back/vaporeonBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -59,9 +59,9 @@
     "image_back": "/gif/sprites/back/greninjaBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -72,9 +72,9 @@
     "image_back": "/gif/sprites/back/jolteonBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -85,9 +85,9 @@
     "image_back": "/gif/sprites/back/magnezoneBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -98,9 +98,9 @@
     "image_back": "/gif/sprites/back/electivireBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -111,9 +111,9 @@
     "image_back": "/gif/sprites/back/laprasBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -124,9 +124,9 @@
     "image_back": "/gif/sprites/back/froslassBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -137,9 +137,9 @@
     "image_back": "/gif/sprites/back/mukBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -150,9 +150,9 @@
     "image_back": "/gif/sprites/back/serperiorBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -163,9 +163,9 @@
     "image_back": "/gif/sprites/back/gengarBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -176,9 +176,9 @@
     "image_back": "/gif/sprites/back/venusaurBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": true
   },
   {
@@ -189,9 +189,9 @@
     "image_back": "/gif/sprites/back/torterraBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -202,9 +202,9 @@
     "image_back": "/gif/sprites/back/scizorBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -215,9 +215,9 @@
     "image_back": "/gif/sprites/back/volcaronaBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -228,9 +228,9 @@
     "image_back": "/gif/sprites/back/tyranitarBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -241,9 +241,9 @@
     "image_back": "/gif/sprites/back/donphanBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -254,9 +254,9 @@
     "image_back": "/gif/sprites/back/garchompBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -267,9 +267,9 @@
     "image_back": "/gif/sprites/back/onixBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -280,9 +280,9 @@
     "image_back": "/gif/sprites/back/dragoniteBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -293,9 +293,9 @@
     "image_back": "/gif/sprites/back/giratinaBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -306,9 +306,9 @@
     "image_back": "/gif/sprites/back/infernapeBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -319,9 +319,9 @@
     "image_back": "/gif/sprites/back/mimikyuBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -332,9 +332,9 @@
     "image_back": "/gif/sprites/back/blazikenBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -345,9 +345,9 @@
     "image_back": "/gif/sprites/back/rayquazaBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -358,9 +358,9 @@
     "image_back": "/gif/sprites/back/lucarioBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -371,9 +371,9 @@
     "image_back": "/gif/sprites/back/mewBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -384,9 +384,9 @@
     "image_back": "/gif/sprites/back/sylveonBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   },
   {
@@ -397,9 +397,9 @@
     "image_back": "/gif/sprites/back/gardevoirBack.gif",
     "vida": 100,
     "nickname": "",
-    "max_hp": 100,
+    "max_hp": 500,
     "attack": 50,
-    "stamina": 50,
+    "stamina": 250,
     "unlocked": false
   }
 ]

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="610.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projecte.ControllerMaps">
+    <children>
+        <!-- Fondo -->
+        <ImageView fx:id="mapBackground" fitHeight="610.0" fitWidth="810.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../img/bg/fondoMaps.png" />
+            </image>
+        </ImageView>
+
+        <!-- Título -->
+        <Label layoutX="198.0" layoutY="38.0" prefHeight="59.0" prefWidth="579.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 40; -fx-font-weight: bold; -fx-text-fill: yellow; -fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" text="🌍 Select Your Map 🌍" />
+
+        <!-- Contenedor de selección de mapas -->
+        <VBox alignment="CENTER" layoutX="110.0" layoutY="144.0" spacing="20">
+            <children>
+                <HBox alignment="CENTER" spacing="20">
+                    <children>
+                        <Button fx:id="prevMapButton" onAction="#handlePrevMap" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="⬅ Anterior" />
+
+                        <ImageView fx:id="mapImageView" fitHeight="200.0" fitWidth="300.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 15, 0.8, 0, 0);" />
+
+                        <Button fx:id="nextMapButton" onAction="#handleNextMap" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #3c5ecc, #2e42a7); -fx-border-radius: 10;" text="Siguiente ➡" />
+                    </children>
+                </HBox>
+
+                <Label fx:id="mapNameLabel" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: white;" text="Bosque Verde" />
+
+                <Button fx:id="confirmMapButton" onAction="#handleConfirmMap" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-color: linear-gradient(to bottom, #ff4500, #cc0000); -fx-border-radius: 15;" text="✔ Confirmar Mapa" />
+            </children>
+        </VBox>
+      <Button fx:id="backButton" layoutX="38.0" layoutY="39.0" onAction="#handleBackButton" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill:rgb(0, 0, 0); -fx-background-color: linear-gradient(to bottom, #FFD700, #F2A900); -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 15; -fx-background-radius: 15;" text="← Back">
+         <effect>
+            <DropShadow color="black" offsetX="2.0" offsetY="2.0" radius="5.0" />
+         </effect>
+      </Button>
+    </children>
+</AnchorPane>
