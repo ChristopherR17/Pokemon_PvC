@@ -1,9 +1,15 @@
 package com.projecte;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class ControllerBattleResult {
 
@@ -17,6 +23,8 @@ public class ControllerBattleResult {
     @FXML private Label playerName1;
     @FXML private Label playerName2;
     @FXML private Label playerName3;
+    @FXML private Button backToMenuButton;
+    @FXML private Button restartBattleButton;
 
     public void setBattleResult(boolean playerWon, Pokemon[] playerTeam) {
         if (playerWon) {
@@ -66,10 +74,30 @@ public class ControllerBattleResult {
     @FXML
     private void handleBackToMenu() {
         // Lógica para volver al menú principal
+        // Aquí implementa la navegación a la vista anterior
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml")); 
+            Scene newScene = new Scene(loader.load());
+            Stage stage = (Stage) backToMenuButton.getScene().getWindow();
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleRestartBattle() {
         // Lógica para reiniciar la batalla
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/pokemonSelection.fxml"));
+            Stage stage = (Stage) restartBattleButton.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error de navegación. No se pudo cargar pokemonSelection.fxml: " + e.getMessage());
+        }
     }
 }
