@@ -14,16 +14,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controlador para la selección de mapas en el juego.
+ * Permite al usuario navegar entre diferentes mapas, ver su imagen y nombre,
+ * confirmar la selección del mapa para la batalla o volver a la pantalla anterior.
+ */
 public class ControllerMaps {
 
     @FXML 
-    private ImageView mapImageView;
+    private ImageView mapImageView;      // Imagen del mapa actual
     @FXML 
-    private Label mapNameLabel;
+    private Label mapNameLabel;          // Nombre del mapa actual
     @FXML 
-    private Button prevMapButton, nextMapButton, confirmMapButton;
+    private Button prevMapButton, nextMapButton, confirmMapButton; // Botones de navegación y confirmación
     @FXML
-    private Button backButton;
+    private Button backButton;           // Botón para volver a la pantalla anterior
 
     // Lista de nombres y rutas de mapas. Asegúrate de que las rutas (mapPaths) sean correctas
     private ArrayList<String> mapNames = new ArrayList<>(Arrays.asList(
@@ -37,14 +42,21 @@ public class ControllerMaps {
         "/img/maps/choiceMaps/choice5.jpg"
     ));
     
-    private int currentIndex = 0;
+    private int currentIndex = 0; // Índice del mapa actualmente seleccionado
 
+    /**
+     * Inicializa la vista de selección de mapas mostrando el primer mapa.
+     */
     @FXML
     public void initialize() {
         updateMapView(currentIndex);
     }
 
-    // Actualiza la vista con el nombre y la imagen del mapa seleccionado.
+    /**
+     * Actualiza la vista con el nombre y la imagen del mapa seleccionado.
+     * También actualiza el estado de los botones de navegación.
+     * @param index Índice del mapa a mostrar.
+     */
     private void updateMapView(int index) {
         String mapName = mapNames.get(index);
         mapNameLabel.setText(mapName);
@@ -61,6 +73,10 @@ public class ControllerMaps {
         nextMapButton.setDisable(index == mapNames.size() - 1);
     }
 
+    /**
+     * Maneja el evento del botón "Siguiente mapa".
+     * Muestra el siguiente mapa en la lista si existe.
+     */
     @FXML
     private void handleNextMap() {
         if (currentIndex < mapNames.size() - 1) {
@@ -69,6 +85,10 @@ public class ControllerMaps {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Mapa anterior".
+     * Muestra el mapa anterior en la lista si existe.
+     */
     @FXML
     private void handlePrevMap() {
         if (currentIndex > 0) {
@@ -77,17 +97,15 @@ public class ControllerMaps {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Confirmar mapa".
+     * Guarda el mapa seleccionado en el DTO y navega a la vista de batalla.
+     */
     @FXML
     private void handleConfirmMap() {
         try {
             String selectedMap = mapNames.get(currentIndex);
             System.out.println("Mapa seleccionado: " + selectedMap);
-
-            // Opcional: Guardar el mapa seleccionado en la base de datos.
-            // IMPORTANTE: La columna 'result' solo acepta 'Ganado' o 'Perdido'. 
-            // Por ello, es preferible inserción de este registro una vez concluida la batalla.
-            // AppData db = AppData.getInstance();
-            // db.update("INSERT INTO BattleHistory (trainer, map, result) VALUES ('Jugador', '" + selectedMap + "', 'Ganado')");
 
             // Cargar la vista de batalla.
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewBattleAttack.fxml"));
@@ -108,20 +126,23 @@ public class ControllerMaps {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Back".
+     * Navega de regreso a la pantalla de selección de Pokémon.
+     */
     @FXML
     private void handleBackButton() {
-    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
-    // Aquí implementa la navegación a la vista anterior
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/pokemonSelection.fxml")); 
-        Scene newScene = new Scene(loader.load());
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
-    }
+        System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/pokemonSelection.fxml")); 
+            Scene newScene = new Scene(loader.load());
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+        }
     }
 
 }

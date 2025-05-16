@@ -11,6 +11,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controlador de la pantalla de resultados de la batalla.
+ * Muestra el resultado (victoria o derrota) y el equipo del jugador.
+ * Permite volver al menú principal o reiniciar la batalla.
+ */
 public class ControllerBattleResult {
 
     @FXML private Label resultTitle;
@@ -26,6 +31,11 @@ public class ControllerBattleResult {
     @FXML private Button backToMenuButton;
     @FXML private Button restartBattleButton;
 
+    /**
+     * Establece el resultado de la batalla y muestra el equipo del jugador.
+     * @param playerWon true si el jugador ganó, false si perdió.
+     * @param playerTeam Array con los Pokémon del equipo del jugador.
+     */
     public void setBattleResult(boolean playerWon, Pokemon[] playerTeam) {
         if (playerWon) {
             resultTitle.setText("¡VICTORIA!");
@@ -39,6 +49,10 @@ public class ControllerBattleResult {
         displayPlayerTeam(playerTeam);
     }
 
+    /**
+     * Muestra las imágenes y nombres de los Pokémon del equipo del jugador.
+     * @param team Array con los Pokémon seleccionados.
+     */
     private void displayPlayerTeam(Pokemon[] team) {
         if (team.length > 0) {
             setPokemonImage(playerPokemon1, team[0].getImagePath());
@@ -54,6 +68,11 @@ public class ControllerBattleResult {
         }
     }
 
+    /**
+     * Asigna una imagen a un ImageView desde la ruta proporcionada.
+     * @param imageView ImageView donde se mostrará la imagen.
+     * @param path Ruta de la imagen.
+     */
     private void setImage(ImageView imageView, String path) {
         try {
             imageView.setImage(new Image(getClass().getResourceAsStream(path)));
@@ -62,6 +81,11 @@ public class ControllerBattleResult {
         }
     }
 
+    /**
+     * Asigna la imagen de un Pokémon a un ImageView desde la ruta proporcionada.
+     * @param imageView ImageView donde se mostrará la imagen del Pokémon.
+     * @param path Ruta de la imagen del Pokémon.
+     */
     private void setPokemonImage(ImageView imageView, String path) {
         try {
             Image image = new Image(getClass().getResourceAsStream(path));
@@ -71,6 +95,10 @@ public class ControllerBattleResult {
         }
     }
 
+    /**
+     * Maneja el evento del botón para volver al menú principal.
+     * Cambia la escena a la vista del menú principal.
+     */
     @FXML
     private void handleBackToMenu() {
         // Lógica para volver al menú principal
@@ -87,6 +115,10 @@ public class ControllerBattleResult {
         }
     }
 
+    /**
+     * Maneja el evento del botón para reiniciar la batalla.
+     * Cambia la escena a la vista de selección de Pokémon.
+     */
     @FXML
     private void handleRestartBattle() {
         // Lógica para reiniciar la batalla

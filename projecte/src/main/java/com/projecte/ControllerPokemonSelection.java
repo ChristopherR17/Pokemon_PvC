@@ -14,27 +14,26 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-
 /**
  * Controlador para la selección de Pokémon en la interfaz gráfica.
  * Permite al jugador seleccionar 3 Pokémon de una lista disponible.
- * Gestiona la navegación y la confirmación de la selección.
+ * Gestiona la navegación, la selección y la confirmación del equipo.
  */
 public class ControllerPokemonSelection {
 
     @FXML
-    private ImageView selectedPokemonImage, chosenPokemon1, chosenPokemon2, chosenPokemon3;
+    private ImageView selectedPokemonImage, chosenPokemon1, chosenPokemon2, chosenPokemon3; // Vistas de imágenes de Pokémon
 
     @FXML
-    private Label selectedPokemonName;
+    private Label selectedPokemonName; // Nombre del Pokémon actualmente seleccionado
 
     @FXML
-    private Button prevPokemonButton, nextPokemonButton, selectPokemonButton, confirmSelectionButton, backButton;
+    private Button prevPokemonButton, nextPokemonButton, selectPokemonButton, confirmSelectionButton, backButton; // Botones de navegación y acción
 
-    private final List<Pokemon> availablePokemon = new ArrayList<>();
-    private final Pokemon[] selectedPokemon = new Pokemon[3];
-    private int currentPokemonIndex = 0;
-    private int selectedCount = 0;
+    private final List<Pokemon> availablePokemon = new ArrayList<>(); // Lista de Pokémon disponibles para seleccionar
+    private final Pokemon[] selectedPokemon = new Pokemon[3];         // Array de Pokémon seleccionados por el jugador
+    private int currentPokemonIndex = 0;                              // Índice del Pokémon actualmente mostrado
+    private int selectedCount = 0;                                    // Número de Pokémon seleccionados
 
     /**
      * Inicializa la vista de selección de Pokémon.
@@ -42,14 +41,9 @@ public class ControllerPokemonSelection {
      */
     @FXML
     public void initialize() {
-        // Cargar Pokémon desde la base de datos
-        getPokemonList();
-
-        // Actualizar la selección inicial
-        updatePokemonSelection();
-
-        // Deshabilitar el botón de confirmación al inicio
-        updateConfirmButtonState();
+        getPokemonList();            // Cargar Pokémon desde la base de datos
+        updatePokemonSelection();    // Mostrar el primer Pokémon disponible
+        updateConfirmButtonState();  // Deshabilitar el botón de confirmación al inicio
     }
 
     /**
@@ -62,10 +56,8 @@ public class ControllerPokemonSelection {
         for (HashMap<String, Object> row : llista) {
             String name = (String) row.get("name");
             String imagePath = (String) row.get("image_front");
-            // Use the correct constructor for Pokemon
             this.availablePokemon.add(new Pokemon(name, imagePath));
         }
-        
     }
 
     /**
@@ -87,7 +79,7 @@ public class ControllerPokemonSelection {
                 currentPokemonIndex = availablePokemon.size() - 1; // Ajustar al último índice válido
             }
 
-            // Actualizar la interfaz gráfica
+            // Actualizar la interfaz gráfica de los Pokémon elegidos
             updateChosenPokemonDisplay();
 
             // Incrementar el contador de seleccionados
@@ -109,6 +101,10 @@ public class ControllerPokemonSelection {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Anterior".
+     * Muestra el Pokémon anterior en la lista si existe.
+     */
     @FXML
     private void handlePrevPokemon() {
         if (currentPokemonIndex > 0) {
@@ -118,6 +114,10 @@ public class ControllerPokemonSelection {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Siguiente".
+     * Muestra el Pokémon siguiente en la lista si existe.
+     */
     @FXML
     private void handleNextPokemon() {
         if (currentPokemonIndex < availablePokemon.size() - 1) {
@@ -131,16 +131,14 @@ public class ControllerPokemonSelection {
      * Actualiza el estado de los botones de navegación según la posición actual y la lista de Pokémon disponibles.
      */
     private void updateNavigationButtons() {
-        // Desactivar el botón "Anterior" si no hay Pokémon a la izquierda
         prevPokemonButton.setDisable(currentPokemonIndex <= 0);
-
-        // Desactivar el botón "Siguiente" si no hay Pokémon a la derecha
         nextPokemonButton.setDisable(currentPokemonIndex >= availablePokemon.size() - 1);
-
-        // Desactivar el botón "Seleccionar" si no hay Pokémon disponibles
         selectPokemonButton.setDisable(availablePokemon.isEmpty());
     }
 
+    /**
+     * Actualiza la visualización de los Pokémon ya seleccionados por el jugador.
+     */
     private void updateChosenPokemonDisplay() {
         if (selectedPokemon[0] != null) {
             chosenPokemon1.setImage(new Image(getClass().getResource(selectedPokemon[0].getImagePath()).toExternalForm()));
@@ -153,18 +151,22 @@ public class ControllerPokemonSelection {
         }
     }
 
+    /**
+     * Maneja el evento de confirmación de la selección de Pokémon.
+     * Si hay 3 Pokémon seleccionados, guarda el equipo y navega a la vista de mapas.
+     */
     @FXML
     private void handleConfirmSelection() {
         if (selectedCount == 3) {
             try {
                 System.out.println("Intentando cargar la vista de mapas...");
 
-                // Cargar el archivo FXML
+                // Cargar el archivo FXML de mapas
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMaps.fxml"));
                 System.out.println("Cargando archivo FXML desde: " + getClass().getResource("/com/projecte/assets/viewMaps.fxml"));
                 Scene battleScene = new Scene(loader.load());
 
-                // Guardar los Pokémon seleccionados en el Stage
+                // Guardar los Pokémon seleccionados en el Stage usando un DTO
                 Stage stage = (Stage) confirmSelectionButton.getScene().getWindow();
                 BattleDataDTO battleData = new BattleDataDTO(null, null);
                 battleData.setPlayerTeam(selectedPokemon);
@@ -205,19 +207,22 @@ public class ControllerPokemonSelection {
         updateNavigationButtons();
     }
 
+    /**
+     * Maneja el evento del botón "Back".
+     * Navega de regreso al menú principal.
+     */
     @FXML
     private void handleBackButton() {
-    System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
-    // Aquí implementa la navegación a la vista anterior
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml")); 
-        Scene newScene = new Scene(loader.load());
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.err.println("Error al cargar la vista anterior: " + e.getMessage());
-    }
+        System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewMenu.fxml")); 
+            Scene newScene = new Scene(loader.load());
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar la vista anterior: " + e.getMessage());
+        }
     }
 }

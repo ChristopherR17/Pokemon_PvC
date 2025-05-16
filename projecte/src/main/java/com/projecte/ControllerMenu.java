@@ -17,17 +17,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controlador del menú principal del juego.
+ * Muestra la información del entrenador, estadísticas y permite navegar a otras vistas principales.
+ */
 public class ControllerMenu implements Initializable {
 
-    // Elementos FXML
+    // Elementos FXML de la interfaz
     @FXML private ImageView fondoMenu;
     @FXML private Button backButton, teamManagementButton, battleHistoryButton, startBattleButton, exitGameButton;
     @FXML private ImageView playerImage, trainerImage;
     @FXML private Label playerLevel, playerPoints, playerName, battlesWon, consecutiveWins, pokemonCaught;
 
+    // Variables estáticas para almacenar el nombre e imagen del entrenador seleccionado
     private static String selectedTrainerName = "";
     private static String selectedTrainerImage = "";
 
+    /**
+     * Inicializa la vista del menú principal.
+     * Carga la imagen de fondo, estadísticas y la información del entrenador.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -36,7 +45,7 @@ public class ControllerMenu implements Initializable {
                 fondoMenu.setImage(new Image(getClass().getResource("/img/bg/fondoMenu.png").toExternalForm()));
             }
 
-            // Cargar estadísticas
+            // Cargar estadísticas del jugador
             loadBattleStatistics();
 
             // Mostrar información del entrenador
@@ -48,12 +57,15 @@ public class ControllerMenu implements Initializable {
         }
     }
 
-    
+    /**
+     * Carga y muestra las estadísticas del jugador desde la base de datos.
+     * Incluye batallas ganadas, jugadas, racha máxima y Pokémon capturados.
+     */
     private void loadBattleStatistics() {
         try {
             AppData db = AppData.getInstance();
 
-            // 1. Verificar que el nombre del entrenador esté establecido
+            // Verificar que el nombre del entrenador esté establecido
             if (selectedTrainerName == null || selectedTrainerName.isEmpty()) {
                 throw new IllegalStateException("Nombre de entrenador no establecido");
             }
@@ -61,7 +73,7 @@ public class ControllerMenu implements Initializable {
             // Escapar comillas simples para SQL
             String escapedName = selectedTrainerName.replace("'", "''");
 
-            // 2. Obtener estadísticas de batallas (usando campos existentes)
+            // Obtener estadísticas de batallas
             String battlesQuery = "SELECT " +
                                   "SUM(CASE WHEN result = 'Ganado' THEN 1 ELSE 0 END) as battles_won, " +
                                   "COUNT(*) as battles_played " +
@@ -81,7 +93,7 @@ public class ControllerMenu implements Initializable {
 
             battlesWon.setText("Batallas: " + won + "/" + played);
 
-            // 3. Obtener racha máxima (usando campos existentes)
+            // Obtener racha máxima de victorias
             String streakQuery =
                 "WITH Ganadas AS (" +
                 "  SELECT battle_id, trainer, result, battle_date, " +
@@ -101,16 +113,16 @@ public class ControllerMenu implements Initializable {
             }
             consecutiveWins.setText("Racha máxima: " + maxStreak);
 
-            // 4. Pokémon capturados (usando campos existentes)
+            // Obtener cantidad de Pokémon capturados
             String pokemonQuery = "SELECT COUNT(*) as caught FROM Pokemon WHERE propietario = '" + escapedName + "'";
-            int caught = 3;
+            int caught = 3; // Valor por defecto si la consulta falla
             ArrayList<HashMap<String, Object>> pokemonResult = db.query(pokemonQuery);
             if (!pokemonResult.isEmpty()) {
                 caught = safeGetInt(pokemonResult.get(0), "caught");
             }
             pokemonCaught.setText("Pokémon: " + caught);
 
-            // 5. Calcular nivel y puntos
+            // Calcular nivel y puntos
             int level = won / 5 + 1;
             int points = won * 100;
 
@@ -123,6 +135,12 @@ public class ControllerMenu implements Initializable {
         }
     }
 
+    /**
+     * Obtiene de forma segura un valor entero de un HashMap.
+     * @param map Mapa con los datos.
+     * @param key Clave a buscar.
+     * @return Valor entero o 0 si no existe o hay error.
+     */
     private int safeGetInt(HashMap<String, Object> map, String key) {
         try {
             Object value = map.get(key);
@@ -135,10 +153,13 @@ public class ControllerMenu implements Initializable {
         }
     }
 
+    /**
+     * Actualiza la información visual del entrenador en el menú.
+     */
     private void updateTrainerInfo() {
         try {
             if (selectedTrainerName != null && !selectedTrainerName.isEmpty()) {
-                playerName.setText( selectedTrainerName);
+                playerName.setText(selectedTrainerName);
             }
             if (selectedTrainerImage != null && !selectedTrainerImage.isEmpty()) {
                 trainerImage.setImage(new Image(getClass().getResource(selectedTrainerImage).toExternalForm()));
@@ -148,26 +169,46 @@ public class ControllerMenu implements Initializable {
         }
     }
 
-    // Métodos de navegación
+    // Métodos de navegación entre vistas principales
+
+    /**
+     * Navega a la vista de gestión de equipo.
+     */
     @FXML
     private void handleTeamManagement() { navigateTo("viewManagement.fxml"); }
 
+    /**
+     * Navega a la vista de historial de batallas.
+     */
     @FXML
     private void handleBattleHistory() { navigateTo("viewBattleHistory.fxml"); }
 
+    /**
+     * Navega a la vista de selección de Pokémon para batalla.
+     */
     @FXML
     private void handleStartBattle() { navigateTo("pokemonSelection.fxml"); }
 
+    /**
+     * Cierra la aplicación.
+     */
     @FXML
     private void handleExitGame() {
         ((Stage) exitGameButton.getScene().getWindow()).close();
     }
 
+    /**
+     * Navega a la vista de selección de entrenador.
+     */
     @FXML
     private void handleBackButton() {
         navigateTo("trainerSelection.fxml");
     }
 
+    /**
+     * Cambia la escena actual a la especificada por el archivo FXML.
+     * @param fxmlFile Nombre del archivo FXML a cargar.
+     */
     private void navigateTo(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/" + fxmlFile));
@@ -179,6 +220,11 @@ public class ControllerMenu implements Initializable {
         }
     }
 
+    /**
+     * Muestra una alerta de error en pantalla.
+     * @param title Título de la alerta.
+     * @param message Mensaje de la alerta.
+     */
     private void showError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -187,6 +233,12 @@ public class ControllerMenu implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Establece el nombre y la imagen del entrenador seleccionado.
+     * Se utiliza para transferir estos datos entre escenas.
+     * @param name Nombre del entrenador.
+     * @param imagePath Ruta de la imagen del entrenador.
+     */
     public static void setTrainerInfo(String name, String imagePath) {
         selectedTrainerName = name != null ? name : "";
         selectedTrainerImage = imagePath != null ? imagePath : "";

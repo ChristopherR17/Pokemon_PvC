@@ -17,6 +17,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controlador para la gestión de los Pokémon del jugador.
+ * Permite visualizar los Pokémon, sus apodos, estadísticas y navegar entre ellos.
+ * También permite editar un Pokémon seleccionado o volver al menú principal.
+ */
 public class ControllerManagement implements Initializable {
 
     @FXML
@@ -53,6 +58,11 @@ public class ControllerManagement implements Initializable {
     private final List<String> pokemonImages = new ArrayList<>();
     private final List<Boolean> pokemonUnlocked = new ArrayList<>();
 
+    /**
+     * Inicializa la vista de gestión de Pokémon.
+     * Carga los datos desde la base de datos y muestra el primer Pokémon.
+     * Configura los eventos de los botones de navegación.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Cargar datos desde la base de datos
@@ -65,6 +75,9 @@ public class ControllerManagement implements Initializable {
         nextButton.setOnAction(_ -> showNextPokemon());
     }
 
+    /**
+     * Carga los datos de los Pokémon desde la base de datos y los almacena en listas.
+     */
     private void loadPokemonData() {
         try {
             AppData db = AppData.getInstance();
@@ -83,6 +96,11 @@ public class ControllerManagement implements Initializable {
         }
     }
 
+    /**
+     * Muestra la información del Pokémon en la posición indicada.
+     * Actualiza los labels, la imagen y el estado de los botones según corresponda.
+     * @param index Índice del Pokémon a mostrar.
+     */
     private void showPokemon(int index) {
         pokemonNameLabel.setText("Name: " + pokemonNames.get(index));
         pokemonNicknameLabel.setText("Nickname: " + pokemonNicknames.get(index));
@@ -100,10 +118,11 @@ public class ControllerManagement implements Initializable {
         // Deshabilitar botones si estamos en el primer o último Pokémon
         prevButton.setDisable(index == 0); // Si es el primer Pokémon, deshabilitar Prev
         nextButton.setDisable(index == pokemonNames.size() - 1); // Si es el último Pokémon, deshabilitar Next
-        }
-
+    }
     
-
+    /**
+     * Muestra el Pokémon anterior en la lista, si existe.
+     */
     private void showPreviousPokemon() {
         if (currentIndex > 0) {
             currentIndex--;
@@ -111,6 +130,9 @@ public class ControllerManagement implements Initializable {
         }
     }
 
+    /**
+     * Muestra el Pokémon siguiente en la lista, si existe.
+     */
     private void showNextPokemon() {
         if (currentIndex < pokemonNames.size() - 1) {
             currentIndex++;
@@ -118,6 +140,10 @@ public class ControllerManagement implements Initializable {
         }
     }
     
+    /**
+     * Maneja el evento del botón "Edit Pokémon".
+     * Navega a la vista de configuración del Pokémon seleccionado y pasa los datos necesarios.
+     */
     @FXML
     private void handleEditPokemon() {
         System.out.println("Botón 'Edit Pokémon' presionado. Navegando a ViewPokemonSettings...");
@@ -138,6 +164,10 @@ public class ControllerManagement implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento del botón "Back".
+     * Navega de regreso al menú principal.
+     */
     @FXML
     private void handleBackButton() {
     System.out.println("Botón 'Back' presionado. Navegando hacia la vista anterior...");

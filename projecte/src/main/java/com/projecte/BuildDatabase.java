@@ -1,5 +1,4 @@
 package com.projecte;
-// ./run.sh com.projecte.BuildDatabase
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,9 +7,20 @@ import java.nio.file.Paths;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+// ./run.sh com.projecte.BuildDatabase
+// ./run.ps1 com.projecte.BuildDatabase
 
+/**
+ * Clase encargada de crear y poblar la base de datos del juego Pokémon PvC.
+ * Crea todas las tablas necesarias y carga los datos iniciales desde archivos JSON.
+ * Se utiliza para inicializar o reiniciar la base de datos de desarrollo.
+ */
 public class BuildDatabase {
 
+    /**
+     * Método principal. Conecta a la base de datos, inicia la carga de datos y cierra la conexión.
+     * @param args Argumentos de línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         AppData db = AppData.getInstance();
         db.connect("../data/pokemons.sqlite");
@@ -21,25 +31,23 @@ public class BuildDatabase {
         db.close();
     }
 
+    /**
+     * Inicializa la base de datos: elimina tablas previas, crea las nuevas y carga los datos desde JSON.
+     */
     public static void initData() {
         AppData db = AppData.getInstance();
 
-        db.update("DROP TABLE IF EXISTS ItemReward");
-        db.update("DROP TABLE IF EXISTS ItemEffect");
-        db.update("DROP TABLE IF EXISTS BattlePokemon");
-        db.update("DROP TABLE IF EXISTS Battle");
-        db.update("DROP TABLE IF EXISTS GameStats");
-        db.update("DROP TABLE IF EXISTS ItemInventory");
-        db.update("DROP TABLE IF EXISTS Item");
-        db.update("DROP TABLE IF EXISTS TypeEffectiveness");
-        db.update("DROP TABLE IF EXISTS PokemonAttacks");
-        db.update("DROP TABLE IF EXISTS Attack");   
-        db.update("DROP TABLE IF EXISTS PlayerPokemon");
-        db.update("DROP TABLE IF EXISTS Player");
-        db.update("DROP TABLE IF EXISTS Pokemon");
-        db.update("DROP TABLE IF EXISTS BattleHistory");
+        // Drop tables
+        String[] tables = {
+            "ItemReward", "ItemEffect", "BattlePokemon", "Battle", "GameStats", "ItemInventory",
+            "Item", "TypeEffectiveness", "PokemonAttacks", "Attack", "PlayerPokemon", "Player",
+            "Pokemon", "BattleHistory"
+        };
+        for (String table : tables) {
+            db.update("DROP TABLE IF EXISTS " + table);
+        }
 
-
+        // Crear tablas principales del juego
         db.update("""
             CREATE TABLE Pokemon (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -198,11 +206,11 @@ public class BuildDatabase {
                 db.update(String.format(
                     "INSERT INTO Pokemon (id, name, type, image_front, image_back, nickname, max_hp, attack, stamina, unlocked) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %d, %d, %d, %b)",
                     p.getInt("id"),
-                    p.getString("name").replace("'", "''"),
-                    p.getString("type").replace("'", "''"),
-                    p.optString("image_front", "").replace("'", "''"),
-                    p.optString("image_back", "").replace("'", "''"),
-                    p.optString("nickname", "").replace("'", "''"), // Escapar comillas simples
+                    escapeSql(p.getString("name")),
+                    escapeSql(p.getString("type")),
+                    escapeSql(p.optString("image_front", "")),
+                    escapeSql(p.optString("image_back", "")),
+                    escapeSql(p.optString("nickname", "")), 
                     p.getInt("max_hp"),
                     p.getInt("attack"),
                     p.getInt("stamina"),
@@ -218,8 +226,8 @@ public class BuildDatabase {
                 JSONObject a = (JSONObject) o;
                 db.update(String.format(
                     "INSERT INTO Attack (name, type, damage, stamina_cost) VALUES ('%s', '%s', %d, %d)",
-                    a.getString("name").replace("'", "''"),
-                    a.getString("type").replace("'", "''"),
+                    escapeSql(a.getString("name")),
+                    escapeSql(a.getString("type")),
                     a.getInt("damage"),
                     a.getInt("stamina_cost")
                 ));
@@ -233,11 +241,11 @@ public class BuildDatabase {
                 JSONObject pa = (JSONObject) o;
                 db.update(String.format(
                     "INSERT INTO PokemonAttacks (name, damage, stamina_cost, pokemon_name, type) VALUES ('%s', %d, %d, '%s', '%s')",
-                    pa.getString("name").replace("'", "''"),
+                    escapeSql(pa.getString("name")),
                     pa.getInt("damage"),
                     pa.getInt("staminaCost"),
-                    pa.getString("pokemonName").replace("'", "''"),
-                    pa.getString("type").replace("'", "''")
+                    escapeSql(pa.getString("pokemonName")),
+                    escapeSql(pa.getString("type"))
                 ));
             }
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");
@@ -361,7 +369,7 @@ public class BuildDatabase {
                 JSONObject it = (JSONObject) o;
                 db.update(String.format(
                     "INSERT INTO Item (name, effect_type, effect_value) VALUES ('%s', '%s', %d)",
-                    it.getString("name").replace("'", "''"),
+                    escapeSql(it.getString("name")),
                     it.getString("effect_type"),
                     it.getInt("effect_value")
                 ));
@@ -387,4 +395,14 @@ public class BuildDatabase {
         }
         
     }
+
+    /**
+     * Escapa las comillas simples en un string para evitar errores en las consultas SQL.
+     * @param s Cadena a escapar.
+     * @return Cadena escapada.
+     */
+    private static String escapeSql(String s) {
+        return s == null ? "" : s.replace("'", "''");
+    }
+
 }
