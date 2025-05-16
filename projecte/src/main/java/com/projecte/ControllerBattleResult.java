@@ -4,98 +4,76 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.fxml.FXMLLoader;
 
 public class ControllerBattleResult {
 
-    @FXML private BorderPane mainContainer;
-    @FXML private Label resultTitle, resultMessage;
+    @FXML private Label resultTitle;
+    @FXML private Label resultMessage;
+    @FXML private ImageView resultBackground;
     @FXML private ImageView resultImage;
-    @FXML private ImageView playerPokemon1, playerPokemon2, playerPokemon3;
-    @FXML private Label playerName1, playerName2, playerName3;
-    @FXML private Button backToMenuButton, restartBattleButton;
+    @FXML private ImageView playerPokemon1;
+    @FXML private ImageView playerPokemon2;
+    @FXML private ImageView playerPokemon3;
+    @FXML private Label playerName1;
+    @FXML private Label playerName2;
+    @FXML private Label playerName3;
 
     public void setBattleResult(boolean playerWon, Pokemon[] playerTeam) {
-        try {
-            // Configurar colores
-            String bgColor = playerWon ? "#4CAF50" : "#F44336";
-            String darkColor = playerWon ? "#2E7D32" : "#C62828";
-            
-            mainContainer.setStyle("-result-color: " + bgColor + "; -result-dark-color: " + darkColor + ";");
+        if (playerWon) {
+            resultTitle.setText("¡VICTORIA!");
+            resultMessage.setText("Has demostrado tu valía como entrenador Pokémon");
+            setImage(resultBackground, "/img/battle_results/victory_bg.jpg");
+            setImage(resultImage, "/img/battle_results/victory.png");
+        } else {
+            resultTitle.setText("¡DERROTA!");
+            resultMessage.setText("Los entrenadores fuertes nunca se rinden");
+            setImage(resultBackground, "/img/battle_results/defeat_bg.jpg");
+            setImage(resultImage, "/img/battle_results/defeat.png");
+        }
 
-            // Configurar contenido
-            if (playerWon) {
-                setupVictoryUI();
-            } else {
-                setupDefeatUI();
-            }
+        // Mostrar los Pokémon del equipo del jugador
+        displayPlayerTeam(playerTeam);
+    }
 
-            displayTeam(playerTeam);
-
-        } catch (Exception e) {
-            System.err.println("Error setting battle result: " + e.getMessage());
-            e.printStackTrace();
+    private void displayPlayerTeam(Pokemon[] team) {
+        if (team.length > 0) {
+            setPokemonImage(playerPokemon1, team[0].getImagePath());
+            playerName1.setText(team[0].getName());
+        }
+        if (team.length > 1) {
+            setPokemonImage(playerPokemon2, team[1].getImagePath());
+            playerName2.setText(team[1].getName());
+        }
+        if (team.length > 2) {
+            setPokemonImage(playerPokemon3, team[2].getImagePath());
+            playerName3.setText(team[2].getName());
         }
     }
 
-    private void setupVictoryUI() {
-        resultTitle.setText("¡VICTORIA!");
-        resultMessage.setText("Has demostrado tu valía como entrenador Pokémon");
-        loadImageSafe(resultImage, "/img/bg/victory.png");
-    }
-
-    private void setupDefeatUI() {
-        resultTitle.setText("¡DERROTA!");
-        resultMessage.setText("Los entrenadores fuertes nunca se rinden");
-        loadImageSafe(resultImage, "/img/bg/defeat.png");
-    }
-
-    private void displayTeam(Pokemon[] team) {
-        for (int i = 0; i < Math.min(team.length, 3); i++) {
-            if (team[i] != null) {
-                setPokemonInfo(i, team[i]);
-            }
+    private void setImage(ImageView imageView, String path) {
+        try {
+            imageView.setImage(new Image(getClass().getResourceAsStream(path)));
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + path);
         }
     }
 
-    private void setPokemonInfo(int index, Pokemon pokemon) {
-        ImageView[] imageViews = {playerPokemon1, playerPokemon2, playerPokemon3};
-        Label[] nameLabels = {playerName1, playerName2, playerName3};
-        
-        loadImageSafe(imageViews[index], pokemon.getImagePath());
-        nameLabels[index].setText(pokemon.getName());
-    }
-
-    private void loadImageSafe(ImageView imageView, String path) {
+    private void setPokemonImage(ImageView imageView, String path) {
         try {
-            Image img = new Image(getClass().getResourceAsStream(path));
-            imageView.setImage(img);
+            Image image = new Image(getClass().getResourceAsStream(path));
+            imageView.setImage(image);
         } catch (Exception e) {
-            System.err.println("Error loading image from: " + path);
-            imageView.setImage(null); // Opcional: establecer imagen por defecto
+            System.err.println("Error loading Pokémon image: " + path);
         }
     }
 
     @FXML
     private void handleBackToMenu() {
-        loadScene("/assets/viewMenu.fxml");
+        // Lógica para volver al menú principal
     }
 
     @FXML
     private void handleRestartBattle() {
-        loadScene("/assets/pokemonSelection.fxml");
-    }
-
-    private void loadScene(String fxmlPath) {
-        try {
-            Stage stage = (Stage) mainContainer.getScene().getWindow();
-            stage.getScene().setRoot(FXMLLoader.load(getClass().getResource(fxmlPath)));
-        } catch (Exception e) {
-            System.err.println("Error loading scene: " + fxmlPath);
-            e.printStackTrace();
-        }
+        // Lógica para reiniciar la batalla
     }
 }
