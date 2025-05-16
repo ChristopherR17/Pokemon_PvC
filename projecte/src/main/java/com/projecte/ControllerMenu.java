@@ -103,7 +103,7 @@ public class ControllerMenu implements Initializable {
 
             // 4. Pokémon capturados (usando campos existentes)
             String pokemonQuery = "SELECT COUNT(*) as caught FROM Pokemon WHERE propietario = '" + escapedName + "'";
-            int caught = 0;
+            int caught = 3;
             ArrayList<HashMap<String, Object>> pokemonResult = db.query(pokemonQuery);
             if (!pokemonResult.isEmpty()) {
                 caught = safeGetInt(pokemonResult.get(0), "caught");
