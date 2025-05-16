@@ -508,7 +508,7 @@ public class ControllerBattleAttack implements Initializable {
     private void openAttackResultView(boolean playerWon) {
         try {
             // 1. Preparar datos para la base de datos
-            String trainerName = System.getProperty("user.name"); 
+            String trainerName = Player.getInstance().getName(); 
             String mapName = (battleMap != null && !battleMap.trim().isEmpty()) ? 
                             battleMap : "Desconocido";
             String result = playerWon ? "Victoria" : "Derrota";
