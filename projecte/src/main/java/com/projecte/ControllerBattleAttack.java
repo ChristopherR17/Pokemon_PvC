@@ -485,7 +485,6 @@ public class ControllerBattleAttack implements Initializable {
         openAttackResultView(false); // false = derrota del jugador
     }
     
-    // ...existing code...
 
     // Abre la vista de resultados de la batalla
     private void openAttackResultView(boolean playerWon) {
@@ -514,7 +513,6 @@ public class ControllerBattleAttack implements Initializable {
                 // No detenemos el flujo aunque falle el registro
             }
 
-            // Resto del código permanece igual...
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewAttackResult.fxml"));
             Parent root = loader.load();
             

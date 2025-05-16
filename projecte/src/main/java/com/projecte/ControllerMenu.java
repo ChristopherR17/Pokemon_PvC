@@ -101,9 +101,13 @@ public class ControllerMenu implements Initializable {
             }
             consecutiveWins.setText("Racha máxima: " + maxStreak);
 
-            // 4. Pokémon capturados (no existe tabla Pokemon en tu esquema actual)
-            // Si tienes una tabla Pokemon, ajusta la consulta. Si no, deja el valor en 0.
+            // 4. Pokémon capturados (usando campos existentes)
+            String pokemonQuery = "SELECT COUNT(*) as caught FROM Pokemon WHERE propietario = '" + escapedName + "'";
             int caught = 0;
+            ArrayList<HashMap<String, Object>> pokemonResult = db.query(pokemonQuery);
+            if (!pokemonResult.isEmpty()) {
+                caught = safeGetInt(pokemonResult.get(0), "caught");
+            }
             pokemonCaught.setText("Pokémon: " + caught);
 
             // 5. Calcular nivel y puntos
@@ -134,7 +138,7 @@ public class ControllerMenu implements Initializable {
     private void updateTrainerInfo() {
         try {
             if (selectedTrainerName != null && !selectedTrainerName.isEmpty()) {
-                playerName.setText("Entrenador: " + selectedTrainerName);
+                playerName.setText( selectedTrainerName);
             }
             if (selectedTrainerImage != null && !selectedTrainerImage.isEmpty()) {
                 trainerImage.setImage(new Image(getClass().getResource(selectedTrainerImage).toExternalForm()));
