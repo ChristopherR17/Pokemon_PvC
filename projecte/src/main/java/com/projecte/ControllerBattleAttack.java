@@ -508,10 +508,11 @@ public class ControllerBattleAttack implements Initializable {
     private void openAttackResultView(boolean playerWon) {
         try {
             // 1. Preparar datos para la base de datos
-            String trainerName = System.getProperty("user.name"); 
+            Player trainer = Player.getInstance();
+            String trainerName = trainer.getName();
             String mapName = (battleMap != null && !battleMap.trim().isEmpty()) ? 
                             battleMap : "Desconocido";
-            String result = playerWon ? "Victoria" : "Derrota";
+            String result = playerWon ? "Ganado" : "Perdido";
             String currentTime = new java.sql.Timestamp(System.currentTimeMillis()).toString();
             
             // 2. Validar y registrar en la base de datos
@@ -531,7 +532,6 @@ public class ControllerBattleAttack implements Initializable {
                 // No detenemos el flujo aunque falle el registro
             }
 
-            // Resto del código permanece igual...
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewAttackResult.fxml"));
             Parent root = loader.load();
             
@@ -571,7 +571,6 @@ public class ControllerBattleAttack implements Initializable {
         }
         return input.replace("'", "''");
     }
-
 
     /**
      * Actualiza la visualización de la vida del jugador en un Label.

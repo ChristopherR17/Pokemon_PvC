@@ -1,40 +1,44 @@
 package com.projecte;
 
+import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ControllerBattleHistory {
 
-    @FXML
-    private TableView<HashMap<String, Object>> battleHistoryTable;
-    @FXML
-    private TableColumn<HashMap<String, Object>, String> trainerColumn;
-    @FXML
-    private TableColumn<HashMap<String, Object>, String> mapColumn;
-    @FXML
-    private TableColumn<HashMap<String, Object>, String> resultColumn;
+    @FXML private Label titleLabel;
+    @FXML private ImageView backgroundImage;
+    @FXML private TableView<BattleHistoryEntry> battleHistoryTable;
+    @FXML private TableColumn<BattleHistoryEntry, String> trainerColumn;
+    @FXML private TableColumn<BattleHistoryEntry, String> mapColumn;
+    @FXML private TableColumn<BattleHistoryEntry, String> resultColumn;
 
     @FXML
     public void initialize() {
+        configureTableColumns();
         loadBattleHistory();
     }
 
+    /** Configura correctamente las columnas de la tabla */
+    private void configureTableColumns() {
+        trainerColumn.setCellValueFactory(cellData -> cellData.getValue().trainerProperty());
+        mapColumn.setCellValueFactory(cellData -> cellData.getValue().mapProperty());
+        resultColumn.setCellValueFactory(cellData -> cellData.getValue().resultProperty());
+    }
+
+    /** Carga el historial de batallas desde la base de datos */
     private void loadBattleHistory() {
-        try {
-            AppData db = AppData.getInstance();
-            ArrayList<HashMap<String, Object>> battles = db.query("SELECT trainer, map, result FROM BattleHistory");
-            battleHistoryTable.getItems().setAll(battles);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Error al cargar el historial de batallas: " + e.getMessage());
-        }
+        ObservableList<BattleHistoryEntry> battleList = FXCollections.observableArrayList();
+        battleList.addAll(BattleHistory.getBattleHistory());
+        battleHistoryTable.setItems(battleList);
     }
 
     @FXML
