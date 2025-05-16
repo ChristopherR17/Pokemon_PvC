@@ -531,7 +531,6 @@ public class ControllerBattleAttack implements Initializable {
                 // No detenemos el flujo aunque falle el registro
             }
 
-            // Resto del código permanece igual...
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewAttackResult.fxml"));
             Parent root = loader.load();
             

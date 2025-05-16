@@ -21,39 +21,29 @@
 
     <center>
         <StackPane>
-            <!-- Imagen de fondo del resultado -->
-            <ImageView fx:id="resultBackground" fitWidth="810" fitHeight="500" preserveRatio="false" 
-                       opacity="0.8"/>
-            
             <VBox alignment="CENTER" spacing="30"
                   style="-fx-background-color: rgba(255,255,255,0.85); -fx-background-radius: 20; -fx-padding: 30;">
-                <!-- Contenedor de imagen del resultado -->
-                <ImageView fx:id="resultImage" fitWidth="200" fitHeight="200" preserveRatio="true" 
+                <ImageView fx:id="resultImage" fitWidth="300" fitHeight="300" preserveRatio="true" 
                            style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.5, 0, 0);"/>
                 
-                <!-- Mensaje del resultado -->
                 <Label fx:id="resultMessage" 
                        style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a;"
                        alignment="CENTER"/>
                 
-                <!-- Contenedor de Pokémon usados -->
                 <VBox spacing="10" alignment="CENTER">
                     <Label text="Tus Pokémon" 
                            style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: -result-dark-color;"/>
                     <HBox spacing="20" alignment="CENTER">
                         <VBox alignment="CENTER" spacing="5">
-                            <ImageView fx:id="playerPokemon1" fitWidth="80" fitHeight="80" 
-                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <ImageView fx:id="playerPokemon1" fitWidth="80" fitHeight="80"/>
                             <Label fx:id="playerName1" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5">
-                            <ImageView fx:id="playerPokemon2" fitWidth="80" fitHeight="80" 
-                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <ImageView fx:id="playerPokemon2" fitWidth="80" fitHeight="80"/>
                             <Label fx:id="playerName2" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5">
-                            <ImageView fx:id="playerPokemon3" fitWidth="80" fitHeight="80" 
-                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <ImageView fx:id="playerPokemon3" fitWidth="80" fitHeight="80"/>
                             <Label fx:id="playerName3" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
                         </VBox>
                     </HBox>
