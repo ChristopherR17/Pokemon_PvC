@@ -22,13 +22,9 @@ public class ControllerBattleResult {
         if (playerWon) {
             resultTitle.setText("¡VICTORIA!");
             resultMessage.setText("Has demostrado tu valía como entrenador Pokémon");
-            setImage(resultBackground, "/img/battle_results/victory_bg.jpg");
-            setImage(resultImage, "/img/battle_results/victory.png");
         } else {
             resultTitle.setText("¡DERROTA!");
             resultMessage.setText("Los entrenadores fuertes nunca se rinden");
-            setImage(resultBackground, "/img/battle_results/defeat_bg.jpg");
-            setImage(resultImage, "/img/battle_results/defeat.png");
         }
 
         // Mostrar los Pokémon del equipo del jugador
