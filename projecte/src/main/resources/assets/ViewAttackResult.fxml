@@ -49,10 +49,22 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" spacing="40" style="-fx-padding: 20;" BorderPane.alignment="CENTER">
-            <Button fx:id="backToMenuButton" onAction="#handleBackToMenu" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;                            -fx-background-color: linear-gradient(to right, #cc0000, #ff3333);                            -fx-background-radius: 25; -fx-padding: 10 30;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);" text="Menú Principal" />
+        <HBox alignment="CENTER" spacing="40" 
+              BorderPane.alignment="CENTER" 
+              style="-fx-padding: 20;">
+            <Button fx:id="backToMenuButton" text="Menú Principal" 
+                    onAction="#handleBackToMenu"
+                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                           -fx-background-color: linear-gradient(to right, #cc0000, #ff3333);
+                           -fx-background-radius: 25; -fx-padding: 10 30;
+                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);"/>
             
-            <Button fx:id="restartBattleButton" onAction="#handleRestartBattle" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;                            -fx-background-color: linear-gradient(to right, #3a5da8, #5a7dc8);                            -fx-background-radius: 25; -fx-padding: 10 30;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);" text="Nueva Batalla" />
+            <Button fx:id="restartBattleButton" text="Nueva Batalla" 
+                    onAction="#handleRestartBattle"
+                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                           -fx-background-color: linear-gradient(to right, #3a5da8, #5a7dc8);
+                           -fx-background-radius: 25; -fx-padding: 10 30;
+                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);"/>
         </HBox>
     </bottom>
 </BorderPane>
