@@ -117,8 +117,6 @@ public class ControllerTrainerSelection implements Initializable {
             }
         }
 
-        db.update(sql);
-
         System.out.println("Trainer selected: " + chosenName);
         
         // Enviar los datos al controlador del menú
