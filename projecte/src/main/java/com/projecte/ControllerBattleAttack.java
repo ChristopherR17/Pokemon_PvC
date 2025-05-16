@@ -571,7 +571,6 @@ public class ControllerBattleAttack implements Initializable {
         return input.replace("'", "''");
     }
 
-
     /**
      * Actualiza la visualización de la vida del jugador en un Label.
      */
