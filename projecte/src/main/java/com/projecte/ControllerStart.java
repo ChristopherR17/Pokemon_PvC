@@ -13,6 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controlador de la pantalla de inicio del juego.
+ * Gestiona la carga de imágenes y la transición a la selección de entrenador.
+ */
 public class ControllerStart implements Initializable {
 
     @FXML
@@ -30,6 +34,10 @@ public class ControllerStart implements Initializable {
     @FXML
     private Button openGameButton;
 
+    /**
+     * Inicializa la vista de inicio.
+     * Carga la imagen de fondo y los GIFs de los Pokémon (descomentarlos si existen).
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fondoStart.setImage(new Image(getClass().getResource("/img/bg/fondoStart.jpg").toExternalForm()));
@@ -40,17 +48,19 @@ public class ControllerStart implements Initializable {
         System.out.println("Imagenes y GIFs cargados correctamente al iniciar la vista.");
     }
 
+    /**
+     * Maneja el evento del botón "Open Game".
+     * Cambia la escena a la pantalla de selección de entrenador.
+     */
     @FXML
     public void handleOpenGame() {
         System.out.println("Botón 'Open Game' presionado.");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/trainerSelection.fxml"));
             Scene menuScene = new Scene(loader.load());
-            
             Stage stage = (Stage) openGameButton.getScene().getWindow();
             stage.setScene(menuScene);
             stage.show();
-    
             System.out.println("Vista del menú cargada con éxito.");
         } catch (IOException e) {
             e.printStackTrace();
