@@ -5,58 +5,78 @@
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.projecte.ControllerAttackResult"
-            prefWidth="800" prefHeight="550"
-            style="-fx-background-color: linear-gradient(to bottom, #fceabb 0%, #f8b500 100%);">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.projecte.ControllerBattleResult"
+            prefWidth="810" prefHeight="610"
+            minWidth="810" minHeight="610"
+            style="-fx-background-color: -result-color;">
 
     <top>
-        <Label fx:id="winnerLabel"
-               text="GANADOR"
+        <Label fx:id="resultTitle" 
                BorderPane.alignment="CENTER"
-               style="-fx-font-size: 80px; -fx-font-weight: bold; -fx-text-fill: #ff3c3c; -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 2);" />
+               style="-fx-font-size: 72px; -fx-font-weight: bold; -fx-text-fill: white;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 10, 0.5, 0, 2);"
+               padding="20"/>
     </top>
 
     <center>
-        <HBox spacing="60" alignment="CENTER">
-            <!-- Player Team -->
-            <VBox spacing="18" alignment="CENTER">
-                <Label text="Tu equipo" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1976d2;"/>
-                <HBox spacing="18" alignment="CENTER">
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="playerPokemon1" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="playerName1" style="-fx-font-size: 16px; -fx-text-fill: #1976d2;"/>
-                    </VBox>
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="playerPokemon2" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="playerName2" style="-fx-font-size: 16px; -fx-text-fill: #1976d2;"/>
-                    </VBox>
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="playerPokemon3" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="playerName3" style="-fx-font-size: 16px; -fx-text-fill: #1976d2;"/>
-                    </VBox>
-                </HBox>
+        <StackPane>
+            <!-- Imagen de fondo del resultado -->
+            <ImageView fx:id="resultBackground" fitWidth="810" fitHeight="500" preserveRatio="false" 
+                       opacity="0.8"/>
+            
+            <VBox alignment="CENTER" spacing="30"
+                  style="-fx-background-color: rgba(255,255,255,0.85); -fx-background-radius: 20; -fx-padding: 30;">
+                <!-- Contenedor de imagen del resultado -->
+                <ImageView fx:id="resultImage" fitWidth="200" fitHeight="200" preserveRatio="true" 
+                           style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.5, 0, 0);"/>
+                
+                <!-- Mensaje del resultado -->
+                <Label fx:id="resultMessage" 
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a;"
+                       alignment="CENTER"/>
+                
+                <!-- Contenedor de Pokémon usados -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Tus Pokémon" 
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: -result-dark-color;"/>
+                    <HBox spacing="20" alignment="CENTER">
+                        <VBox alignment="CENTER" spacing="5">
+                            <ImageView fx:id="playerPokemon1" fitWidth="80" fitHeight="80" 
+                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <Label fx:id="playerName1" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5">
+                            <ImageView fx:id="playerPokemon2" fitWidth="80" fitHeight="80" 
+                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <Label fx:id="playerName2" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5">
+                            <ImageView fx:id="playerPokemon3" fitWidth="80" fitHeight="80" 
+                                       style="-fx-effect: dropshadow(gaussian, -result-dark-color, 10, 0.5, 0, 0);"/>
+                            <Label fx:id="playerName3" style="-fx-font-size: 16px; -fx-text-fill: -result-dark-color;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
             </VBox>
-
-            <!-- Enemy Team -->
-            <VBox spacing="18" alignment="CENTER">
-                <Label text="Equipo enemigo" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #d32f2f;"/>
-                <HBox spacing="18" alignment="CENTER">
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="enemyPokemon1" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="enemyName1" style="-fx-font-size: 16px; -fx-text-fill: #d32f2f;"/>
-                    </VBox>
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="enemyPokemon2" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="enemyName2" style="-fx-font-size: 16px; -fx-text-fill: #d32f2f;"/>
-                    </VBox>
-                    <VBox alignment="CENTER">
-                        <ImageView fx:id="enemyPokemon3" fitWidth="100" fitHeight="100"/>
-                        <Label fx:id="enemyName3" style="-fx-font-size: 16px; -fx-text-fill: #d32f2f;"/>
-                    </VBox>
-                </HBox>
-            </VBox>
-        </HBox>
+        </StackPane>
     </center>
-</BorderPane>
 
+    <bottom>
+        <HBox alignment="CENTER" spacing="40" 
+              BorderPane.alignment="CENTER" 
+              style="-fx-padding: 20;">
+            <Button fx:id="backToMenuButton" text="Menú Principal" 
+                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                           -fx-background-color: -result-dark-color;
+                           -fx-background-radius: 25; -fx-padding: 10 30;
+                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);"/>
+            
+            <Button fx:id="restartBattleButton" text="Nueva Batalla" 
+                    style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                           -fx-background-color: derive(-result-dark-color, 20%);
+                           -fx-background-radius: 25; -fx-padding: 10 30;
+                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);"/>
+        </HBox>
+    </bottom>
+</BorderPane>
