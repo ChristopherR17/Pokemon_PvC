@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -489,33 +490,69 @@ public class ControllerBattleAttack implements Initializable {
     // Abre la vista de resultados de la batalla
     private void openAttackResultView(boolean playerWon) {
         try {
-            // 1. Guarda el resultado en la base de datos antes de mostrar la pantalla de resultado
-            AppData db = AppData.getInstance();
-            String trainerName = System.getProperty("user.name"); // O usa el nombre real del jugador si lo tienes
-            String mapName = battleMap != null ? battleMap : "Desconocido";
-            String result = playerWon ? "Ganado" : "Perdido";
-            db.update(String.format(
-                "INSERT INTO BattleHistory (trainer, map, result) VALUES ('%s', '%s', '%s')",
-                trainerName.replace("'", "''"), // Escapa comillas simples
-                mapName.replace("'", "''"),
-                result
-            ));
+            // 1. Preparar datos para la base de datos
+            String trainerName = System.getProperty("user.name"); 
+            String mapName = (battleMap != null && !battleMap.trim().isEmpty()) ? 
+                            battleMap : "Desconocido";
+            String result = playerWon ? "Victoria" : "Derrota";
+            String currentTime = new java.sql.Timestamp(System.currentTimeMillis()).toString();
+            
+            // 2. Validar y registrar en la base de datos
+            try {
+                AppData db = AppData.getInstance();
+                // Usamos el método update estándar con parámetros escapados
+                String query = String.format(
+                    "INSERT INTO BattleHistory (trainer, map, result, battle_date) VALUES ('%s', '%s', '%s', '%s')",
+                    escapeSql(trainerName),
+                    escapeSql(mapName),
+                    escapeSql(result),
+                    currentTime
+                );
+                db.update(query);
+            } catch (Exception dbError) {
+                System.err.println("Error al guardar en historial de batallas: " + dbError.getMessage());
+                // No detenemos el flujo aunque falle el registro
+            }
 
+            // Resto del código permanece igual...
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/ViewAttackResult.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) battleBackground.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-            // Si necesitas pasar información a la vista de resultados:
-            ControllerAttackResult controller = loader.getController();
-            controller.setResult(playerWon, playerWon ? trainerName : "MÁQUINA");
-            // Puedes pasar más datos si lo necesitas
-
+            Parent root = loader.load();
+            
+            ControllerBattleResult controller = loader.getController();
+            if (controller == null) {
+                throw new IllegalStateException("El controlador de ViewAttackResult.fxml no se inicializó correctamente");
+            }
+            
+            controller.setBattleResult(playerWon, playerTeam);
+            
+            Stage currentStage = (Stage) battleBackground.getScene().getWindow();
+            Scene newScene = new Scene(root);
+            newScene.getRoot().prefWidth(currentStage.getWidth());
+            newScene.getRoot().prefHeight(currentStage.getHeight());
+            currentStage.setScene(newScene);
+            currentStage.centerOnScreen();
+            
         } catch (IOException e) {
+            System.err.println("Error crítico al cargar la vista de resultados:");
             e.printStackTrace();
-            System.err.println("Error al cargar la vista de resultados: " + e.getMessage());
+            
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("No se pudo cargar la pantalla de resultados");
+            errorAlert.setContentText("Por favor, reinicie la aplicación.");
+            errorAlert.showAndWait();
+        } catch (Exception unexpectedError) {
+            System.err.println("Error inesperado al mostrar resultados:");
+            unexpectedError.printStackTrace();
         }
+    }
+
+    // Método auxiliar para escapar caracteres especiales en SQL
+    private String escapeSql(String input) {
+        if (input == null) {
+            return "";
+        }
+        return input.replace("'", "''");
     }
 // ...existing code...
 
