@@ -64,11 +64,19 @@ public class ControllerPokemonSettings implements Initializable {
         });
     }
 
+    /**
+     * Actualiza la visualización de la cantidad disponible de los ítems X Defense y Bottle Cap.
+     */
     private void updateItemAvailability() {
         xDefenseAvailable.setText("Available: " + xDefenseCount);
         bottleCapAvailable.setText("Available: " + bottleCapCount);
     }
 
+    /**
+     * Maneja el evento de cambio de apodo del Pokémon.
+     * Si el campo está vacío, no realiza ninguna acción.
+     * Si hay texto, actualiza el apodo en la base de datos y muestra una alerta de éxito.
+     */
     @FXML
     private void handleNicknameChange() {
         String newNickname = nicknameField.getText().trim();
@@ -83,7 +91,11 @@ public class ControllerPokemonSettings implements Initializable {
         showAlert("Apodo cambiado exitosamente a \"" + newNickname + "\".", Alert.AlertType.INFORMATION);
     }
 
-
+    /**
+     * Muestra una alerta en pantalla con el mensaje y tipo especificados.
+     * @param message Mensaje a mostrar.
+     * @param type Tipo de alerta (INFORMATION, ERROR, etc.).
+     */
     private void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Información");
@@ -92,6 +104,10 @@ public class ControllerPokemonSettings implements Initializable {
         alert.show();
     }
 
+    /**
+     * Maneja el evento del botón "Back".
+     * Cambia la escena a la vista de gestión de Pokémon.
+     */
     @FXML
     private void handleBackButton() {
         System.out.println("Botón Back presionado. Navegando atrás...");

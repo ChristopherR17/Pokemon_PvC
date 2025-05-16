@@ -74,13 +74,14 @@
         </HBox>
 
         <!-- Cuadro de ataques: 4 movimientos del Pokémon activo -->
-        <HBox alignment="CENTER" layoutX="275.0" layoutY="456.0" prefHeight="80.0" prefWidth="500.0" spacing="20">
+        <HBox alignment="CENTER" layoutX="275.0" layoutY="456.0" prefHeight="100.0" prefWidth="500.0" spacing="20">
             <children>
                 <VBox fx:id="attack1Container" prefHeight="90.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #ffcc00, #eeaa00); -fx-border-color: #d68c00; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
                     <children>
                         <Label fx:id="attack1Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" text="Ataque 1" />
                         <Label fx:id="attack1Damage" prefHeight="20.0" prefWidth="90.0" style="-fx-font-size: 14; -fx-text-fill: black;" text="Daño:" />
-                        <Label fx:id="attack1Type" style="-fx-font-size: 14; -fx-text-fill: black;" text="Tipo: Eléctrico" />
+                        <Label fx:id="attack1Stamina" style="-fx-font-size: 14; -fx-text-fill: black;" text="Stamina" />
+                  <Label fx:id="attack1Type" style="-fx-font-size: 14; -fx-text-fill: black;" text="Tipo: Eléctrico" />
                     </children>
                 </VBox>
 
@@ -88,7 +89,8 @@
                     <children>
                         <Label fx:id="attack2Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="Ataque 2" />
                         <Label fx:id="attack2Damage" style="-fx-font-size: 14; -fx-text-fill: white;" text="Daño: 30" />
-                        <Label fx:id="attack2Type" style="-fx-font-size: 14; -fx-text-fill: white;" text="Tipo: Físico" />
+                        <Label fx:id="attack2Stamina" style="-fx-font-size: 14; -fx-text-fill: white;" text="Stamina" />
+                  <Label fx:id="attack2Type" style="-fx-font-size: 14; -fx-text-fill: white;" text="Tipo: Físico" />
                     </children>
                 </VBox>
 
@@ -96,7 +98,8 @@
                     <children>
                         <Label fx:id="attack3Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="Ataque 3" />
                         <Label fx:id="attack3Damage" style="-fx-font-size: 14; -fx-text-fill: white;" text="Daño: 35" />
-                        <Label fx:id="attack3Type" style="-fx-font-size: 14; -fx-text-fill: white;" text="Tipo: Agua" />
+                        <Label fx:id="attack3Stamina" style="-fx-font-size: 14; -fx-text-fill: white;" text="Stamina" />
+                  <Label fx:id="attack3Type" style="-fx-font-size: 14; -fx-text-fill: white;" text="Tipo: Agua" />
                     </children>
                 </VBox>
 
@@ -104,7 +107,8 @@
                     <children>
                         <Label fx:id="attack4Name" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: black;" text="Ataque 4" />
                         <Label fx:id="attack4Damage" style="-fx-font-size: 14; -fx-text-fill: black;" text="Daño: 45" />
-                        <Label fx:id="attack4Type" style="-fx-font-size: 14; -fx-text-fill: black;" text="Tipo: Fuego" />
+                        <Label fx:id="attack4Stamina" style="-fx-font-size: 14; -fx-text-fill: black;" text="Stamina" />
+                  <Label fx:id="attack4Type" style="-fx-font-size: 14; -fx-text-fill: black;" text="Tipo: Fuego" />
                     </children>
                 </VBox>
             </children>

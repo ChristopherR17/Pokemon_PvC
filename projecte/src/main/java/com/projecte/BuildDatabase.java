@@ -92,7 +92,9 @@ public class BuildDatabase {
                 name TEXT NOT NULL,
                 damage INTEGER NOT NULL,
                 stamina_cost INTEGER NOT NULL,
-                pokemon_name TEXT NOT NULL
+                pokemon_name TEXT NOT NULL,
+                type TEXT NOT NULL,
+                FOREIGN KEY (pokemon_name) REFERENCES Pokemon(name)
             )
         """);
 
@@ -230,11 +232,12 @@ public class BuildDatabase {
             for (Object o : pokAtts) {
                 JSONObject pa = (JSONObject) o;
                 db.update(String.format(
-                    "INSERT INTO PokemonAttacks (name, damage, stamina_cost, pokemon_name) VALUES ('%s', %d, %d, '%s')",
+                    "INSERT INTO PokemonAttacks (name, damage, stamina_cost, pokemon_name, type) VALUES ('%s', %d, %d, '%s', '%s')",
                     pa.getString("name").replace("'", "''"),
                     pa.getInt("damage"),
                     pa.getInt("staminaCost"),
-                    pa.getString("pokemonName").replace("'", "''")
+                    pa.getString("pokemonName").replace("'", "''"),
+                    pa.getString("type").replace("'", "''")
                 ));
             }
             System.out.println("Vínculos de Pokémon y ataques insertados correctamente.");

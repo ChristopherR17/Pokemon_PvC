@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 /**
  * Controlador para la selección de Pokémon en la interfaz gráfica.
  * Permite al jugador seleccionar 3 Pokémon de una lista disponible.
+ * Gestiona la navegación y la confirmación de la selección.
  */
 public class ControllerPokemonSelection {
 
@@ -36,7 +37,7 @@ public class ControllerPokemonSelection {
     private int selectedCount = 0;
 
     /**
-     * Método de inicialización que se ejecuta al cargar la vista.
+     * Inicializa la vista de selección de Pokémon.
      * Carga la lista de Pokémon disponibles desde la base de datos y actualiza la interfaz.
      */
     @FXML
@@ -53,7 +54,7 @@ public class ControllerPokemonSelection {
 
     /**
      * Obtiene la lista de Pokémon disponibles desde la base de datos.
-     * Los datos incluyen el nombre y la ruta de la imagen frontal.
+     * Solo se añaden los Pokémon desbloqueados.
      */
     private void getPokemonList() {
         AppData db = AppData.getInstance();
@@ -67,6 +68,11 @@ public class ControllerPokemonSelection {
         
     }
 
+    /**
+     * Maneja el evento de selección de un Pokémon.
+     * Añade el Pokémon seleccionado al equipo y lo elimina de la lista de disponibles.
+     * Actualiza la interfaz y los botones según corresponda.
+     */
     @FXML
     private void handleSelectPokemon() {
         if (selectedCount < 3) {
